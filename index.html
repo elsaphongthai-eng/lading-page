@@ -23,7 +23,7 @@
 
   body {
     font-family: 'Be Vietnam Pro', sans-serif;
-    color: var(--text);
+    color: #2a1a1e;
     background: var(--cream);
     line-height: 1.8;
     font-size: 17px;
@@ -36,8 +36,8 @@
 
   /* TOP BAR */
   .topbar {
-    background: var(--dark);
-    color: #f5b8c8;
+    background: #E8275A;
+    color: #ffffff;
     text-align: center;
     padding: 10px 20px;
     font-size: 13px;
@@ -48,8 +48,8 @@
 
   /* HERO */
   .hero {
-    background: linear-gradient(160deg, #2a1a1e 0%, #4a1525 50%, #2a1a1e 100%);
-    color: var(--white);
+    background: linear-gradient(160deg, #fff0f4 0%, #fde8ee 50%, #fff0f4 100%);
+    color: var(--dark);
     text-align: center;
     padding: 80px 20px 60px;
     position: relative;
@@ -60,14 +60,14 @@
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: radial-gradient(ellipse at 50% 0%, rgba(232,39,90,0.25) 0%, transparent 70%);
+    background: radial-gradient(ellipse at 50% 0%, rgba(232,39,90,0.08) 0%, transparent 70%);
     pointer-events: none;
   }
 
   .hero-badge {
     display: inline-block;
     border: 1px solid rgba(232,39,90,0.5);
-    color: #f5b8c8;
+    color: #ffffff;
     font-size: 12px;
     letter-spacing: 0.15em;
     padding: 6px 20px;
@@ -80,7 +80,7 @@
   .hero h1 {
     font-size: clamp(28px, 5vw, 52px);
     font-weight: 700;
-    color: var(--white);
+    color: #2a1a1e;
     margin-bottom: 16px;
     max-width: 800px;
     margin-left: auto;
@@ -94,14 +94,14 @@
 
   .hero-sub {
     font-size: clamp(15px, 2vw, 18px);
-    color: #f0a0b8;
+    color: #E8275A;
     margin-bottom: 24px;
     font-style: italic;
   }
 
   .hero-desc {
     font-size: clamp(15px, 2vw, 17px);
-    color: #f5d0da;
+    color: #2a1a1e;
     max-width: 620px;
     margin: 0 auto 12px;
     line-height: 1.9;
@@ -109,20 +109,22 @@
 
   .hero-note {
     font-size: 14px;
-    color: #b08090;
+    color: #E8275A;
     margin-bottom: 40px;
+    opacity: 0.8;
     font-style: italic;
   }
 
   .hero img {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid rgba(232,39,90,0.6);
-    margin: 0 auto 36px;
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    border-radius: 20px;
+    object-fit: contain;
+    border: none;
+    margin: 0 auto 40px;
     display: block;
-    box-shadow: 0 0 40px rgba(232,39,90,0.3);
+    box-shadow: 0 20px 60px rgba(232,39,90,0.2);
   }
 
   /* CTA BUTTON */
@@ -195,17 +197,17 @@
 
   /* SECTION HEADER */
   .sec-label {
-    font-size: 11px;
-    letter-spacing: 0.2em;
+    font-size: 20px;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--rose);
-    font-weight: 600;
-    margin-bottom: 16px;
+    font-weight: 700;
+    margin-bottom: 20px;
     display: block;
   }
 
   .sec-title {
-    font-size: clamp(26px, 4vw, 38px);
+    font-size: clamp(42px, 7vw, 64px);
     color: var(--dark);
     margin-bottom: 32px;
     font-weight: 700;
@@ -222,7 +224,7 @@
     border-bottom: 1px solid #f0e0e4;
     position: relative;
     font-size: 16px;
-    color: var(--text);
+    color: #2a1a1e;
     line-height: 1.7;
   }
 
@@ -242,13 +244,13 @@
     margin-bottom: 20px;
     font-size: 17px;
     line-height: 1.9;
-    color: var(--text);
+    color: #2a1a1e;
   }
 
   .prose p:last-child { margin-bottom: 0; }
 
   .prose em {
-    color: var(--rose-dark);
+    color: #E8275A;
     font-style: italic;
   }
 
@@ -264,7 +266,7 @@
     padding: 20px 28px;
     margin: 28px 0;
     font-style: italic;
-    color: var(--rose-dark);
+    color: #E8275A;
     font-size: 17px;
     font-family: 'Playfair Display', serif;
     line-height: 1.7;
@@ -283,28 +285,31 @@
   /* PHOTO */
   .photo-full {
     width: 100%;
-    max-width: 600px;
+    max-width: 500px;
+    height: auto;
     display: block;
     margin: 36px auto;
-    border-radius: 4px;
-    object-fit: cover;
+    border-radius: 20px;
+    object-fit: contain;
+    box-shadow: 0 20px 60px rgba(232,39,90,0.15);
   }
 
   .photo-portrait {
-    width: 200px;
-    height: 240px;
+    width: 260px;
+    height: 340px;
     object-fit: cover;
-    border-radius: 4px;
+    object-position: top center;
+    border-radius: 20px;
     float: right;
     margin: 0 0 24px 32px;
-    box-shadow: 6px 6px 0 var(--rose-light);
+    box-shadow: 0 20px 40px rgba(232,39,90,0.15);
   }
 
   /* CHAM SECTION */
   .cham-bg {
-    background: linear-gradient(160deg, #2a1a1e 0%, #3d1020 100%);
+    background: linear-gradient(160deg, #fdf6e8 0%, #fef0d0 100%);
     padding: 72px 20px;
-    color: white;
+    color: var(--dark);
   }
 
   .cham-inner {
@@ -313,7 +318,7 @@
   }
 
   .cham-bg .sec-title {
-    color: white;
+    color: #2a1a1e;
   }
 
   .cham-bg .sec-label {
@@ -322,15 +327,15 @@
 
   .cham-method-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(22px, 3.5vw, 34px);
-    color: white;
+    font-size: clamp(28px, 4vw, 42px);
+    color: #2a1a1e;
     text-align: center;
     margin-bottom: 8px;
   }
 
   .cham-method-sub {
     text-align: center;
-    color: #f0a0b8;
+    color: #E8275A;
     font-style: italic;
     margin-bottom: 56px;
     font-size: 16px;
@@ -338,8 +343,8 @@
 
   /* STEP CARD */
   .step-card {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(232,39,90,0.25);
+    background: rgba(255,255,255,0.8);
+    border: 1px solid rgba(232,39,90,0.2);
     border-radius: 4px;
     padding: 40px;
     margin-bottom: 28px;
@@ -349,7 +354,7 @@
   .step-letter {
     font-family: 'Playfair Display', serif;
     font-size: 64px;
-    color: rgba(232,39,90,0.2);
+    color: rgba(232,39,90,0.5);
     position: absolute;
     top: 24px;
     right: 32px;
@@ -369,14 +374,14 @@
 
   .step-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(20px, 3vw, 26px);
-    color: white;
+    font-size: clamp(24px, 3.5vw, 32px);
+    color: #2a1a1e;
     margin-bottom: 20px;
     font-weight: 600;
   }
 
   .step-body {
-    color: #f0c8d4;
+    color: #2a1a1e;
     font-size: 16px;
     line-height: 1.85;
     margin-bottom: 20px;
@@ -390,9 +395,9 @@
   .step-items li {
     padding: 10px 0 10px 28px;
     position: relative;
-    color: #f5d0da;
+    color: #2a1a1e !important;
     font-size: 15px;
-    border-bottom: 1px solid rgba(232,39,90,0.1);
+    border-bottom: 1px solid rgba(232,39,90,0.2);
     line-height: 1.7;
   }
 
@@ -413,7 +418,7 @@
   }
 
   .step-result {
-    background: rgba(232,39,90,0.12);
+    background: rgba(232,39,90,0.08);
     border-left: 3px solid var(--rose);
     padding: 16px 20px;
     margin-top: 24px;
@@ -431,7 +436,7 @@
   }
 
   .step-result p {
-    color: #f5d0da;
+    color: #E8275A;
     font-size: 15px;
     line-height: 1.7;
     margin: 0;
@@ -442,12 +447,13 @@
     text-align: center;
     margin-top: 48px;
     padding: 40px;
-    border: 1px solid rgba(232,39,90,0.3);
+    border: 1px solid rgba(232,39,90,0.2);
+    background: white;
     border-radius: 4px;
   }
 
   .cham-closing p {
-    color: #f0c8d4;
+    color: #E8275A;
     font-size: 16px;
     line-height: 1.8;
     margin-bottom: 12px;
@@ -472,8 +478,9 @@
 
   .compare-lead {
     font-size: 17px;
-    color: var(--text-light);
+    color: #E8275A;
     margin-bottom: 40px;
+    opacity: 0.8;
     font-style: italic;
     text-align: center;
   }
@@ -494,13 +501,13 @@
 
   .compare-table thead th:first-child {
     background: #f5f0f0;
-    color: var(--text-light);
+    color: #E8275A;
     width: 50%;
   }
 
   .compare-table thead th:last-child {
-    background: var(--rose);
-    color: white;
+    background: #E8275A;
+    color: #ffffff;
     width: 50%;
   }
 
@@ -517,11 +524,11 @@
   }
 
   .compare-table td:first-child {
-    color: var(--text-light);
+    color: #E8275A;
   }
 
   .compare-table td:last-child {
-    color: var(--rose-dark);
+    color: #E8275A;
     font-weight: 500;
   }
 
@@ -535,7 +542,7 @@
 
   .compare-closing p {
     font-size: 16px;
-    color: var(--text);
+    color: #2a1a1e;
     line-height: 1.8;
     margin-bottom: 12px;
   }
@@ -543,7 +550,7 @@
   .compare-closing p:last-child { margin-bottom: 0; }
 
   .compare-closing strong {
-    color: var(--rose-dark);
+    color: #E8275A;
     font-family: 'Playfair Display', serif;
     font-size: 18px;
   }
@@ -556,13 +563,13 @@
   }
 
   .why-photo {
-    width: 180px;
-    height: 220px;
-    object-fit: cover;
-    border-radius: 4px;
+    width: 280px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 20px;
     float: right;
     margin: 0 0 24px 36px;
-    box-shadow: 6px 6px 0 var(--rose-light);
+    box-shadow: 0 20px 40px rgba(232,39,90,0.15);
   }
 
   /* DELIVERABLES */
@@ -602,7 +609,7 @@
 
   .deliver-text h4 {
     font-family: 'Playfair Display', serif;
-    font-size: 18px;
+    font-size: 22px;
     color: var(--dark);
     margin-bottom: 6px;
     font-weight: 600;
@@ -610,15 +617,15 @@
 
   .deliver-text p {
     font-size: 15px;
-    color: var(--text-light);
+    color: #E8275A;
     line-height: 1.7;
   }
 
   /* GIFTS */
   .gifts-bg {
-    background: var(--dark);
+    background: linear-gradient(160deg, #fdf6e8 0%, #fef0d0 100%);
     padding: 72px 20px;
-    color: white;
+    color: #2a1a1e;
   }
 
   .gifts-inner {
@@ -630,7 +637,7 @@
   .gifts-bg .sec-title { color: white; }
 
   .gifts-intro {
-    color: #f0c8d4;
+    color: #2a1a1e;
     font-size: 17px;
     margin-bottom: 48px;
     font-style: italic;
@@ -642,12 +649,12 @@
   }
 
   .gift-table tr {
-    border-bottom: 1px solid rgba(232,39,90,0.15);
+    border-bottom: 1px solid rgba(232,39,90,0.2);
   }
 
   .gift-table tr:last-child {
     border-bottom: none;
-    background: rgba(232,39,90,0.1);
+    background: rgba(232,39,90,0.08);
   }
 
   .gift-table td {
@@ -658,7 +665,7 @@
   }
 
   .gift-table td:first-child {
-    color: #f5d0da;
+    color: #2a1a1e;
     width: 75%;
   }
 
@@ -670,7 +677,8 @@
   }
 
   .gift-table td:last-child {
-    color: #c9a96e;
+    color: #E8275A;
+    font-weight: 600;
     font-weight: 600;
     text-align: right;
     white-space: nowrap;
@@ -678,7 +686,8 @@
   }
 
   .gift-total-row td {
-    color: white !important;
+    color: #E8275A !important;
+    font-weight: 700 !important;
     font-weight: 700 !important;
     font-size: 16px !important;
   }
@@ -721,12 +730,12 @@
   .value-table td {
     padding: 16px 20px;
     font-size: 15px;
-    color: var(--text);
+    color: #2a1a1e;
   }
 
   .value-table td:last-child {
     text-align: right;
-    color: var(--text-light);
+    color: #E8275A;
     font-size: 14px;
   }
 
@@ -738,8 +747,8 @@
 
   .price-highlight {
     text-align: center;
-    background: var(--rose);
-    color: white;
+    background: #E8275A;
+    color: #ffffff;
     padding: 40px;
     border-radius: 4px;
   }
@@ -797,8 +806,8 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: var(--rose);
-    color: white;
+    background: #E8275A;
+    color: #ffffff;
     font-weight: 700;
     font-size: 14px;
     display: flex;
@@ -810,7 +819,7 @@
 
   .promise-items li p {
     font-size: 16px;
-    color: var(--text);
+    color: #2a1a1e;
     line-height: 1.7;
     padding-top: 6px;
   }
@@ -823,7 +832,7 @@
   .refund-note {
     text-align: center;
     font-style: italic;
-    color: var(--text-light);
+    color: #E8275A;
     font-size: 14px;
     margin-top: 32px;
     padding: 20px;
@@ -851,7 +860,7 @@
 
   .faq-q {
     font-family: 'Playfair Display', serif;
-    font-size: 18px;
+    font-size: 22px;
     color: var(--dark);
     font-weight: 600;
     margin-bottom: 14px;
@@ -859,16 +868,16 @@
 
   .faq-a {
     font-size: 16px;
-    color: var(--text-light);
+    color: #E8275A;
     line-height: 1.8;
   }
 
   /* REGISTER */
   .register-bg {
-    background: linear-gradient(160deg, #2a1a1e 0%, #4a1525 100%);
+    background: linear-gradient(160deg, #fdf6e8 0%, #fef0d0 100%);
     padding: 80px 20px;
     text-align: center;
-    color: white;
+    color: #E8275A;
   }
 
   .register-photo {
@@ -876,19 +885,19 @@
     height: 120px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid rgba(232,39,90,0.6);
+    border: 3px solid #E8275A;
     margin: 0 auto 32px;
     display: block;
   }
 
   .register-bg h2 {
     font-size: clamp(26px, 4vw, 40px);
-    color: white;
+    color: #E8275A;
     margin-bottom: 16px;
   }
 
   .register-bg p {
-    color: #f0a0b8;
+    color: #E8275A;
     font-size: 16px;
     max-width: 500px;
     margin: 0 auto 40px;
@@ -915,18 +924,19 @@
   }
 
   .ps-label {
-    font-size: 11px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--rose);
-    font-weight: 600;
+    font-size: 32px;
+    letter-spacing: 0.1em;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #E8275A;
+    font-weight: 700;
     margin-bottom: 20px;
     display: block;
   }
 
   .ps-inner p {
     font-size: 17px;
-    color: var(--text);
+    color: #2a1a1e;
     line-height: 1.9;
     margin-bottom: 20px;
   }
@@ -969,12 +979,12 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-badge">Dành cho các chị em phụ nữ đã lập gia đình đang mang quá nhiều vai trò mà quên vun bồi cho chính mình</div>
-  <img src="https://project-fa985.vercel.app/1.png" alt="Elsa Phương">
-  <h1>Đánh Thức Phiên Bản <span>Rực Rỡ Hơn</span> Của Mỗi Người Phụ Nữ</h1>
-  <p class="hero-sub">Đang bị vùi sâu, hay ngủ quên, cần được Chạm và Vươn tới</p>
-  <p class="hero-desc">Hành trình 21 ngày giúp các chị em đã lập gia đình tìm ra phiên bản đẹp hơn, thu hút và tràn đầy năng lượng của chính mình, rồi từ đó duy dưỡng mình để có đời sống hạnh phúc viên mãn về sau.</p>
-  <p class="hero-note">Dù hoàn cảnh chưa thay đổi.</p>
+  <div class="hero-badge" style="color:#E8275A; font-weight:700; border-color:#E8275A; background:white;">Dành cho các chị em phụ nữ đã lập gia đình đang mang quá nhiều vai trò<br>mà quên vun bồi cho chính mình</div>
+  <img src="1.png" alt="Elsa Phương">
+  <h1>Đánh Thức Phiên Bản <span style="color:#E8275A; font-style:italic;">Rực Rỡ Hơn</span> Của Mỗi Người Phụ Nữ</h1>
+  <p class="hero-sub" style="color:#E8275A; font-weight:600; font-size:18px;">Đang bị vùi sâu, hay ngủ quên, cần được Chạm và Vươn tới</p>
+  <p class="hero-desc" style="color:#E8275A; font-weight:500; font-size:17px;">Hành trình 21 ngày giúp các chị em đã lập gia đình tìm ra phiên bản đẹp hơn, thu hút và tràn đầy năng lượng của chính mình, rồi từ đó duy dưỡng mình để có đời sống hạnh phúc viên mãn về sau.</p>
+  <p class="hero-note" style="color:#E8275A; opacity:0.8;">Dù hoàn cảnh chưa thay đổi.</p>
   <a href="#dang-ky" class="cta-btn">Mình Muốn Tham Gia Ngay</a>
 </section>
 
@@ -1035,7 +1045,7 @@
 <section style="background: var(--white); padding: 72px 20px;">
   <div style="max-width: 760px; margin: 0 auto;">
     <span class="sec-label">Sự thật của Phương...</span>
-    <img src="https://project-fa985.vercel.app/hinh-truoc-sau.jpg" alt="Hành trình của Phương" class="photo-full">
+    <img src="HÌNH TRUOC - SAU.jpg" alt="Hành trình của Phương" class="photo-full">
     <div class="prose">
       <p>Phương 40 tuổi. Mẹ của 3 con. Từng tốt nghiệp Đại học Ngoại Thương. Từng thử đủ thứ kinh doanh nhưng không bền.</p>
       <p>Một điều vô cùng đau khi Phương nhận ra: <strong>Phương đã sống 39 năm mà không hiểu chính mình.</strong></p>
@@ -1046,7 +1056,7 @@
       <p>Câu hỏi đau đáu đó theo Phương suốt nhiều năm, cho đến một ngày Phương bừng tỉnh khi tìm ra câu trả lời và sự chuyển hoá mạnh mẽ xuất hiện.</p>
       <p><strong>Và Phương tin nó cũng sẽ giúp các chị em thay đổi.</strong></p>
     </div>
-    <img src="https://project-fa985.vercel.app/3.png" alt="Elsa Phương" class="photo-full" style="max-width: 300px; border-radius: 50%; border: 4px solid var(--rose-light);">
+    <img src="3.png" alt="Elsa Phương" class="photo-full" style="max-width: 380px; height: auto; object-fit: contain; border-radius: 20px; border: none; box-shadow: 0 20px 40px rgba(232,39,90,0.15);">
   </div>
 </section>
 
@@ -1060,10 +1070,10 @@
   <div class="cham-inner">
     <span class="sec-label">Phương pháp độc đáo đảo chiều ngoạn mục</span>
     <h2 class="sec-title">Tại Sao Chị Em Học Mãi Mà Vẫn Không Thay Đổi Được?</h2>
-    <div style="color: #f0c8d4; font-size: 16px; line-height: 1.85; margin-bottom: 48px;">
-      <p style="margin-bottom: 16px;">Không phải vì chị em thiếu ý chí. Không phải vì chị em chọn sai khoá học.</p>
-      <p style="margin-bottom: 16px;">Mà vì hầu hết mọi chương trình đang dạy chúng ta đi sai thứ tự. Và đó cũng là Quy tắc ngược mà cuộc sống này đang vận hành.</p>
-      <p style="margin-bottom: 16px;">Đó là chạy theo kết quả và bắt đầu từ bên ngoài: kỹ năng, thói quen, ngoại hình, tư duy tích cực. Thay vì phải tập trung vào cốt lõi, đi vào và chạm sâu bên trong trước.</p>
+    <div style="color: #2a1a1e; font-size: 16px; line-height: 1.85; margin-bottom: 48px;">
+      <p style="margin-bottom: 16px; color: #2a1a1e;">Không phải vì chị em thiếu ý chí. Không phải vì chị em chọn sai khoá học.</p>
+      <p style="margin-bottom: 16px; color: #2a1a1e;">Mà vì hầu hết mọi chương trình đang dạy chúng ta đi sai thứ tự. Và đó cũng là Quy tắc ngược mà cuộc sống này đang vận hành.</p>
+      <p style="margin-bottom: 16px; color: #2a1a1e;">Đó là chạy theo kết quả và bắt đầu từ bên ngoài: kỹ năng, thói quen, ngoại hình, tư duy tích cực. Thay vì phải tập trung vào cốt lõi, đi vào và chạm sâu bên trong trước.</p>
       <p>Đây chính xác là vòng lặp mà <strong style="color: #f8c0d0;">Phương Pháp Chạm Gốc™</strong> phá vỡ.</p>
     </div>
 
@@ -1140,10 +1150,10 @@
     </div>
 
     <div class="cham-closing">
-      <p>Đây là lý do 90% chương trình phát triển bản thân không tạo ra thay đổi thật.</p>
-      <p>Họ bắt đầu từ <strong>M</strong> — kỹ năng, thói quen, ngoại hình — mà bỏ qua <strong>C, H, A.</strong></p>
-      <p>Nền móng chưa có, xây gì cũng đổ.</p>
-      <p><strong>Phương Pháp Chạm Gốc™ bắt đầu từ đúng chỗ cần bắt đầu.</strong></p>
+      <p style="color:#E8275A; font-weight:600;">Đây là lý do 90% chương trình phát triển bản thân không tạo ra thay đổi thật.</p>
+      <p style="color:#E8275A; font-weight:600;">Họ bắt đầu từ <strong>M</strong> — kỹ năng, thói quen, ngoại hình — mà bỏ qua <strong style="color:#E8275A;"><span style="color:#E8275A; font-weight:700;">C, H, A.</span></strong></p>
+      <p style="color:#E8275A; font-weight:600;">Nền móng chưa có, xây gì cũng đổ.</p>
+      <p><strong style="color:#E8275A; font-size:18px;">Phương Pháp Chạm Gốc™ bắt đầu từ đúng chỗ cần bắt đầu.</strong></p>
     </div>
   </div>
 </section>
@@ -1214,7 +1224,7 @@
 <section style="background: var(--white); padding: 72px 20px;">
   <div class="why-section" style="padding: 0; max-width: 760px; margin: 0 auto;">
     <span class="sec-label">Tại sao là Phương?</span>
-    <img src="https://project-fa985.vercel.app/4.png" alt="Elsa Phương" class="why-photo">
+    <img src="4.png" alt="Elsa Phương" class="why-photo">
     <div class="prose">
       <p>Phương khác với các chuyên gia hay giảng lý thuyết ngoài kia. Phương không theo đuổi việc có thật nhiều bằng cấp.</p>
       <p>Những gì Phương có là thứ không trường nào cấp được: trải nghiệm thật bằng chính câu chuyện cuộc đời mình, điều mà các chị em chưa đến có thể rút kinh nghiệm, hay các chị em đang gặp phải sẽ có người đồng cảm thật sự để cùng nâng đỡ nhau vượt qua.</p>
@@ -1261,44 +1271,44 @@
 <!-- GIFTS -->
 <section class="gifts-bg">
   <div class="gifts-inner">
-    <span class="sec-label">Nhưng đó chưa phải là tất cả...</span>
-    <h2 class="sec-title">Trọn Bộ Quà Tặng Độc Quyền 🎁</h2>
+    <span class="sec-label" style="color:#8B4513;">Nhưng đó chưa phải là tất cả...</span>
+    <h2 class="sec-title" style="color:#E8275A;">Trọn Bộ Quà Tặng Độc Quyền 🎁</h2>
     <p class="gifts-intro">Khi đăng ký hành trình này, chị em còn nhận thêm trọn bộ quà tặng vô cùng giá trị, hoàn toàn không tính thêm phí.</p>
     <table class="gift-table">
       <tr>
-        <td><strong>21 audio Chuyển Hoá Nội Tâm</strong>Bí mật ngầm giúp chị em chuyển đổi tâm thức để có cuộc sống như ý. Nghe mỗi ngày trong 21 ngày.</td>
+        <td><strong style="color:#E8275A !important; font-weight:700;">21 audio Chuyển Hoá Nội Tâm</strong>Bí mật ngầm giúp chị em chuyển đổi tâm thức để có cuộc sống như ý. Nghe mỗi ngày trong 21 ngày.</td>
         <td>1.500.000đ</td>
       </tr>
       <tr>
-        <td><strong>10 audio Thấu Hiểu Yêu Thương</strong>Hiểu lại cách mình yêu và được yêu, để từ đó yêu mình đúng cách và yêu người trọn vẹn hơn.</td>
+        <td><strong style="color:#E8275A !important; font-weight:700;">10 audio Thấu Hiểu Yêu Thương</strong>Hiểu lại cách mình yêu và được yêu, để từ đó yêu mình đúng cách và yêu người trọn vẹn hơn.</td>
         <td>800.000đ</td>
       </tr>
       <tr>
-        <td><strong>10 audio Vượng Phu Ích Tử</strong>Tháo gỡ gánh nặng vô hình mà chị em đang mang, và xây lại nền tảng gia đình từ chỗ bình an bên trong.</td>
+        <td><strong style="color:#E8275A !important; font-weight:700;">10 audio Vượng Phu Ích Tử</strong>Tháo gỡ gánh nặng vô hình mà chị em đang mang, và xây lại nền tảng gia đình từ chỗ bình an bên trong.</td>
         <td>800.000đ</td>
       </tr>
       <tr>
-        <td><strong>10 audio Hoà Hợp Gia Đình</strong>Kết nối lại với chồng, với con, với những người thân, không phải bằng cách nhường nhịn mà bằng cách thật sự hiểu nhau.</td>
+        <td><strong style="color:#E8275A !important; font-weight:700;">10 audio Hoà Hợp Gia Đình</strong>Kết nối lại với chồng, với con, với những người thân, không phải bằng cách nhường nhịn mà bằng cách thật sự hiểu nhau.</td>
         <td>800.000đ</td>
       </tr>
       <tr>
-        <td><strong>10 audio Sức Khoẻ Toàn Diện</strong>Chăm sóc thân thể không phải để đẹp hơn, mà để có đủ năng lượng sống đúng với phiên bản mình muốn trở thành.</td>
+        <td><strong style="color:#E8275A !important; font-weight:700;">10 audio Sức Khoẻ Toàn Diện</strong>Chăm sóc thân thể không phải để đẹp hơn, mà để có đủ năng lượng sống đúng với phiên bản mình muốn trở thành.</td>
         <td>800.000đ</td>
       </tr>
       <tr>
-        <td><strong>3 video Chăm Sóc Diện Mạo</strong>Xinh tươi đơn giản, thiết thực, phù hợp với cuộc sống bận rộn của chị em.</td>
+        <td><strong style="color:#E8275A !important; font-weight:700;">3 video Chăm Sóc Diện Mạo</strong>Xinh tươi đơn giản, thiết thực, phù hợp với cuộc sống bận rộn của chị em.</td>
         <td>500.000đ</td>
       </tr>
       <tr>
-        <td><strong>7 video Phong Thái Hình Thể kết hợp 3 video Luyện Nội Lực</strong>Không phải tập gym. Không phải yoga phức tạp. Những bài tập giúp chị em toả ra năng lượng và phong thái từ bên trong, chỉ 10 đến 15 phút mỗi ngày.</td>
+        <td><strong style="color:#E8275A !important; font-weight:700;">7 video Phong Thái Hình Thể kết hợp 3 video Luyện Nội Lực</strong>Không phải tập gym. Không phải yoga phức tạp. Những bài tập giúp chị em toả ra năng lượng và phong thái từ bên trong, chỉ 10 đến 15 phút mỗi ngày.</td>
         <td>1.600.000đ</td>
       </tr>
       <tr class="gift-total-row">
-        <td><strong>Tổng giá trị quà tặng</strong></td>
+        <td><strong style="color:#E8275A !important; font-weight:700;">Tổng giá trị quà tặng</strong></td>
         <td><strong>6.800.000đ</strong></td>
       </tr>
     </table>
-    <p class="gifts-note">Chị em nhận trọn bộ quà tặng trị giá 6.800.000đ, hoàn toàn không tính thêm một đồng.</p>
+    <p class="gifts-note"><span style="color:#E8275A; font-weight:600;">Chị em nhận trọn bộ quà tặng trị giá 6.800.000đ, hoàn toàn không tính thêm một đồng.</span></p>
   </div>
 </section>
 
@@ -1334,7 +1344,7 @@
   <div class="promise-inner">
     <span class="sec-label">Lời hứa chuyển hoá</span>
     <h2 class="sec-title">Sau 21 Ngày Tham Gia Đầy Đủ</h2>
-    <p style="font-size: 17px; color: var(--text-light); margin-bottom: 8px;">Các chị em sẽ tìm ra cho mình:</p>
+    <p style="font-size: 17px; color: #E8275A; margin-bottom: 8px;">Các chị em sẽ tìm ra cho mình:</p>
     <ul class="promise-items">
       <li>
         <div class="promise-num">1</div>
@@ -1401,9 +1411,9 @@
 
 <!-- REGISTER -->
 <section class="register-bg" id="dang-ky">
-  <img src="https://project-fa985.vercel.app/2 (2).jpg" alt="Elsa Phương" class="register-photo">
+  <img src="2 (2).jpg" alt="Elsa Phương" class="register-photo">
   <h2>Mình Muốn Tham Gia Ngay</h2>
-  <p>Nhấn vào nút bên dưới, điền họ tên, số điện thoại và email. Hệ thống sẽ gửi thông tin thanh toán về email của chị em ngay lập tức.</p>
+  <p>Nhấn vào nút bên dưới, điền họ tên, số điện thoại và email.<br>Hệ thống sẽ gửi thông tin thanh toán về email của chị em<br>ngay lập tức.</p>
   <a href="#" class="cta-btn">Mình Muốn Tham Gia Ngay</a>
   <p class="register-note">Khai giảng 06/06/2026 &nbsp;·&nbsp; Elsa Phương &nbsp;·&nbsp; 0945461368</p>
 </section>
@@ -1417,10 +1427,11 @@
     <p>Phương chỉ muốn nói một điều thôi.</p>
     <p>Suốt bao nhiêu năm qua chị em đã lo cho tất cả mọi người. Cho chồng. Cho con. Cho gia đình. Cho công việc.</p>
     <strong>21 ngày này, là dành cho chị em.</strong>
-    <p>Chỉ 15 đến 30 phút mỗi ngày. Chỉ 990.000đ, ít hơn một bữa ăn gia đình cuối tuần.</p>
+    <p>Chỉ 15 đến 30 phút mỗi ngày.<br>Chỉ 990.000đ, ít hơn một bữa ăn gia đình cuối tuần.</p>
     <p>Nhưng những gì chị em nhận được có thể thay đổi cách chị em sống trong những năm tháng còn lại của cuộc đời.</p>
     <p>Khai giảng <strong style="color: var(--rose); font-family: 'Be Vietnam Pro';">06/06/2026.</strong></p>
     <p>Nếu chị em đang thấy mình trong những trang này, đây là lúc rồi.</p>
+    <p style="color:#E8275A; font-size:20px; font-weight:700; font-family:'Playfair Display', serif; font-style:italic; margin-top:8px;">Hẹn gặp chị em trong hành trình nhé! 🌸</p>
     <br>
     <a href="#dang-ky" class="cta-btn">Mình Muốn Tham Gia Ngay</a>
   </div>
@@ -1432,4 +1443,3 @@
 
 </body>
 </html>
-
