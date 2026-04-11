@@ -9,11 +9,17 @@ export default async function handler(req, res) {
     const match = content.match(/CHAM\d+/);
     if (match && amount >= 1000) {
       const orderCode = match[0];
-      const url = process.env.KV_REST_API_URL;
-      const token = process.env.KV_REST_API_TOKEN;
+      const upstashUrl = process.env.KV_REST_API_URL;
+      const upstashToken = process.env.KV_REST_API_TOKEN;
       
-      await fetch(`${url}/set/order:${orderCode}/paid/ex/86400`, {
-        headers: { Authorization: `Bearer ${token}` }
+      const setUrl = `${upstashUrl}/set/order_${orderCode}/paid`;
+      await fetch(setUrl, {
+        method: 'POST',
+        headers: { 
+          Authorization: `Bearer ${upstashToken}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(['EX', '86400'])
       });
     }
 
