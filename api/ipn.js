@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
     console.log('IPN received:', JSON.stringify(body));
 
-    if (amount >= 990000) {
+    if (amount >= 1000) {
       const match = content.match(/CHAM\d+/);
       if (match) {
         const orderCode = match[0];
