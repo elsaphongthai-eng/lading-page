@@ -12,15 +12,12 @@ export default async function handler(req, res) {
       const url = process.env.KV_REST_API_URL;
       const token = process.env.KV_REST_API_TOKEN;
       
-      const r = await fetch(`${url}/set/order:${orderCode}/paid`, {
-        method: 'GET',
+      await fetch(`${url}/set/order:${orderCode}/paid/ex/86400`, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      const result = await r.text();
-      console.log('Upstash result:', result);
     }
 
-    res.status(200).json({ success: true, content, amount });
+    res.status(200).json({ success: true });
   } catch(e) {
     res.status(500).json({ error: e.message });
   }
