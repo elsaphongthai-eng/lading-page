@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chạm Hành Trình Vươn Mình Rực Rỡ | Elsa Phương</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose: #E8275A;
+    --rose-light: #fde8ee;
+    --rose-dark: #c41e48;
+    --rose-pale: #fff0f4;
+    --gold: #c9a96e;
+    --dark: #2a1a1e;
+    --text: #3d2428;
+    --text-light: #7a5560;
+    --white: #ffffff;
+    --cream: #fff8fa;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    color: var(--text);
+    background: var(--cream);
+    line-height: 1.8;
+    font-size: 17px;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif;
+    line-height: 1.3;
+  }
+
+  /* TOP BAR */
+  .topbar {
+    background: var(--dark);
+    color: #f5b8c8;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-weight: 500;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(160deg, #2a1a1e 0%, #4a1525 50%, #2a1a1e 100%);
+    color: var(--white);
+    text-align: center;
+    padding: 80px 20px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(232,39,90,0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    border: 1px solid rgba(232,39,90,0.5);
+    color: #f5b8c8;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    padding: 6px 20px;
+    border-radius: 30px;
+    margin-bottom: 28px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 16px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero h1 span {
+    color: #f5a0b8;
+    font-style: italic;
+  }
+
+  .hero-sub {
+    font-size: clamp(15px, 2vw, 18px);
+    color: #f0a0b8;
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  .hero-desc {
+    font-size: clamp(15px, 2vw, 17px);
+    color: #f5d0da;
+    max-width: 620px;
+    margin: 0 auto 12px;
+    line-height: 1.9;
+  }
+
+  .hero-note {
+    font-size: 14px;
+    color: #b08090;
+    margin-bottom: 40px;
+    font-style: italic;
+  }
+
+  .hero img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(232,39,90,0.6);
+    margin: 0 auto 36px;
+    display: block;
+    box-shadow: 0 0 40px rgba(232,39,90,0.3);
+  }
+
+  /* CTA BUTTON */
+  .cta-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--rose) 0%, var(--rose-dark) 100%);
+    color: white;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.08em;
+    padding: 18px 44px;
+    border-radius: 4px;
+    text-decoration: none;
+    text-transform: uppercase;
+    box-shadow: 0 8px 30px rgba(232,39,90,0.4);
+    transition: all 0.3s ease;
+    margin: 8px auto;
+    cursor: pointer;
+    border: none;
+  }
+
+  .cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(232,39,90,0.5);
+    background: linear-gradient(135deg, #cc7a8c 0%, var(--rose) 100%);
+  }
+
+  .cta-wrap {
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  /* SECTION BASE */
+  .section {
+    padding: 72px 20px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .section-full {
+    padding: 72px 20px;
+  }
+
+  /* CALLOUT BANNER */
+  .callout {
+    background: var(--rose-pale);
+    border-left: 4px solid var(--rose);
+    padding: 32px 40px;
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .callout p {
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rose);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .callout h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(18px, 3vw, 24px);
+    color: var(--dark);
+    font-weight: 600;
+  }
+
+  /* SECTION HEADER */
+  .sec-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rose);
+    font-weight: 600;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .sec-title {
+    font-size: clamp(26px, 4vw, 38px);
+    color: var(--dark);
+    margin-bottom: 32px;
+    font-weight: 700;
+  }
+
+  /* BULLET LIST */
+  .truth-list {
+    list-style: none;
+    margin-bottom: 0;
+  }
+
+  .truth-list li {
+    padding: 16px 0 16px 36px;
+    border-bottom: 1px solid #f0e0e4;
+    position: relative;
+    font-size: 16px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .truth-list li:last-child { border-bottom: none; }
+
+  .truth-list li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    color: var(--rose);
+    font-size: 12px;
+    top: 20px;
+  }
+
+  /* PROSE */
+  .prose p {
+    margin-bottom: 20px;
+    font-size: 17px;
+    line-height: 1.9;
+    color: var(--text);
+  }
+
+  .prose p:last-child { margin-bottom: 0; }
+
+  .prose em {
+    color: var(--rose-dark);
+    font-style: italic;
+  }
+
+  .prose strong {
+    color: var(--dark);
+    font-weight: 600;
+  }
+
+  /* QUOTE BLOCK */
+  .quote-block {
+    background: var(--rose-pale);
+    border-left: 3px solid var(--rose);
+    padding: 20px 28px;
+    margin: 28px 0;
+    font-style: italic;
+    color: var(--rose-dark);
+    font-size: 17px;
+    font-family: 'Playfair Display', serif;
+    line-height: 1.7;
+  }
+
+  /* DIVIDER */
+  .divider {
+    text-align: center;
+    margin: 48px 0;
+    color: var(--rose);
+    letter-spacing: 0.3em;
+    font-size: 14px;
+    opacity: 0.5;
+  }
+
+  /* PHOTO */
+  .photo-full {
+    width: 100%;
+    max-width: 600px;
+    display: block;
+    margin: 36px auto;
+    border-radius: 4px;
+    object-fit: cover;
+  }
+
+  .photo-portrait {
+    width: 200px;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 4px;
+    float: right;
+    margin: 0 0 24px 32px;
+    box-shadow: 6px 6px 0 var(--rose-light);
+  }
+
+  /* CHAM SECTION */
+  .cham-bg {
+    background: linear-gradient(160deg, #2a1a1e 0%, #3d1020 100%);
+    padding: 72px 20px;
+    color: white;
+  }
+
+  .cham-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .cham-bg .sec-title {
+    color: white;
+  }
+
+  .cham-bg .sec-label {
+    color: #f5a0b8;
+  }
+
+  .cham-method-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 3.5vw, 34px);
+    color: white;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .cham-method-sub {
+    text-align: center;
+    color: #f0a0b8;
+    font-style: italic;
+    margin-bottom: 56px;
+    font-size: 16px;
+  }
+
+  /* STEP CARD */
+  .step-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(232,39,90,0.25);
+    border-radius: 4px;
+    padding: 40px;
+    margin-bottom: 28px;
+    position: relative;
+  }
+
+  .step-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 64px;
+    color: rgba(232,39,90,0.2);
+    position: absolute;
+    top: 24px;
+    right: 32px;
+    line-height: 1;
+    font-weight: 700;
+  }
+
+  .step-tag {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #f5a0b8;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .step-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 3vw, 26px);
+    color: white;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+
+  .step-body {
+    color: #f0c8d4;
+    font-size: 16px;
+    line-height: 1.85;
+    margin-bottom: 20px;
+  }
+
+  .step-items {
+    list-style: none;
+    margin: 20px 0;
+  }
+
+  .step-items li {
+    padding: 10px 0 10px 28px;
+    position: relative;
+    color: #f5d0da;
+    font-size: 15px;
+    border-bottom: 1px solid rgba(232,39,90,0.1);
+    line-height: 1.7;
+  }
+
+  .step-items li:last-child { border-bottom: none; }
+
+  .step-items li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    color: var(--rose);
+    font-size: 10px;
+    top: 14px;
+  }
+
+  .step-items strong {
+    color: #f8c8d4;
+    font-weight: 600;
+  }
+
+  .step-result {
+    background: rgba(232,39,90,0.12);
+    border-left: 3px solid var(--rose);
+    padding: 16px 20px;
+    margin-top: 24px;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .step-result-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #f5a0b8;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .step-result p {
+    color: #f5d0da;
+    font-size: 15px;
+    line-height: 1.7;
+    margin: 0;
+    font-style: italic;
+  }
+
+  .cham-closing {
+    text-align: center;
+    margin-top: 48px;
+    padding: 40px;
+    border: 1px solid rgba(232,39,90,0.3);
+    border-radius: 4px;
+  }
+
+  .cham-closing p {
+    color: #f0c8d4;
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 12px;
+  }
+
+  .cham-closing p:last-child { margin-bottom: 0; }
+
+  .cham-closing strong {
+    color: #f8c8d4;
+  }
+
+  /* COMPARISON TABLE */
+  .compare-section {
+    background: var(--white);
+    padding: 72px 20px;
+  }
+
+  .compare-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .compare-lead {
+    font-size: 17px;
+    color: var(--text-light);
+    margin-bottom: 40px;
+    font-style: italic;
+    text-align: center;
+  }
+
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+
+  .compare-table thead th {
+    padding: 16px 24px;
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+  }
+
+  .compare-table thead th:first-child {
+    background: #f5f0f0;
+    color: var(--text-light);
+    width: 50%;
+  }
+
+  .compare-table thead th:last-child {
+    background: var(--rose);
+    color: white;
+    width: 50%;
+  }
+
+  .compare-table tbody tr:nth-child(even) td:first-child { background: #fdf8f8; }
+  .compare-table tbody tr:nth-child(odd) td:first-child { background: white; }
+  .compare-table tbody tr:nth-child(even) td:last-child { background: #fdf0f3; }
+  .compare-table tbody tr:nth-child(odd) td:last-child { background: #fdf5f7; }
+
+  .compare-table td {
+    padding: 18px 24px;
+    line-height: 1.6;
+    vertical-align: top;
+    border-bottom: 1px solid #f0e8ea;
+  }
+
+  .compare-table td:first-child {
+    color: var(--text-light);
+  }
+
+  .compare-table td:last-child {
+    color: var(--rose-dark);
+    font-weight: 500;
+  }
+
+  .compare-closing {
+    margin-top: 40px;
+    padding: 32px;
+    background: var(--rose-pale);
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  .compare-closing p {
+    font-size: 16px;
+    color: var(--text);
+    line-height: 1.8;
+    margin-bottom: 12px;
+  }
+
+  .compare-closing p:last-child { margin-bottom: 0; }
+
+  .compare-closing strong {
+    color: var(--rose-dark);
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+  }
+
+  /* WHY PHUONG */
+  .why-section {
+    padding: 72px 20px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .why-photo {
+    width: 180px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 4px;
+    float: right;
+    margin: 0 0 24px 36px;
+    box-shadow: 6px 6px 0 var(--rose-light);
+  }
+
+  /* DELIVERABLES */
+  .deliver-bg {
+    background: var(--rose-pale);
+    padding: 72px 20px;
+  }
+
+  .deliver-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .deliver-item {
+    display: flex;
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid #f0dde2;
+    align-items: flex-start;
+  }
+
+  .deliver-item:last-child { border-bottom: none; }
+
+  .deliver-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--rose);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .deliver-text h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--dark);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .deliver-text p {
+    font-size: 15px;
+    color: var(--text-light);
+    line-height: 1.7;
+  }
+
+  /* GIFTS */
+  .gifts-bg {
+    background: var(--dark);
+    padding: 72px 20px;
+    color: white;
+  }
+
+  .gifts-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .gifts-bg .sec-label { color: #f5a0b8; }
+  .gifts-bg .sec-title { color: white; }
+
+  .gifts-intro {
+    color: #f0c8d4;
+    font-size: 17px;
+    margin-bottom: 48px;
+    font-style: italic;
+  }
+
+  .gift-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .gift-table tr {
+    border-bottom: 1px solid rgba(232,39,90,0.15);
+  }
+
+  .gift-table tr:last-child {
+    border-bottom: none;
+    background: rgba(232,39,90,0.1);
+  }
+
+  .gift-table td {
+    padding: 20px 16px;
+    vertical-align: top;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .gift-table td:first-child {
+    color: #f5d0da;
+    width: 75%;
+  }
+
+  .gift-table td:first-child strong {
+    color: #f8c0d0;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .gift-table td:last-child {
+    color: #c9a96e;
+    font-weight: 600;
+    text-align: right;
+    white-space: nowrap;
+    font-size: 14px;
+  }
+
+  .gift-total-row td {
+    color: white !important;
+    font-weight: 700 !important;
+    font-size: 16px !important;
+  }
+
+  .gifts-note {
+    text-align: center;
+    color: #f5a0b8;
+    font-style: italic;
+    margin-top: 32px;
+    font-size: 16px;
+  }
+
+  /* VALUE TABLE */
+  .value-bg {
+    background: var(--white);
+    padding: 72px 20px;
+  }
+
+  .value-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .value-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 40px;
+  }
+
+  .value-table tr {
+    border-bottom: 1px solid #f0e0e4;
+  }
+
+  .value-table tr:last-child {
+    border-top: 2px solid var(--rose);
+    border-bottom: none;
+    background: var(--rose-pale);
+  }
+
+  .value-table td {
+    padding: 16px 20px;
+    font-size: 15px;
+    color: var(--text);
+  }
+
+  .value-table td:last-child {
+    text-align: right;
+    color: var(--text-light);
+    font-size: 14px;
+  }
+
+  .value-table tr:last-child td {
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--dark);
+  }
+
+  .price-highlight {
+    text-align: center;
+    background: var(--rose);
+    color: white;
+    padding: 40px;
+    border-radius: 4px;
+  }
+
+  .price-highlight p {
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 12px;
+  }
+
+  .price-big {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(40px, 8vw, 64px);
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .price-save {
+    font-size: 14px;
+    opacity: 0.85;
+    margin-bottom: 32px;
+  }
+
+  /* PROMISE */
+  .promise-bg {
+    background: var(--rose-pale);
+    padding: 72px 20px;
+  }
+
+  .promise-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .promise-items {
+    list-style: none;
+    margin: 32px 0;
+  }
+
+  .promise-items li {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid #f0dde2;
+    align-items: flex-start;
+  }
+
+  .promise-items li:last-child { border-bottom: none; }
+
+  .promise-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--rose);
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .promise-items li p {
+    font-size: 16px;
+    color: var(--text);
+    line-height: 1.7;
+    padding-top: 6px;
+  }
+
+  .promise-items li strong {
+    color: var(--dark);
+    font-weight: 600;
+  }
+
+  .refund-note {
+    text-align: center;
+    font-style: italic;
+    color: var(--text-light);
+    font-size: 14px;
+    margin-top: 32px;
+    padding: 20px;
+    border: 1px dashed #f0a0b8;
+    border-radius: 4px;
+  }
+
+  /* FAQ */
+  .faq-bg {
+    background: var(--cream);
+    padding: 72px 20px;
+  }
+
+  .faq-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid #e8d8da;
+    padding: 28px 0;
+  }
+
+  .faq-item:last-child { border-bottom: none; }
+
+  .faq-q {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--dark);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+
+  .faq-a {
+    font-size: 16px;
+    color: var(--text-light);
+    line-height: 1.8;
+  }
+
+  /* REGISTER */
+  .register-bg {
+    background: linear-gradient(160deg, #2a1a1e 0%, #4a1525 100%);
+    padding: 80px 20px;
+    text-align: center;
+    color: white;
+  }
+
+  .register-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(232,39,90,0.6);
+    margin: 0 auto 32px;
+    display: block;
+  }
+
+  .register-bg h2 {
+    font-size: clamp(26px, 4vw, 40px);
+    color: white;
+    margin-bottom: 16px;
+  }
+
+  .register-bg p {
+    color: #f0a0b8;
+    font-size: 16px;
+    max-width: 500px;
+    margin: 0 auto 40px;
+    line-height: 1.8;
+  }
+
+  .register-note {
+    margin-top: 24px;
+    font-size: 13px;
+    color: #b08090;
+    letter-spacing: 0.05em;
+  }
+
+  /* PS */
+  .ps-bg {
+    background: var(--white);
+    padding: 72px 20px;
+  }
+
+  .ps-inner {
+    max-width: 660px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .ps-label {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--rose);
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .ps-inner p {
+    font-size: 17px;
+    color: var(--text);
+    line-height: 1.9;
+    margin-bottom: 20px;
+  }
+
+  .ps-inner strong {
+    color: var(--dark);
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    display: block;
+    margin: 12px 0;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    color: #b08090;
+    text-align: center;
+    padding: 32px 20px;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .photo-portrait, .why-photo { float: none; width: 100%; height: 240px; margin: 0 0 24px 0; }
+    .step-card { padding: 28px 24px; }
+    .step-letter { font-size: 44px; }
+    .compare-table { font-size: 13px; }
+    .compare-table td, .compare-table th { padding: 14px 14px; }
+    .gift-table td { font-size: 13px; padding: 14px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  Challenge 21 Ngày &nbsp;·&nbsp; Chạm Hành Trình Vươn Mình Rực Rỡ &nbsp;·&nbsp; Khai giảng 06/06/2026
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Dành cho các chị em phụ nữ đã lập gia đình đang mang quá nhiều vai trò mà quên vun bồi cho chính mình</div>
+  <img src="https://project-fa985.vercel.app/1.png" alt="Elsa Phương">
+  <h1>Đánh Thức Phiên Bản <span>Rực Rỡ Hơn</span> Của Mỗi Người Phụ Nữ</h1>
+  <p class="hero-sub">Đang bị vùi sâu, hay ngủ quên, cần được Chạm và Vươn tới</p>
+  <p class="hero-desc">Hành trình 21 ngày giúp các chị em đã lập gia đình tìm ra phiên bản đẹp hơn, thu hút và tràn đầy năng lượng của chính mình, rồi từ đó duy dưỡng mình để có đời sống hạnh phúc viên mãn về sau.</p>
+  <p class="hero-note">Dù hoàn cảnh chưa thay đổi.</p>
+  <a href="#dang-ky" class="cta-btn">Mình Muốn Tham Gia Ngay</a>
+</section>
+
+<!-- CALLOUT -->
+<div style="background: var(--white); padding: 0 20px;">
+  <div class="callout">
+    <p>Chị em có nhận ra sự thật là...</p>
+    <h3>Vì sao chúng ta học mãi mà không thay đổi được?</h3>
+  </div>
+</div>
+
+<!-- TRUTH LIST -->
+<section class="section">
+  <ul class="truth-list">
+    <li>Mình đã học đủ thứ khoá học, đọc đủ thứ sách mà vẫn thấy bản thân không có biến chuyển, y như cũ thậm chí tệ hơn?</li>
+    <li>Thứ mà 90% chương trình phát triển bản thân đang bỏ qua và đây là lý do chúng không tạo ra thay đổi thật</li>
+    <li>Cảm giác "trống rỗng không biết mình đi về đâu", thiếu động lực, thiếu năng lượng, đây không phải dấu hiệu của người yếu</li>
+    <li>Tại sao thay đổi bên ngoài (ngoại hình, kỹ năng, thói quen) không giữ được lâu nếu chưa làm điều này trước</li>
+    <li>Bí mật đã giúp Phương tỉnh thức sau 39 năm vật lộn với cuộc sống của mình và sắp chia sẻ cùng bạn</li>
+  </ul>
+</section>
+
+<!-- STORY - DAILY LIFE -->
+<section style="background: var(--white); padding: 72px 20px;">
+  <div style="max-width: 760px; margin: 0 auto;" class="prose">
+    <span class="sec-label">Chị em có đang sống như thế này không?</span>
+    <p>Sáng dậy, tất bật lo cho con ăn uống, đi học. Lo chạy nhanh đến cơ quan cho kịp giờ làm hoặc làm ở nhà. Chiều về đón con, lo chợ búa, cơm nước, làm việc nhà. Ngày nào cũng xoay vần với vòng quay như vậy, xong xuôi trong sự mệt nhoài nhưng đêm lại trằn trọc khó ngủ, lướt điện thoại mong tìm chút sự bình yên.</p>
+    <p>Và đôi khi trong những khoảnh khắc yên tĩnh nhất đó chị em thấy một cảm giác rất kỳ lạ.</p>
+    <div class="quote-block">"Không phải buồn. Không phải bực. Chỉ là... trống."</div>
+    <p>Chị em đang làm đủ mọi thứ. Chị em đang cố gắng đủ mọi cách. Nhưng vẫn thấy thiếu thứ gì đó mà không gọi được tên.</p>
+    <div class="quote-block">
+      "Mình đang sống cho điều gì?"<br>
+      "Tại sao mình cứ cố gắng mà vẫn thấy mệt mỏi, không vui?"<br>
+      "Mình là ai ngoài vai trò người vợ, người mẹ, người con?"
+    </div>
+    <p>Nếu chị em gật đầu với bất kỳ câu nào trong đó, Phương muốn chị em biết một điều trước.</p>
+    <p>Cảm giác đó không phải vì chị em kém. Không phải vì chị em thiếu nghị lực. Không phải vì chị em không đủ cố gắng.</p>
+    <p>Đó là dấu hiệu của người đã cho đi quá nhiều đến mức quên mất rằng bên trong mình còn có một "sinh linh" cần được nhìn thấy, cần được hiểu, cần được chăm sóc. Không phải người vợ. Không phải người mẹ. Không phải người con. Đó là chính mình.</p>
+  </div>
+</section>
+
+<!-- HAVE YOU TRIED -->
+<section class="section">
+  <span class="sec-label">Chị em đã thử?</span>
+  <div class="prose">
+    <p>Đọc thật nhiều sách. Nghe xem video về tâm lý, về nuôi dạy con, về phát triển bản thân. Đăng ký nhiều khoá học. Tham gia các group phụ nữ ở khắp nơi.</p>
+    <p>Và vẫn... ở đây. Vẫn cảm thấy như vậy.</p>
+    <p>Phương cũng đã từng y như thế. Và Phương cũng từng tự hỏi: <em>"Mình học nhiều vậy mà sao mình không thay đổi được?"</em></p>
+    <p>Mãi sau này Phương mới hiểu ra. <strong>Vấn đề không phải ở bản thân chúng ta. Vấn đề là thứ tự.</strong></p>
+    <p>Hầu hết khoá học và sách phát triển bản thân đang dạy chị em từ ngoài vào trong. Học kỹ năng. Xây thói quen. Thay đổi ngoại hình. Cải thiện giao tiếp.</p>
+    <p>Nhưng nếu bên trong chưa sẵn sàng, chưa được làm đầy, mọi thứ học thêm chỉ như đổ nước vào cái ly không đáy.</p>
+    <p>Và sau vài tuần, mọi thứ lại như cũ. Rồi chị em lại tự đổ lỗi cho bản thân thêm một lần nữa.</p>
+    <p>Đây chính xác là vòng lặp mà Phương đã từng trải qua và giờ đây muốn giúp chị em phá vỡ.</p>
+  </div>
+</section>
+
+<!-- STORY PHUONG -->
+<section style="background: var(--white); padding: 72px 20px;">
+  <div style="max-width: 760px; margin: 0 auto;">
+    <span class="sec-label">Sự thật của Phương...</span>
+    <img src="https://project-fa985.vercel.app/hinh-truoc-sau.jpg" alt="Hành trình của Phương" class="photo-full">
+    <div class="prose">
+      <p>Phương 40 tuổi. Mẹ của 3 con. Từng tốt nghiệp Đại học Ngoại Thương. Từng thử đủ thứ kinh doanh nhưng không bền.</p>
+      <p>Một điều vô cùng đau khi Phương nhận ra: <strong>Phương đã sống 39 năm mà không hiểu chính mình.</strong></p>
+      <p>Phương lớn lên trong một gia đình không hạnh phúc để ký ức về thơ ấu với Phương là sự đau khổ, mất kết nối, là nước mắt và sự im lặng. Phương là con đầu trong gia đình nên luôn tự nhủ mình phải mạnh mẽ lên, phải cố gắng nhiều hơn, phải gánh vác, phải lo toan.</p>
+      <p>Và điều đó đã trở thành con người Phương từ khi nào không hay, để rồi Phương mang đúng phiên bản này khi lập gia đình và mình cứ thế gồng mãi suốt mấy chục năm.</p>
+      <p>Đã có rất nhiều lần Phương chợt bắt gặp ánh mắt của mình trong gương rồi đứng sững lại và khóc nức nở vì một gương mặt tiều tuỵ, thiếu sức sống. Phương... đã không còn nhận ra mình là ai nữa...</p>
+      <p>Rất nhiều lần Phương tự hỏi mình: Mình là ai? Mình thật sự muốn gì? Mình đến cuộc đời này để trả những bài học gì mà tại sao suốt 39 năm qua mình chưa hạnh phúc, chưa được một ngày bình yên...</p>
+      <p>Câu hỏi đau đáu đó theo Phương suốt nhiều năm, cho đến một ngày Phương bừng tỉnh khi tìm ra câu trả lời và sự chuyển hoá mạnh mẽ xuất hiện.</p>
+      <p><strong>Và Phương tin nó cũng sẽ giúp các chị em thay đổi.</strong></p>
+    </div>
+    <img src="https://project-fa985.vercel.app/3.png" alt="Elsa Phương" class="photo-full" style="max-width: 300px; border-radius: 50%; border: 4px solid var(--rose-light);">
+  </div>
+</section>
+
+<!-- CTA 1 -->
+<div class="cta-wrap" style="background: var(--rose-pale);">
+  <a href="#dang-ky" class="cta-btn">Mình Muốn Tham Gia Ngay</a>
+</div>
+
+<!-- CHAM METHOD -->
+<section class="cham-bg">
+  <div class="cham-inner">
+    <span class="sec-label">Phương pháp độc đáo đảo chiều ngoạn mục</span>
+    <h2 class="sec-title">Tại Sao Chị Em Học Mãi Mà Vẫn Không Thay Đổi Được?</h2>
+    <div style="color: #f0c8d4; font-size: 16px; line-height: 1.85; margin-bottom: 48px;">
+      <p style="margin-bottom: 16px;">Không phải vì chị em thiếu ý chí. Không phải vì chị em chọn sai khoá học.</p>
+      <p style="margin-bottom: 16px;">Mà vì hầu hết mọi chương trình đang dạy chúng ta đi sai thứ tự. Và đó cũng là Quy tắc ngược mà cuộc sống này đang vận hành.</p>
+      <p style="margin-bottom: 16px;">Đó là chạy theo kết quả và bắt đầu từ bên ngoài: kỹ năng, thói quen, ngoại hình, tư duy tích cực. Thay vì phải tập trung vào cốt lõi, đi vào và chạm sâu bên trong trước.</p>
+      <p>Đây chính xác là vòng lặp mà <strong style="color: #f8c0d0;">Phương Pháp Chạm Gốc™</strong> phá vỡ.</p>
+    </div>
+
+    <h3 class="cham-method-title">Phương Pháp Chạm Gốc™</h3>
+    <p class="cham-method-sub">Chạm sâu từ bên trong, trước khi thay đổi bất cứ thứ gì bên ngoài</p>
+
+    <!-- C -->
+    <div class="step-card">
+      <span class="step-letter">C</span>
+      <span class="step-tag">Ngày 1 – 7</span>
+      <h3 class="step-title">C — Chạm sâu từ bên trong</h3>
+      <p class="step-body">Trước khi thay đổi bất cứ thứ gì, chị em cần thấy rõ mình đang mang gì bên trong. Vết thương cũ, khuôn mẫu từ gia đình, cảm xúc bị bỏ qua suốt nhiều năm.</p>
+      <ul class="step-items">
+        <li><strong>Thấu Hiểu Nội Tâm</strong> — lần đầu tiên nhìn thật sự vào bên trong mà không phán xét</li>
+        <li><strong>Thấu Hiểu Yêu Thương</strong> — hiểu mình đang cho đi và nhận lại tình yêu thương theo cách nào để từ đó yêu mình và yêu người đúng cách</li>
+        <li><strong>Nền Tảng Vượng Phu Ích Tử</strong> — hiểu vai trò mình đang mang và cách thoát khỏi gánh nặng vô hình</li>
+      </ul>
+      <p class="step-body">Không phải để tự trách. Mà để lần đầu tiên, thật sự thấy đúng phiên bản mình nên trở thành.</p>
+      <div class="step-result">
+        <span class="step-result-label">Cuộc sống sau bước C</span>
+        <p>Chị em không còn thấy bất an hay trống rỗng. Không cần lướt điện thoại để lấp đầy khoảng trống. Tự biết mình đang cảm thấy gì, tại sao và mình nên làm gì sau đó.</p>
+      </div>
+    </div>
+
+    <!-- H -->
+    <div class="step-card">
+      <span class="step-letter">H</span>
+      <span class="step-tag">Ngày 8 – 14</span>
+      <h3 class="step-title">H — Hiểu mình thật sự</h3>
+      <p class="step-body">Sau khi thấy rõ mình đang mang gì, chị em bắt đầu ngừng chạy theo kịch bản cũ. Từ người bị hoàn cảnh dẫn dắt thành người tự chọn cách phản ứng.</p>
+      <ul class="step-items">
+        <li><strong>Hoà Hợp Gia Đình</strong> — thiết lập lại mối quan hệ từ chỗ giúp mình đủ đầy hơn, không phải từ chỗ cạn kiệt</li>
+        <li><strong>Sức Khoẻ Toàn Diện</strong> — chăm sóc thân thể như nền móng của năng lượng sống</li>
+        <li><strong>Kiến Tạo Sắc Đẹp</strong> — vẻ đẹp bắt đầu từ bên trong khi chị em thật sự khoẻ mạnh và bình an</li>
+      </ul>
+      <p class="step-body">Đặt ranh giới mà không cảm thấy có lỗi. Tha thứ, không phải cho người kia, mà cho chính mình.</p>
+      <div class="step-result">
+        <span class="step-result-label">Cuộc sống sau bước H</span>
+        <p>Không còn bùng nổ vì những chuyện nhỏ. Không còn nằm gẫm mãi về một câu nói hay một ánh mắt. Nhẹ nhàng nhưng sâu lắng từ bên trong.</p>
+      </div>
+    </div>
+
+    <!-- A -->
+    <div class="step-card">
+      <span class="step-letter">A</span>
+      <span class="step-tag">Ngày 15 – 19</span>
+      <h3 class="step-title">A — Ánh sáng tỉnh thức</h3>
+      <p class="step-body">Nội tâm đã chuyển hoá, giờ là lúc ánh sáng bên trong bắt đầu chiếu rọi và lan toả ra bên ngoài từ ánh mắt, nụ cười, giọng nói, thái độ, qua cách chị em xuất hiện với thế giới một cách đầy phong thái và khí chất.</p>
+      <ul class="step-items">
+        <li><strong>Trang Điểm</strong> — không phải để che đi, mà để tôn lên vẻ đẹp của người phụ nữ đang sống đúng với mình</li>
+        <li><strong>Chuyển Hoá Giọng Nói</strong> — giọng nói là thứ người khác cảm nhận trước khi họ hiểu bạn nói gì</li>
+      </ul>
+      <p class="step-body">Thiết kế lại một ngày của mình. Buổi sáng bắt đầu thế nào. Dành thời gian cho mình ra sao. Nói chuyện với bản thân như người bạn thân không còn như một người xa lạ.</p>
+      <div class="step-result">
+        <span class="step-result-label">Cuộc sống sau bước A</span>
+        <p>Chị em thức dậy mỗi ngày với niềm hân hoan, hứng khởi, tràn đầy năng lượng sống như có những điều tốt đẹp nào đó đang chờ. Không phải vì cuộc sống đột nhiên dễ hơn mà vì chị em đang sống đúng với phiên bản đẹp của chính mình.</p>
+      </div>
+    </div>
+
+    <!-- M -->
+    <div class="step-card">
+      <span class="step-letter">M</span>
+      <span class="step-tag">Ngày 20 – 21</span>
+      <h3 class="step-title">M — Mình trở nên rực rỡ</h3>
+      <p class="step-body">Khi bên trong vững rồi, nó lan ra bên ngoài một cách rất chân thực, tự nhiên chứ không phải như cách người ta đang cố diễn. Sự thay đổi đến từ cách chị em nhìn, cười, trò chuyện với chồng, với con, với mọi người. Từ cách chị em bước vào một không gian với một nguồn năng lượng khác biệt mà người xung quanh tự cảm nhận không diễn tả được bằng lời.</p>
+      <ul class="step-items">
+        <li><strong>Phong Thái từ nội lực</strong> — phong thái không phải dáng đứng hay bước đi, mà là toàn bộ con người chị em toả ra khi đã chạm được gốc rễ bên trong</li>
+      </ul>
+      <p class="step-body">Và thiết kế kế hoạch 90 ngày tiếp theo của chính mình, biết rõ bước tiếp theo làm gì.</p>
+      <div class="step-result">
+        <span class="step-result-label">Cuộc sống sau bước M</span>
+        <p>Chị em nhìn vào gương và thấy một người phụ nữ đang sống đúng với phiên bản ao ước của chính mình, luôn tràn đầy năng lượng, rực rỡ. Sống được là chính mình xinh tươi, an vui và hạnh phúc, dù hoàn cảnh xung quanh chưa thay đổi.</p>
+      </div>
+    </div>
+
+    <div class="cham-closing">
+      <p>Đây là lý do 90% chương trình phát triển bản thân không tạo ra thay đổi thật.</p>
+      <p>Họ bắt đầu từ <strong>M</strong> — kỹ năng, thói quen, ngoại hình — mà bỏ qua <strong>C, H, A.</strong></p>
+      <p>Nền móng chưa có, xây gì cũng đổ.</p>
+      <p><strong>Phương Pháp Chạm Gốc™ bắt đầu từ đúng chỗ cần bắt đầu.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA 2 -->
+<div class="cta-wrap" style="background: var(--white);">
+  <a href="#dang-ky" class="cta-btn">Mình Muốn Tham Gia Ngay</a>
+</div>
+
+<!-- COMPARISON -->
+<section class="compare-section">
+  <div class="compare-inner">
+    <span class="sec-label">Chị em hãy nghĩ về một cuộc sống mới</span>
+    <h2 class="sec-title">Vẫn là người phụ nữ này. Vẫn hoàn cảnh gia đình đó.</h2>
+    <p class="compare-lead">Nhưng hoàn toàn khác nhau từ bên trong.</p>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Trước khi Chạm Gốc</th>
+          <th>Sau khi Chạm Gốc</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Sáng dậy nặng nề, không biết hôm nay sống cho điều gì</td>
+          <td>Sáng dậy có thứ gì đó của riêng mình để chờ đợi</td>
+        </tr>
+        <tr>
+          <td>Làm đủ mọi thứ cho gia đình nhưng bên trong trống rỗng</td>
+          <td>Cho đi từ chỗ đầy, không phải từ chỗ cạn kiệt</td>
+        </tr>
+        <tr>
+          <td>Nhìn vào gương thấy người mệt mỏi, không nhận ra mình</td>
+          <td>Nhìn vào gương thấy người phụ nữ đang sống đúng với phiên bản đẹp đẽ nhất của chính mình hiện tại, tràn đầy năng lượng, rực rỡ, yêu thương</td>
+        </tr>
+        <tr>
+          <td>Bùng nổ vì chuyện nhỏ rồi lại tự trách mình</td>
+          <td>Phản ứng bình tĩnh hơn, không phải vì nhịn, mà vì bên trong đã đủ đầy, ấm áp</td>
+        </tr>
+        <tr>
+          <td>Cảm giác cô đơn ngay trong chính ngôi nhà của mình</td>
+          <td>Cảm thấy kết nối với chính mình và mọi người xung quanh</td>
+        </tr>
+        <tr>
+          <td>Luôn đặt mình xuống cuối danh sách</td>
+          <td>Biết chăm sóc mình đúng cách mà không cảm thấy ích kỷ</td>
+        </tr>
+        <tr>
+          <td>Thử đủ thứ khoá học rồi đâu lại vào đó</td>
+          <td>Luôn học hỏi nâng cấp bản thân nhưng biết cần học gì và đạt được kết quả thật từ việc học đó</td>
+        </tr>
+        <tr>
+          <td>Sống theo kỳ vọng của người khác mà không biết mình thật sự muốn gì</td>
+          <td>Được sống là chính mình với cuộc đời mình mơ ước bằng một phiên bản xinh tươi, an vui, hạnh phúc dù hoàn cảnh xung quanh chưa thay đổi</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="compare-closing">
+      <p>Điều thay đổi không phải là hoàn cảnh.</p>
+      <p>Chồng con chị em không nhất thiết phải thay đổi. Công việc không nhất thiết phải khác đi. Hoàn cảnh có thể vẫn vậy.</p>
+      <p><strong>Nhưng người phụ nữ trước đây của chính mình sẽ khác hoàn toàn.</strong></p>
+      <p>Vì khi bên trong chị em thay đổi, mọi thứ xung quanh bắt đầu phản chiếu lại điều đó.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY PHUONG -->
+<section style="background: var(--white); padding: 72px 20px;">
+  <div class="why-section" style="padding: 0; max-width: 760px; margin: 0 auto;">
+    <span class="sec-label">Tại sao là Phương?</span>
+    <img src="https://project-fa985.vercel.app/4.png" alt="Elsa Phương" class="why-photo">
+    <div class="prose">
+      <p>Phương khác với các chuyên gia hay giảng lý thuyết ngoài kia. Phương không theo đuổi việc có thật nhiều bằng cấp.</p>
+      <p>Những gì Phương có là thứ không trường nào cấp được: trải nghiệm thật bằng chính câu chuyện cuộc đời mình, điều mà các chị em chưa đến có thể rút kinh nghiệm, hay các chị em đang gặp phải sẽ có người đồng cảm thật sự để cùng nâng đỡ nhau vượt qua.</p>
+      <p>Phương đã sống 39 năm không hiểu chính mình. Trải qua quá nhiều nỗi đau từ thơ ấu đến trưởng thành. Đã học đủ các khoá học phát triển bản thân mà vẫn loay hoay, bế tắc.</p>
+      <p>Cho đến khi Phương tìm ra điều mà tất cả các khoá học đó đã bỏ qua. Và hành trình này là điều Phương muốn chia sẻ lại cùng các chị em.</p>
+      <p>Vì Phương biết rằng, dù chị em đang là chủ doanh nghiệp, nhân viên, công chức, hay đang là mẹ bỉm sữa ở nhà nuôi dạy con, làm nội trợ, tất cả chúng ta đều có một khát khao được trở nên tốt hơn mỗi ngày, được chạm đến một phiên bản đẹp hơn của chính mình.</p>
+      <p>Và nếu chị em đang thấy mình loay hoay, mệt mỏi, thiếu năng lượng hay động lực, thậm chí đang thành công nhưng vẫn thấy "trống", đó là dấu hiệu chúng ta giống nhau. Và hành trình này dành cho chị em.</p>
+      <p>Phương nói thẳng: Đây là lần đầu tiên Phương mở đồng hành hành trình này.</p>
+      <p>Phương chọn mức giá thấp cho đợt đầu không phải vì hành trình kém giá trị, mà vì Phương muốn được kết nối với thật nhiều chị em cùng tìm ra phiên bản đẹp hơn của chính mình. Hành trình này sẽ chứng minh bằng kết quả thật, không phải bằng lời hứa.</p>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+</section>
+
+<!-- DELIVERABLES -->
+<section class="deliver-bg">
+  <div class="deliver-inner">
+    <span class="sec-label">Những gì chị em sẽ nhận được</span>
+    <h2 class="sec-title">Trọn Vẹn Hành Trình 21 Ngày</h2>
+    <div class="deliver-item">
+      <div class="deliver-icon">📖</div>
+      <div class="deliver-text">
+        <h4>21 bài học liên tục mỗi ngày</h4>
+        <p>Học và thực hành trong 15 đến 30 phút. Nộp bài và báo cáo mỗi ngày. Không phải để kiểm tra, mà để chị em rèn kỷ luật, vượt lên chính mình và bắt đầu thấy kết quả từ những ngày đầu tiên.</p>
+      </div>
+    </div>
+    <div class="deliver-item">
+      <div class="deliver-icon">👥</div>
+      <div class="deliver-text">
+        <h4>Nhóm kín Facebook</h4>
+        <p>Nơi các chị em cùng nhau thực hành, cổ vũ nhau mỗi ngày, chia sẻ bài tập. Không ai đi một mình trên hành trình này.</p>
+      </div>
+    </div>
+    <div class="deliver-item">
+      <div class="deliver-icon">📝</div>
+      <div class="deliver-text">
+        <h4>3 template thực hành viết tay</h4>
+        <p>Bản Đồ Nội Tâm · Bức Thư Chuyển Hoá · Kế Hoạch 90 Ngày. Chị em ra về với bản đồ của chính mình, không phải lý thuyết suông.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GIFTS -->
+<section class="gifts-bg">
+  <div class="gifts-inner">
+    <span class="sec-label">Nhưng đó chưa phải là tất cả...</span>
+    <h2 class="sec-title">Trọn Bộ Quà Tặng Độc Quyền 🎁</h2>
+    <p class="gifts-intro">Khi đăng ký hành trình này, chị em còn nhận thêm trọn bộ quà tặng vô cùng giá trị, hoàn toàn không tính thêm phí.</p>
+    <table class="gift-table">
+      <tr>
+        <td><strong>21 audio Chuyển Hoá Nội Tâm</strong>Bí mật ngầm giúp chị em chuyển đổi tâm thức để có cuộc sống như ý. Nghe mỗi ngày trong 21 ngày.</td>
+        <td>1.500.000đ</td>
+      </tr>
+      <tr>
+        <td><strong>10 audio Thấu Hiểu Yêu Thương</strong>Hiểu lại cách mình yêu và được yêu, để từ đó yêu mình đúng cách và yêu người trọn vẹn hơn.</td>
+        <td>800.000đ</td>
+      </tr>
+      <tr>
+        <td><strong>10 audio Vượng Phu Ích Tử</strong>Tháo gỡ gánh nặng vô hình mà chị em đang mang, và xây lại nền tảng gia đình từ chỗ bình an bên trong.</td>
+        <td>800.000đ</td>
+      </tr>
+      <tr>
+        <td><strong>10 audio Hoà Hợp Gia Đình</strong>Kết nối lại với chồng, với con, với những người thân, không phải bằng cách nhường nhịn mà bằng cách thật sự hiểu nhau.</td>
+        <td>800.000đ</td>
+      </tr>
+      <tr>
+        <td><strong>10 audio Sức Khoẻ Toàn Diện</strong>Chăm sóc thân thể không phải để đẹp hơn, mà để có đủ năng lượng sống đúng với phiên bản mình muốn trở thành.</td>
+        <td>800.000đ</td>
+      </tr>
+      <tr>
+        <td><strong>3 video Chăm Sóc Diện Mạo</strong>Xinh tươi đơn giản, thiết thực, phù hợp với cuộc sống bận rộn của chị em.</td>
+        <td>500.000đ</td>
+      </tr>
+      <tr>
+        <td><strong>7 video Phong Thái Hình Thể kết hợp 3 video Luyện Nội Lực</strong>Không phải tập gym. Không phải yoga phức tạp. Những bài tập giúp chị em toả ra năng lượng và phong thái từ bên trong, chỉ 10 đến 15 phút mỗi ngày.</td>
+        <td>1.600.000đ</td>
+      </tr>
+      <tr class="gift-total-row">
+        <td><strong>Tổng giá trị quà tặng</strong></td>
+        <td><strong>6.800.000đ</strong></td>
+      </tr>
+    </table>
+    <p class="gifts-note">Chị em nhận trọn bộ quà tặng trị giá 6.800.000đ, hoàn toàn không tính thêm một đồng.</p>
+  </div>
+</section>
+
+<!-- VALUE + PRICE -->
+<section class="value-bg">
+  <div class="value-inner">
+    <span class="sec-label">Tổng giá trị nhận được</span>
+    <h2 class="sec-title">Đầu Tư Một Lần, Thay Đổi Cả Đời</h2>
+    <table class="value-table">
+      <tr><td>21 bài học thực hành hàng ngày</td><td>2.100.000đ</td></tr>
+      <tr><td>Nhóm kín Facebook đồng hành 21 ngày</td><td>800.000đ</td></tr>
+      <tr><td>3 template thực hành viết tay</td><td>300.000đ</td></tr>
+      <tr><td>21 audio Chuyển Hoá Nội Tâm</td><td>1.500.000đ</td></tr>
+      <tr><td>10 audio Thấu Hiểu Yêu Thương</td><td>800.000đ</td></tr>
+      <tr><td>10 audio Vượng Phu Ích Tử</td><td>800.000đ</td></tr>
+      <tr><td>10 audio Hoà Hợp Gia Đình</td><td>800.000đ</td></tr>
+      <tr><td>10 audio Sức Khoẻ Toàn Diện</td><td>800.000đ</td></tr>
+      <tr><td>3 video Chăm Sóc Diện Mạo</td><td>500.000đ</td></tr>
+      <tr><td>7 video Phong Thái Hình Thể kết hợp 3 video Luyện Nội Lực</td><td>1.600.000đ</td></tr>
+      <tr><td><strong>Tổng giá trị</strong></td><td><strong>9.900.000đ</strong></td></tr>
+    </table>
+    <div class="price-highlight">
+      <p>Chị em chỉ đầu tư</p>
+      <div class="price-big">990.000đ</div>
+      <p class="price-save">Tiết kiệm hơn 8.910.000đ, chỉ dành cho các chị em đầu tiên của đợt này</p>
+      <a href="#dang-ky" class="cta-btn" style="background: white; color: var(--rose);">Mình Muốn Tham Gia Ngay</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROMISE -->
+<section class="promise-bg">
+  <div class="promise-inner">
+    <span class="sec-label">Lời hứa chuyển hoá</span>
+    <h2 class="sec-title">Sau 21 Ngày Tham Gia Đầy Đủ</h2>
+    <p style="font-size: 17px; color: var(--text-light); margin-bottom: 8px;">Các chị em sẽ tìm ra cho mình:</p>
+    <ul class="promise-items">
+      <li>
+        <div class="promise-num">1</div>
+        <p>Chạm đến một <strong>phiên bản mới đẹp hơn</strong> của chính mình hiện tại</p>
+      </li>
+      <li>
+        <div class="promise-num">2</div>
+        <p><strong>Bản đồ nội tâm viết tay</strong>, hiểu mình đang ở đâu và xác định được điều cần thay đổi</p>
+      </li>
+      <li>
+        <div class="promise-num">3</div>
+        <p><strong>Bộ công cụ tối giản</strong> để chăm sóc bản thân phù hợp cuộc sống thật</p>
+      </li>
+      <li>
+        <div class="promise-num">4</div>
+        <p><strong>Kế hoạch 90 ngày cụ thể</strong>, biết bước đầu tiên cần làm là gì</p>
+      </li>
+    </ul>
+    <div class="refund-note">
+      Nếu các chị em tham dự đầy đủ mà không nhận được những điều này, Phương sẽ hoàn tiền 100% trong vòng 30 ngày.
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-bg">
+  <div class="faq-inner">
+    <span class="sec-label">Câu hỏi thường gặp</span>
+    <h2 class="sec-title">Chị Em Hay Hỏi Phương...</h2>
+    <div class="faq-item">
+      <p class="faq-q">1. Tôi rất bận, liệu có theo kịp không?</p>
+      <p class="faq-a">Phương thiết kế hành trình này dành cho những người phụ nữ bận rộn nhất. Mỗi ngày chị em chỉ cần 15 đến 30 phút, có thể làm vào buổi sáng sớm trước khi cả nhà thức dậy, hoặc buổi tối sau khi con đã ngủ. Không cần sắp xếp lịch phức tạp.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">2. Tôi chưa từng học khoá nào như thế này, có phù hợp không?</p>
+      <p class="faq-a">Càng phù hợp hơn. Hành trình này không yêu cầu bất kỳ kiến thức nền nào. Phương dẫn dắt từng bước từ đầu, chị em chỉ cần mang theo sự thật lòng với chính mình là đủ.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">3. 21 ngày có đủ để thay đổi không?</p>
+      <p class="faq-a">21 ngày không phải để thay đổi tất cả, mà để chị em thấy rõ mình đang ở đâu, hiểu tại sao mình chưa thay đổi được, và có trong tay bản đồ cùng kế hoạch 90 ngày tiếp theo. Thay đổi thật bắt đầu từ khoảnh khắc chị em thật sự thấy mình, và 21 ngày này là khoảnh khắc đó.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">4. Nội dung học theo hình thức nào?</p>
+      <p class="faq-a">Chị em nhận bài học video hoặc file tài liệu mỗi ngày kèm bài tập thực hành. Ngoài ra còn có trọn bộ audio và video quà tặng để nghe và xem theo nhịp của riêng mình, linh hoạt, không bị ràng buộc giờ giấc.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">5. Nếu tôi bỡ lỡ 1 đến 2 ngày thì sao?</p>
+      <p class="faq-a">Hành trình này được thiết kế theo thứ tự, mỗi ngày là nền tảng cho ngày tiếp theo. Phương khuyến khích chị em cam kết đủ 21 ngày để nhận được kết quả trọn vẹn. Nếu có việc đột xuất, chị em vẫn có thể làm bù, nhưng không nên bỏ quá 2 ngày liên tiếp để giữ được đà chuyển hoá.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">6. Tôi đã học nhiều khoá rồi mà không thay đổi được, lần này có khác không?</p>
+      <p class="faq-a">Đây chính xác là câu hỏi Phương từng tự hỏi mình. Sự khác biệt không nằm ở nội dung hay người dạy, mà ở thứ tự. Hầu hết khoá học bắt đầu từ bên ngoài. Hành trình này bắt đầu từ bên trong, từ đúng chỗ mà tất cả những khoá học trước đã bỏ qua. Đó là lý do Phương tin đây sẽ khác.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">7. Chương trình này có phù hợp nếu tôi đang trong hoàn cảnh gia đình khó khăn không?</p>
+      <p class="faq-a">Càng khó khăn, càng cần hành trình này hơn. Phương không hứa hành trình này sẽ thay đổi hoàn cảnh của chị em. Nhưng Phương tin rằng khi bên trong chị em thay đổi, cách chị em đối mặt với hoàn cảnh đó sẽ khác hoàn toàn. Và đó mới là nền tảng của mọi thay đổi thật sự.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">8. Sau 21 ngày xong thì sao, tôi có được hỗ trợ tiếp không?</p>
+      <p class="faq-a">Sau 21 ngày chị em sẽ có trong tay kế hoạch 90 ngày của chính mình, không phải kết thúc mà là bắt đầu thật sự. Phương cũng sẽ có các chương trình đồng hành sâu hơn dành cho những chị em muốn tiếp tục hành trình, thông tin sẽ được chia sẻ vào cuối khoá.</p>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTER -->
+<section class="register-bg" id="dang-ky">
+  <img src="https://project-fa985.vercel.app/2 (2).jpg" alt="Elsa Phương" class="register-photo">
+  <h2>Mình Muốn Tham Gia Ngay</h2>
+  <p>Nhấn vào nút bên dưới, điền họ tên, số điện thoại và email. Hệ thống sẽ gửi thông tin thanh toán về email của chị em ngay lập tức.</p>
+  <a href="#" class="cta-btn">Mình Muốn Tham Gia Ngay</a>
+  <p class="register-note">Khai giảng 06/06/2026 &nbsp;·&nbsp; Elsa Phương &nbsp;·&nbsp; 0945461368</p>
+</section>
+
+<!-- PS -->
+<section class="ps-bg">
+  <div class="ps-inner">
+    <span class="ps-label">P.S.</span>
+    <p>Nếu chị em đọc đến đây mà vẫn đang phân vân, Phương hiểu.</p>
+    <p>Vì Phương cũng đã từng như vậy. Đứng trước cơ hội thay đổi mà lại tự hỏi: <em>"Liệu mình có xứng đáng không? Liệu lần này có khác không?"</em></p>
+    <p>Phương chỉ muốn nói một điều thôi.</p>
+    <p>Suốt bao nhiêu năm qua chị em đã lo cho tất cả mọi người. Cho chồng. Cho con. Cho gia đình. Cho công việc.</p>
+    <strong>21 ngày này, là dành cho chị em.</strong>
+    <p>Chỉ 15 đến 30 phút mỗi ngày. Chỉ 990.000đ, ít hơn một bữa ăn gia đình cuối tuần.</p>
+    <p>Nhưng những gì chị em nhận được có thể thay đổi cách chị em sống trong những năm tháng còn lại của cuộc đời.</p>
+    <p>Khai giảng <strong style="color: var(--rose); font-family: 'Be Vietnam Pro';">06/06/2026.</strong></p>
+    <p>Nếu chị em đang thấy mình trong những trang này, đây là lúc rồi.</p>
+    <br>
+    <a href="#dang-ky" class="cta-btn">Mình Muốn Tham Gia Ngay</a>
+  </div>
+</section>
+
+<footer>
+  Chạm Hành Trình Vươn Mình Rực Rỡ &nbsp;·&nbsp; Elsa Phương &nbsp;·&nbsp; 2026
+</footer>
+
+</body>
+</html>
