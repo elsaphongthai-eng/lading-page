@@ -15,15 +15,21 @@ export default async function handler(req, res) {
     const [d1, d2, d3] = await Promise.all([r1.json(), r2.json(), r3.json()]);
 
     const parse = arr => (arr || []).map(o => {
-      try { return typeof o === 'string' ? JSON.parse(o) : o; } 
-      catch(e) { return { raw: o }; }
+      if (typeof o !== 'string') return o;
+      try { return JSON.parse(o); } catch(e) {}
+      try { return JSON.parse(o.replace(/\\"/g, '"').replace(/\\n/g, '')); } catch(e) {}
+      // Xử lý format bị escape kiểu \name\:\value\
+      try {
+        const fixed = o.replace(/\\([^\\])/g, '"$1').replace(/\\/g, '"');
+        return JSON.parse(fixed);
+      } catch(e) {}
+      return { raw: o };
     });
 
     res.json({
       orders: parse(d1.result),
       customers: parse(d2.result),
-      products: parse(d3.result),
-      debug: { d1: d1.result, d2: d2.result, d3: d3.result }
+      products: parse(d3.result)
     });
   } catch(e) {
     res.status(500).json({ error: e.message });
