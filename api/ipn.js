@@ -12,14 +12,8 @@ export default async function handler(req, res) {
       const upstashUrl = process.env.KV_REST_API_URL;
       const upstashToken = process.env.KV_REST_API_TOKEN;
       
-      const setUrl = `${upstashUrl}/set/order_${orderCode}/paid`;
-      await fetch(setUrl, {
-        method: 'POST',
-        headers: { 
-          Authorization: `Bearer ${upstashToken}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(['EX', '86400'])
+      await fetch(`${upstashUrl}/set/order_${orderCode}/paid`, {
+        headers: { Authorization: `Bearer ${upstashToken}` }
       });
     }
 
