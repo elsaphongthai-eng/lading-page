@@ -7,7 +7,14 @@ export default async function handler(req, res) {
     const url = process.env.KV_REST_API_URL;
     const token = process.env.KV_REST_API_TOKEN;
 
-    await fetch(`${url}/lpush/${key}/${JSON.stringify(value)}`, {
+    let data;
+    if (key === 'products') {
+      data = `${value.name}|${value.price}|${value.desc}`;
+    } else {
+      data = JSON.stringify(value);
+    }
+
+    await fetch(`${url}/lpush/${key}/${encodeURIComponent(data)}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
 
