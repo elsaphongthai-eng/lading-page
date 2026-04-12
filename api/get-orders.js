@@ -15,15 +15,20 @@ export default async function handler(req, res) {
     const [d1, d2, d3] = await Promise.all([r1.json(), r2.json(), r3.json()]);
 
     const parse = arr => (arr || []).map(o => {
-      if (typeof o !== 'string') return o;
+      if (typeof o === 'object') return o;
       try { return JSON.parse(o); } catch(e) {}
-      try { return JSON.parse(o.replace(/\\"/g, '"').replace(/\\n/g, '')); } catch(e) {}
-      // Xử lý format bị escape kiểu \name\:\value\
-      try {
-        const fixed = o.replace(/\\([^\\])/g, '"$1').replace(/\\/g, '"');
-        return JSON.parse(fixed);
-      } catch(e) {}
-      return { raw: o };
+      // extract fields manually
+      const get = (s, k) => { const m = s.match(new RegExp(k+'[^:]*:[^"]*"([^"]+)"')); return m ? m[1] : null; };
+      const getNum = (s, k) => { const m = s.match(new RegExp(k+'[^:]*:([0-9]+)')); return m ? parseInt(m[1]) : 0; };
+      return {
+        name: get(o, 'name') || o,
+        price: getNum(o, 'price'),
+        desc: get(o, 'desc'),
+        code: get(o, 'code'),
+        amount: getNum(o, 'amount'),
+        status: get(o, 'status'),
+        time: get(o, 'time')
+      };
     });
 
     res.json({
