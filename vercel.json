@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/thanh-toan", "destination": "/thanh-toan.html" },
+    { "source": "/admin", "destination": "/admin.html" }
+  ]
+}

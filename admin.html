@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel | Chạm Hành Trình Rực Rỡ</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Be Vietnam Pro', sans-serif; background: #f8f9fa; color: #2a1a1e; }
+  
+  .header {
+    background: #E8275A;
+    color: white;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .header h1 { font-size: 18px; font-weight: 700; }
+  .header span { font-size: 13px; opacity: 0.85; }
+
+  .tabs {
+    background: white;
+    border-bottom: 2px solid #f0e0e4;
+    display: flex;
+    padding: 0 24px;
+  }
+  .tab {
+    padding: 14px 24px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    color: #7a5560;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+  }
+  .tab.active {
+    color: #E8275A;
+    border-bottom-color: #E8275A;
+  }
+
+  .content { padding: 24px; max-width: 1100px; margin: 0 auto; }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .stat-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    text-align: center;
+  }
+  .stat-card .num {
+    font-size: 32px;
+    font-weight: 700;
+    color: #E8275A;
+    font-family: 'Be Vietnam Pro';
+  }
+  .stat-card .label { font-size: 13px; color: #7a5560; margin-top: 4px; }
+
+  .card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+
+  .card-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0e0e4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .card-header h2 { font-size: 16px; font-weight: 700; }
+
+  .btn {
+    background: #E8275A;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-family: 'Be Vietnam Pro';
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn:hover { background: #c41e48; }
+  .btn-outline {
+    background: white;
+    color: #E8275A;
+    border: 1.5px solid #E8275A;
+  }
+  .btn-outline:hover { background: #fff0f4; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th {
+    background: #fff0f4;
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 700;
+    color: #E8275A;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #f8f0f2;
+    font-size: 14px;
+    color: #2a1a1e;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #fff8fa; }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .badge-paid { background: #e8f5e9; color: #2e7d32; }
+  .badge-pending { background: #fff8e1; color: #f57c00; }
+
+  .empty {
+    text-align: center;
+    padding: 48px;
+    color: #7a5560;
+    font-size: 14px;
+  }
+
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal.open { display: flex; }
+  .modal-box {
+    background: white;
+    border-radius: 12px;
+    padding: 32px;
+    width: 440px;
+    max-width: 90%;
+  }
+  .modal-box h3 { font-size: 18px; margin-bottom: 20px; }
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+  .form-group input, .form-group select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid #f0d8de;
+    border-radius: 8px;
+    font-family: 'Be Vietnam Pro';
+    font-size: 14px;
+    outline: none;
+  }
+  .form-group input:focus { border-color: #E8275A; }
+  .modal-actions { display: flex; gap: 12px; margin-top: 20px; }
+
+  .loading { text-align: center; padding: 40px; color: #7a5560; }
+
+  @media (max-width: 600px) {
+    .stats { grid-template-columns: 1fr; }
+    .tabs { overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🌸 Admin Panel — Chạm Hành Trình Rực Rỡ</h1>
+  <span id="last-updated"></span>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('orders')">📦 Đơn hàng</div>
+  <div class="tab" onclick="switchTab('customers')">👥 Khách hàng</div>
+  <div class="tab" onclick="switchTab('products')">🛍️ Sản phẩm</div>
+</div>
+
+<div class="content">
+
+  <!-- ORDERS -->
+  <div class="panel active" id="panel-orders">
+    <div class="stats">
+      <div class="stat-card">
+        <div class="num" id="stat-orders">—</div>
+        <div class="label">Tổng đơn hàng</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" id="stat-revenue">—</div>
+        <div class="label">Doanh thu (đ)</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" id="stat-customers">—</div>
+        <div class="label">Khách hàng</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h2>Danh sách đơn hàng</h2>
+        <button class="btn" onclick="openAddOrder()">+ Thêm đơn hàng</button>
+      </div>
+      <div id="orders-table">
+        <div class="loading">Đang tải...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CUSTOMERS -->
+  <div class="panel" id="panel-customers">
+    <div class="card">
+      <div class="card-header">
+        <h2>Danh sách khách hàng</h2>
+        <button class="btn" onclick="openAddCustomer()">+ Thêm khách hàng</button>
+      </div>
+      <div id="customers-table">
+        <div class="loading">Đang tải...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <div class="panel" id="panel-products">
+    <div class="card">
+      <div class="card-header">
+        <h2>Danh sách sản phẩm</h2>
+        <button class="btn" onclick="openAddProduct()">+ Thêm sản phẩm</button>
+      </div>
+      <div id="products-table">
+        <div class="loading">Đang tải...</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- MODAL: Thêm đơn hàng -->
+<div class="modal" id="modal-order">
+  <div class="modal-box">
+    <h3>Thêm đơn hàng mới</h3>
+    <div class="form-group">
+      <label>Mã đơn hàng</label>
+      <input type="text" id="order-code" placeholder="CHAM...">
+    </div>
+    <div class="form-group">
+      <label>Tên khách hàng</label>
+      <input type="text" id="order-name" placeholder="Nguyễn Thị Lan">
+    </div>
+    <div class="form-group">
+      <label>Số tiền (đ)</label>
+      <input type="number" id="order-amount" value="990000">
+    </div>
+    <div class="form-group">
+      <label>Trạng thái</label>
+      <select id="order-status">
+        <option value="paid">Đã thanh toán</option>
+        <option value="pending">Chờ thanh toán</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="saveOrder()">Lưu</button>
+      <button class="btn btn-outline" onclick="closeModal('modal-order')">Hủy</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Thêm khách hàng -->
+<div class="modal" id="modal-customer">
+  <div class="modal-box">
+    <h3>Thêm khách hàng mới</h3>
+    <div class="form-group">
+      <label>Họ tên</label>
+      <input type="text" id="cus-name" placeholder="Nguyễn Thị Lan">
+    </div>
+    <div class="form-group">
+      <label>Số điện thoại</label>
+      <input type="tel" id="cus-phone" placeholder="0901234567">
+    </div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="cus-email" placeholder="email@gmail.com">
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="saveCustomer()">Lưu</button>
+      <button class="btn btn-outline" onclick="closeModal('modal-customer')">Hủy</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Thêm sản phẩm -->
+<div class="modal" id="modal-product">
+  <div class="modal-box">
+    <h3>Thêm sản phẩm mới</h3>
+    <div class="form-group">
+      <label>Tên sản phẩm</label>
+      <input type="text" id="pro-name" placeholder="Challenge 21 Ngày">
+    </div>
+    <div class="form-group">
+      <label>Giá (đ)</label>
+      <input type="number" id="pro-price" value="990000">
+    </div>
+    <div class="form-group">
+      <label>Mô tả</label>
+      <input type="text" id="pro-desc" placeholder="Chạm Hành Trình Rực Rỡ">
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="saveProduct()">Lưu</button>
+      <button class="btn btn-outline" onclick="closeModal('modal-product')">Hủy</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let allData = { orders: [], customers: [], products: [] };
+
+  async function loadData() {
+    try {
+      const r = await fetch('/api/get-orders');
+      allData = await r.json();
+      renderAll();
+      document.getElementById('last-updated').textContent = 
+        'Cập nhật: ' + new Date().toLocaleTimeString('vi-VN');
+    } catch(e) {
+      console.error(e);
+    }
+  }
+
+  function renderAll() {
+    renderOrders();
+    renderCustomers();
+    renderProducts();
+  }
+
+  function renderOrders() {
+    const orders = allData.orders || [];
+    document.getElementById('stat-orders').textContent = orders.length;
+    document.getElementById('stat-revenue').textContent = 
+      orders.filter(o => o.status === 'paid')
+        .reduce((s, o) => s + (o.amount || 0), 0)
+        .toLocaleString('vi-VN');
+    document.getElementById('stat-customers').textContent = 
+      (allData.customers || []).length;
+
+    if (!orders.length) {
+      document.getElementById('orders-table').innerHTML = 
+        '<div class="empty">Chưa có đơn hàng nào</div>';
+      return;
+    }
+
+    document.getElementById('orders-table').innerHTML = `
+      <table>
+        <thead>
+          <tr>
+            <th>Mã đơn</th>
+            <th>Số tiền</th>
+            <th>Thời gian</th>
+            <th>Trạng thái</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${orders.map(o => `
+            <tr>
+              <td><strong>${o.code || '—'}</strong></td>
+              <td>${(o.amount || 0).toLocaleString('vi-VN')}đ</td>
+              <td>${o.time ? new Date(o.time).toLocaleString('vi-VN') : '—'}</td>
+              <td><span class="badge badge-${o.status === 'paid' ? 'paid' : 'pending'}">
+                ${o.status === 'paid' ? '✅ Đã thanh toán' : '⏳ Chờ thanh toán'}
+              </span></td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>`;
+  }
+
+  function renderCustomers() {
+    const customers = allData.customers || [];
+    if (!customers.length) {
+      document.getElementById('customers-table').innerHTML = 
+        '<div class="empty">Chưa có khách hàng nào</div>';
+      return;
+    }
+    document.getElementById('customers-table').innerHTML = `
+      <table>
+        <thead>
+          <tr>
+            <th>Họ tên</th>
+            <th>Số điện thoại</th>
+            <th>Email</th>
+            <th>Ngày đăng ký</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${customers.map(c => `
+            <tr>
+              <td><strong>${c.name || '—'}</strong></td>
+              <td>${c.phone || '—'}</td>
+              <td>${c.email || '—'}</td>
+              <td>${c.time ? new Date(c.time).toLocaleString('vi-VN') : '—'}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>`;
+  }
+
+  function renderProducts() {
+    const products = allData.products || [];
+    if (!products.length) {
+      document.getElementById('products-table').innerHTML = 
+        '<div class="empty">Chưa có sản phẩm nào — <a href="#" onclick="openAddProduct()">Thêm ngay</a></div>';
+      return;
+    }
+    document.getElementById('products-table').innerHTML = `
+      <table>
+        <thead>
+          <tr>
+            <th>Tên sản phẩm</th>
+            <th>Giá</th>
+            <th>Mô tả</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${products.map(p => `
+            <tr>
+              <td><strong>${p.name || '—'}</strong></td>
+              <td>${(p.price || 0).toLocaleString('vi-VN')}đ</td>
+              <td>${p.desc || '—'}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>`;
+  }
+
+  function switchTab(tab) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('panel-' + tab).classList.add('active');
+  }
+
+  function openAddOrder() { document.getElementById('modal-order').classList.add('open'); }
+  function openAddCustomer() { document.getElementById('modal-customer').classList.add('open'); }
+  function openAddProduct() { document.getElementById('modal-product').classList.add('open'); }
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+  async function saveToUpstash(key, value) {
+    await fetch('/api/save-data', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ key, value })
+    });
+  }
+
+  async function saveOrder() {
+    const order = {
+      code: document.getElementById('order-code').value,
+      name: document.getElementById('order-name').value,
+      amount: parseInt(document.getElementById('order-amount').value),
+      status: document.getElementById('order-status').value,
+      time: new Date().toISOString()
+    };
+    await saveToUpstash('orders', order);
+    
+    // Tìm email khách hàng từ danh sách
+    const customer = (allData.customers || []).find(c => c.name === order.name);
+    if (customer && customer.email) {
+      await fetch('/api/send-order-confirm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: customer.email,
+          name: order.name,
+          code: order.code,
+          amount: order.amount,
+          product: 'Chạm Hành Trình Vươn Mình Rực Rỡ'
+        })
+      });
+    }
+    
+    closeModal('modal-order');
+    loadData();
+  }
+
+  async function saveCustomer() {
+    const customer = {
+      name: document.getElementById('cus-name').value,
+      phone: document.getElementById('cus-phone').value,
+      email: document.getElementById('cus-email').value,
+      time: new Date().toISOString()
+    };
+    await saveToUpstash('customers', customer);
+    closeModal('modal-customer');
+    loadData();
+  }
+
+  async function saveProduct() {
+    const product = {
+      name: document.getElementById('pro-name').value,
+      price: parseInt(document.getElementById('pro-price').value),
+      desc: document.getElementById('pro-desc').value,
+      time: new Date().toISOString()
+    };
+    await saveToUpstash('products', product);
+    closeModal('modal-product');
+    loadData();
+  }
+
+  // Load data on start
+  loadData();
+  // Auto refresh every 30 seconds
+  setInterval(loadData, 30000);
+</script>
+</body>
+</html>

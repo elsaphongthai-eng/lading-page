@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đăng Ký Tham Gia | Chạm Hành Trình Vươn Mình Rực Rỡ</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose: #E8275A;
+    --rose-light: #fde8ee;
+    --rose-dark: #c41e48;
+    --rose-pale: #fff0f4;
+    --gold: #c9a96e;
+    --dark: #2a1a1e;
+    --text: #3d2428;
+    --text-light: #7a5560;
+    --white: #ffffff;
+    --cream: #fff8fa;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    color: var(--dark);
+    background: var(--cream);
+    line-height: 1.8;
+    font-size: 16px;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    line-height: 1.3;
+  }
+
+  .topbar {
+    background: var(--rose);
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+  }
+
+  .hero {
+    background: linear-gradient(160deg, #fff0f4 0%, #fde8ee 50%, #fff0f4 100%);
+    text-align: center;
+    padding: 56px 20px 48px;
+  }
+
+  .hero h1 {
+    font-size: clamp(24px, 4vw, 40px);
+    color: var(--dark);
+    margin-bottom: 12px;
+  }
+
+  .hero h1 span { color: var(--rose); font-style: italic; }
+
+  .hero p {
+    color: var(--text-light);
+    font-size: 16px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* STEPS */
+  .steps {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    max-width: 600px;
+    margin: 0 auto 48px;
+    padding: 0 20px;
+  }
+
+  .step {
+    flex: 1;
+    text-align: center;
+    position: relative;
+  }
+
+  .step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 18px;
+    right: -50%;
+    width: 100%;
+    height: 2px;
+    background: #f0d0d8;
+    z-index: 0;
+  }
+
+  .step-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #f0d0d8;
+    color: var(--text-light);
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s;
+  }
+
+  .step.active .step-circle {
+    background: var(--rose);
+    color: white;
+  }
+
+  .step.done .step-circle {
+    background: #4CAF50;
+    color: white;
+  }
+
+  .step-label {
+    font-size: 12px;
+    color: var(--text-light);
+    font-weight: 500;
+  }
+
+  .step.active .step-label { color: var(--rose); font-weight: 600; }
+
+  /* MAIN LAYOUT */
+  .main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  @media (max-width: 680px) {
+    .main { grid-template-columns: 1fr; }
+    .order-summary { order: -1; }
+  }
+
+  /* FORM PANEL */
+  .form-panel {
+    background: white;
+    border-radius: 12px;
+    padding: 36px;
+    box-shadow: 0 4px 24px rgba(232,39,90,0.08);
+  }
+
+  .form-panel h2 {
+    font-size: 22px;
+    color: var(--dark);
+    margin-bottom: 24px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 8px;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid #f0d8de;
+    border-radius: 8px;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 15px;
+    color: var(--dark);
+    background: var(--cream);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .form-group input:focus {
+    border-color: var(--rose);
+    background: white;
+  }
+
+  .form-group input.error {
+    border-color: #ff4444;
+  }
+
+  .error-msg {
+    font-size: 12px;
+    color: #ff4444;
+    margin-top: 4px;
+    display: none;
+  }
+
+  .submit-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--rose) 0%, var(--rose-dark) 100%);
+    color: white;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    padding: 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 6px 24px rgba(232,39,90,0.35);
+    transition: all 0.3s;
+    margin-top: 8px;
+  }
+
+  .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 32px rgba(232,39,90,0.45);
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* ORDER SUMMARY */
+  .order-summary {
+    background: white;
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 4px 24px rgba(232,39,90,0.08);
+  }
+
+  .order-summary h3 {
+    font-size: 18px;
+    color: var(--dark);
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--rose-light);
+  }
+
+  .order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid #f8f0f2;
+    gap: 12px;
+  }
+
+  .order-item:last-of-type { border-bottom: none; }
+
+  .order-item-name {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .order-item-price {
+    font-size: 14px;
+    color: var(--text-light);
+    white-space: nowrap;
+    text-decoration: line-through;
+  }
+
+  .order-total {
+    background: var(--rose-pale);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .order-total-label {
+    font-weight: 600;
+    color: var(--dark);
+    font-size: 15px;
+  }
+
+  .order-total-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--rose);
+  }
+
+  .trust-items {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-light);
+  }
+
+  .trust-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  /* QR SCREEN */
+  #qr-screen {
+    display: none;
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+    text-align: center;
+  }
+
+  .qr-card {
+    background: white;
+    border-radius: 16px;
+    padding: 40px 32px;
+    box-shadow: 0 4px 32px rgba(232,39,90,0.12);
+  }
+
+  .qr-card h2 {
+    font-size: 22px;
+    color: var(--dark);
+    margin-bottom: 8px;
+  }
+
+  .qr-card .qr-sub {
+    font-size: 14px;
+    color: var(--text-light);
+    margin-bottom: 28px;
+  }
+
+  .qr-amount {
+    background: var(--rose-pale);
+    border-radius: 8px;
+    padding: 12px 20px;
+    margin-bottom: 24px;
+    display: inline-block;
+  }
+
+  .qr-amount span {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--rose);
+  }
+
+  .qr-amount small {
+    display: block;
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 2px;
+  }
+
+  #qr-image-container {
+    margin: 0 auto 20px;
+    width: 220px;
+    height: 220px;
+    border: 2px solid var(--rose-light);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+  }
+
+  #qr-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .qr-note {
+    font-size: 13px;
+    color: var(--text-light);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .qr-note strong {
+    color: var(--rose);
+  }
+
+  .qr-transfer-info {
+    background: #f8f8f8;
+    border-radius: 8px;
+    padding: 16px 20px;
+    text-align: left;
+    margin-bottom: 24px;
+    font-size: 14px;
+  }
+
+  .qr-transfer-info div {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .qr-transfer-info div:last-child { border-bottom: none; }
+
+  .qr-transfer-info .label { color: var(--text-light); }
+  .qr-transfer-info .value { font-weight: 600; color: var(--dark); }
+
+  .qr-status {
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+
+  .qr-status.waiting {
+    background: #fff8e1;
+    color: #f57c00;
+    border: 1px solid #ffe082;
+  }
+
+  .qr-status.success {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+    display: none;
+  }
+
+  .btn-check {
+    width: 100%;
+    background: white;
+    color: var(--rose);
+    border: 2px solid var(--rose);
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 13px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 12px;
+  }
+
+  .btn-check:hover {
+    background: var(--rose-pale);
+  }
+
+  /* SUCCESS SCREEN */
+  #success-screen {
+    display: none;
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+    text-align: center;
+  }
+
+  .success-card {
+    background: white;
+    border-radius: 16px;
+    padding: 48px 32px;
+    box-shadow: 0 4px 32px rgba(232,39,90,0.12);
+  }
+
+  .success-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+    display: block;
+    animation: popIn 0.5s ease;
+  }
+
+  @keyframes popIn {
+    0% { transform: scale(0); opacity: 0; }
+    70% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .success-card h2 {
+    font-size: 26px;
+    color: var(--dark);
+    margin-bottom: 12px;
+  }
+
+  .success-card p {
+    font-size: 15px;
+    color: var(--text-light);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .zalo-btn {
+    display: inline-block;
+    background: #0068FF;
+    color: white;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 16px 36px;
+    border-radius: 8px;
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(0,104,255,0.3);
+    transition: all 0.3s;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .zalo-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(0,104,255,0.4);
+  }
+
+  footer {
+    background: var(--dark);
+    color: #b08090;
+    text-align: center;
+    padding: 28px 20px;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+  }
+
+  .loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  Challenge 21 Ngày &nbsp;·&nbsp; Chạm Hành Trình Vươn Mình Rực Rỡ &nbsp;·&nbsp; Khai giảng 06/06/2026
+</div>
+
+<div class="hero">
+  <h1>Đăng Ký <span>Chạm Hành Trình Vươn Mình Rực Rỡ</span></h1>
+  <p style="margin-bottom: 36px;">Chỉ còn vài bước nữa — chị em sẽ chính thức bắt đầu hành trình của mình 🌸</p>
+
+  <div class="steps" id="steps-indicator">
+    <div class="step active" id="step1-indicator">
+      <div class="step-circle">1</div>
+      <div class="step-label">Thông tin</div>
+    </div>
+    <div class="step" id="step2-indicator">
+      <div class="step-circle">2</div>
+      <div class="step-label">Thanh toán</div>
+    </div>
+    <div class="step" id="step3-indicator">
+      <div class="step-circle">3</div>
+      <div class="step-label">Hoàn tất</div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 1: FORM -->
+<div id="form-screen">
+  <div class="main">
+    <div class="form-panel">
+      <h2>Thông tin đăng ký</h2>
+
+      <div class="form-group">
+        <label>Họ và tên *</label>
+        <input type="text" id="input-name" placeholder="Nguyễn Thị Lan">
+        <div class="error-msg" id="err-name">Vui lòng nhập họ tên của chị em</div>
+      </div>
+
+      <div class="form-group">
+        <label>Số điện thoại *</label>
+        <input type="tel" id="input-phone" placeholder="0901 234 567">
+        <div class="error-msg" id="err-phone">Vui lòng nhập số điện thoại hợp lệ</div>
+      </div>
+
+      <div class="form-group">
+        <label>Email *</label>
+        <input type="email" id="input-email" placeholder="email@gmail.com">
+        <div class="error-msg" id="err-email">Vui lòng nhập email hợp lệ</div>
+      </div>
+
+      <button class="submit-btn" id="submit-btn" onclick="submitForm()">
+        Tiếp Tục Thanh Toán →
+      </button>
+    </div>
+
+    <div class="order-summary">
+      <h3>Đơn hàng của chị em</h3>
+
+      <div class="order-item">
+        <div class="order-item-name">
+          <strong>Challenge 21 Ngày</strong><br>
+          Chạm Hành Trình Vươn Mình Rực Rỡ
+        </div>
+        <div class="order-item-price">9.900.000đ</div>
+      </div>
+
+      <div class="order-item">
+        <div class="order-item-name" style="font-size:13px; color: #4CAF50;">
+          🎁 Trọn bộ quà tặng độc quyền (21 audio + 10 video)
+        </div>
+        <div class="order-item-price" style="color:#4CAF50; text-decoration:none; font-size:13px;">Miễn phí</div>
+      </div>
+
+      <div class="order-total">
+        <div class="order-total-label">Tổng thanh toán</div>
+        <div class="order-total-price">990.000đ</div>
+      </div>
+
+      <div class="trust-items">
+        <div class="trust-item">
+          <span class="trust-icon">🔒</span>
+          <span>Thanh toán an toàn qua SePay & MBBank</span>
+        </div>
+        <div class="trust-item">
+          <span class="trust-icon">✅</span>
+          <span>Hoàn tiền 100% nếu không hài lòng sau 30 ngày</span>
+        </div>
+        <div class="trust-item">
+          <span class="trust-icon">📱</span>
+          <span>Nhận link nhóm Zalo ngay sau khi thanh toán</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 2: QR PAYMENT -->
+<div id="qr-screen">
+  <div class="qr-card">
+    <h2>Quét mã để thanh toán</h2>
+    <p class="qr-sub">Mở app ngân hàng → Quét mã QR bên dưới</p>
+
+    <div class="qr-amount">
+      <span>990.000đ</span>
+      <small>Challenge 21 Ngày — Chạm Hành Trình Rực Rỡ</small>
+    </div>
+
+    <div id="qr-image-container">
+      <img id="qr-img" src="" alt="QR thanh toán">
+    </div>
+
+    <div class="qr-transfer-info" id="qr-transfer-info">
+      <div>
+        <span class="label">Ngân hàng</span>
+        <span class="value">MBBank</span>
+      </div>
+      <div>
+        <span class="label">Số tài khoản</span>
+        <span class="value">0945461368</span>
+      </div>
+      <div>
+        <span class="label">Chủ tài khoản</span>
+        <span class="value">DANG THI THANH PHUONG</span>
+      </div>
+      <div>
+        <span class="label">Số tiền</span>
+        <span class="value" style="color: var(--rose);">990.000đ</span>
+      </div>
+      <div>
+        <span class="label">Nội dung CK</span>
+        <span class="value" id="qr-content-display" style="color: var(--rose);"></span>
+      </div>
+    </div>
+
+    <p class="qr-note">
+      ⚠️ Vui lòng chuyển khoản <strong>đúng số tiền và nội dung</strong> để hệ thống xác nhận tự động.<br>
+      Sau khi chuyển, nhấn nút bên dưới để kiểm tra.
+    </p>
+
+    <div class="qr-status waiting" id="qr-status-waiting">
+      ⏳ Đang chờ xác nhận thanh toán...
+    </div>
+    <div class="qr-status success" id="qr-status-success">
+      ✅ Thanh toán thành công!
+    </div>
+
+    <button class="btn-check" id="btn-check" onclick="checkPayment()">
+      Tôi Đã Chuyển Khoản — Kiểm Tra Ngay
+    </button>
+
+    <p style="font-size: 12px; color: var(--text-light); text-align:center;">
+      Cần hỗ trợ? Nhắn tin Zalo: <strong>0945461368</strong>
+    </p>
+  </div>
+</div>
+
+<!-- STEP 3: SUCCESS -->
+<div id="success-screen">
+  <div class="success-card">
+    <span class="success-icon">🎉</span>
+    <h2>Chào mừng chị em!</h2>
+    <p>
+      Thanh toán thành công! Chị em đã chính thức là thành viên của<br>
+      <strong style="color: var(--rose);">Chạm Hành Trình Vươn Mình Rực Rỡ</strong>
+    </p>
+    <p>
+      Nhấn vào nút bên dưới để vào nhóm Zalo riêng tư —<br>
+      nơi Phương sẽ đồng hành cùng chị em trong 21 ngày tới 🌸
+    </p>
+    <a href="https://zalo.me/g/5n6zo95sbdsxrztzzdml" class="zalo-btn" target="_blank">
+      💬 Vào Nhóm Zalo Ngay
+    </a>
+    <p style="font-size: 13px; color: var(--text-light);">
+      Phương cũng sẽ gửi email xác nhận và tài liệu chuẩn bị trước khai giảng.<br>
+      Hẹn gặp chị em ngày 06/06/2026 nhé! 💕
+    </p>
+  </div>
+</div>
+
+<footer>
+  Chạm Hành Trình Vươn Mình Rực Rỡ &nbsp;·&nbsp; Elsa Phương &nbsp;·&nbsp; 2026
+</footer>
+
+<script>
+  // ============================================================
+  // CẤU HÌNH — Thay bằng thông tin thật của Phương
+  // ============================================================
+  const SEPAY_MERCHANT_ID = 'SP-LIVE-DT5A9334';
+  const BANK_ACCOUNT = '0945461368';
+  const BANK_NAME = 'MB';
+  const AMOUNT = 990000;
+  const ZALO_LINK = 'https://zalo.me/g/5n6zo95sbdsxrztzzdml';
+  // ============================================================
+
+  let orderCode = '';
+  let customerName = '';
+  let customerEmail = '';
+  let customerPhone = '';
+  let checkInterval = null;
+
+  function generateOrderCode() {
+    const now = new Date();
+    const ts = now.getFullYear().toString().slice(-2)
+      + String(now.getMonth()+1).padStart(2,'0')
+      + String(now.getDate()).padStart(2,'0')
+      + String(now.getHours()).padStart(2,'0')
+      + String(now.getMinutes()).padStart(2,'0')
+      + String(now.getSeconds()).padStart(2,'0');
+    return 'CHAM' + ts;
+  }
+
+  function validateForm() {
+    let valid = true;
+
+    const name = document.getElementById('input-name').value.trim();
+    const phone = document.getElementById('input-phone').value.trim();
+    const email = document.getElementById('input-email').value.trim();
+
+    // Reset errors
+    ['name','phone','email'].forEach(f => {
+      document.getElementById('input-'+f).classList.remove('error');
+      document.getElementById('err-'+f).style.display = 'none';
+    });
+
+    if (!name || name.length < 2) {
+      document.getElementById('input-name').classList.add('error');
+      document.getElementById('err-name').style.display = 'block';
+      valid = false;
+    }
+
+    if (!phone || !/^(0|\+84)[0-9]{8,10}$/.test(phone.replace(/\s/g,''))) {
+      document.getElementById('input-phone').classList.add('error');
+      document.getElementById('err-phone').style.display = 'block';
+      valid = false;
+    }
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      document.getElementById('input-email').classList.add('error');
+      document.getElementById('err-email').style.display = 'block';
+      valid = false;
+    }
+
+    return valid;
+  }
+
+  function submitForm() {
+    if (!validateForm()) return;
+
+    customerName = document.getElementById('input-name').value.trim();
+    customerPhone = document.getElementById('input-phone').value.trim();
+    customerEmail = document.getElementById('input-email').value.trim();
+    orderCode = generateOrderCode();
+
+    // Save to localStorage for reference
+    localStorage.setItem('cham_order', JSON.stringify({
+      code: orderCode, name: customerName,
+      phone: customerPhone, email: customerEmail,
+      amount: AMOUNT, time: new Date().toISOString()
+    }));
+// Lưu khách hàng vào Upstash
+fetch('/api/save-data', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    key: 'customers',
+    value: {
+      name: customerName,
+      phone: customerPhone,
+      email: customerEmail,
+      code: orderCode,
+      time: new Date().toISOString()
+    }
+  })
+});
+    showQRScreen();
+  }
+
+  function showQRScreen() {
+    // Update steps
+    document.getElementById('step1-indicator').classList.remove('active');
+    document.getElementById('step1-indicator').classList.add('done');
+    document.getElementById('step1-indicator').querySelector('.step-circle').textContent = '✓';
+    document.getElementById('step2-indicator').classList.add('active');
+
+    // Generate QR via SePay
+    // Format: https://img.vietqr.io/image/{BANK}-{ACCOUNT}-{TEMPLATE}.png?amount={AMOUNT}&addInfo={CONTENT}&accountName={NAME}
+    const content = orderCode;
+    const qrUrl = `https://img.vietqr.io/image/${BANK_NAME}-${BANK_ACCOUNT}-compact2.png?amount=${AMOUNT}&addInfo=${encodeURIComponent(content)}&accountName=DANG%20THI%20THANH%20PHUONG`;
+
+    document.getElementById('qr-img').src = qrUrl;
+    document.getElementById('qr-content-display').textContent = content;
+
+    // Show QR screen
+    document.getElementById('form-screen').style.display = 'none';
+    document.getElementById('qr-screen').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Auto-check every 10 seconds
+    startAutoCheck();
+  }
+
+  function startAutoCheck() {
+    checkInterval = setInterval(() => {
+      checkPaymentSilent();
+    }, 10000);
+  }
+
+  async function checkPaymentSilent() {
+    try {
+      const result = await verifyPayment();
+      if (result) {
+        clearInterval(checkInterval);
+        showSuccess();
+      }
+    } catch(e) {}
+  }
+
+  async function checkPayment() {
+    const btn = document.getElementById('btn-check');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="loading-spinner"></span>Đang kiểm tra...';
+
+    try {
+      const result = await verifyPayment();
+      if (result) {
+        clearInterval(checkInterval);
+        showSuccess();
+      } else {
+        document.getElementById('qr-status-waiting').textContent = '⏳ Chưa nhận được thanh toán. Vui lòng kiểm tra lại nội dung chuyển khoản và thử lại sau 30 giây.';
+        btn.disabled = false;
+        btn.textContent = 'Kiểm Tra Lại';
+      }
+    } catch(e) {
+      btn.disabled = false;
+      btn.textContent = 'Kiểm Tra Lại';
+    }
+  }
+
+  async function verifyPayment() {
+    try {
+      const response = await fetch(`/api/check-payment?order_code=${orderCode}`);
+      const data = await response.json();
+      return data.found === true;
+    } catch(e) {
+      return false;
+    }
+  }
+
+  function showSuccess() {
+    // Update steps
+    document.getElementById('step2-indicator').classList.remove('active');
+    document.getElementById('step2-indicator').classList.add('done');
+    document.getElementById('step2-indicator').querySelector('.step-circle').textContent = '✓';
+    document.getElementById('step3-indicator').classList.add('active');
+
+    document.getElementById('qr-screen').style.display = 'none';
+    document.getElementById('success-screen').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Clear order from storage
+    localStorage.removeItem('cham_order');
+  }
+
+  // Manual success trigger (for testing or manual confirmation)
+  // Remove in production
+  window.manualSuccess = function() { showSuccess(); }
+</script>
+
+</body>
+</html>
+
