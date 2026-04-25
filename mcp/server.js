@@ -38,9 +38,25 @@ async function fetchFromKV(key) {
   }).filter(Boolean);
 }
 
-// Tool 1: get_daily_sales_summary
+async function getKVKey(key) {
+  const url = process.env.KV_REST_API_URL;
+  const token = process.env.KV_REST_API_TOKEN;
+  if (!url || !token) return null;
+  const res = await fetch(`${url}/get/${key}`, { headers: { Authorization: `Bearer ${token}` } });
+  const data = await res.json();
+  return data.result;
+}
+
+async function setKVKey(key, value) {
+  const url = process.env.KV_REST_API_URL;
+  const token = process.env.KV_REST_API_TOKEN;
+  if (!url || !token) return;
+  await fetch(`${url}/set/${key}/${encodeURIComponent(value)}`, { headers: { Authorization: `Bearer ${token}` } });
+}
+
+// Tool 1: get_daily_summary
 server.tool(
-  "get_daily_sales_summary",
+  "get_daily_summary",
   "Lấy báo cáo tổng số đơn đăng ký mới, số đơn đã thanh toán và doanh thu theo ngày",
   {
     date: z.string().optional().describe("Ngày cần lấy báo cáo (YYYY-MM-DD). Mặc định là hôm nay.")
@@ -194,6 +210,64 @@ server.tool(
       };
     } catch (e) {
       return { content: [{ type: "text", text: `Lỗi duyệt đơn: ${e.message}` }] };
+    }
+  }
+);
+
+// Tool 4: get_new_orders
+server.tool(
+  "get_new_orders",
+  "Đọc các đơn hàng mới thanh toán kể từ lần kiểm tra gần nhất",
+  {},
+  async () => {
+    try {
+      const lastCheck = await getKVKey('agent_last_order_check') || "1970-01-01T00:00:00.000Z";
+      const now = new Date().toISOString();
+      const orders = await fetchFromKV('orders');
+      
+      const newOrders = orders.filter(o => o.time && o.time > lastCheck && o.status === 'paid');
+      await setKVKey('agent_last_order_check', now);
+
+      if (newOrders.length === 0) {
+        return { content: [{ type: "text", text: "Không có đơn hàng mới nào." }] };
+      }
+
+      let report = `Có ${newOrders.length} đơn hàng mới thanh toán:\n`;
+      newOrders.forEach((o, i) => {
+        report += `${i+1}. Mã: ${o.code} | Số tiền: ${parseInt(o.amount || 0).toLocaleString('vi-VN')} VND | Nội dung: ${o.content}\n`;
+      });
+      return { content: [{ type: "text", text: report }] };
+    } catch (e) {
+      return { content: [{ type: "text", text: `Lỗi: ${e.message}` }] };
+    }
+  }
+);
+
+// Tool 5: get_new_leads
+server.tool(
+  "get_new_leads",
+  "Đọc danh sách khách hàng mới điền form đăng ký kể từ lần kiểm tra gần nhất",
+  {},
+  async () => {
+    try {
+      const lastCheck = await getKVKey('agent_last_lead_check') || "1970-01-01T00:00:00.000Z";
+      const now = new Date().toISOString();
+      const customers = await fetchFromKV('customers');
+      
+      const newLeads = customers.filter(c => c.time && c.time > lastCheck);
+      await setKVKey('agent_last_lead_check', now);
+
+      if (newLeads.length === 0) {
+        return { content: [{ type: "text", text: "Không có lượt đăng ký form mới nào." }] };
+      }
+
+      let report = `Có ${newLeads.length} lượt đăng ký mới:\n`;
+      newLeads.forEach((c, i) => {
+        report += `${i+1}. Tên: ${c.name} | Email: ${c.email} | SĐT: ${c.phone} | Mã: ${c.code}\n`;
+      });
+      return { content: [{ type: "text", text: report }] };
+    } catch (e) {
+      return { content: [{ type: "text", text: `Lỗi: ${e.message}` }] };
     }
   }
 );
