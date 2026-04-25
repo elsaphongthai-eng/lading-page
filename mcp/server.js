@@ -221,8 +221,8 @@ app.post("/message", async (req, res) => {
 });
 
 // Start Server
-app.listen(port, "127.0.0.1", () => {
-  console.log(`🚀 MCP Server đang chạy tại http://127.0.0.1:${port}`);
-  console.log(`📡 SSE Endpoint: http://127.0.0.1:${port}/sse`);
+app.listen(port, "0.0.0.0", () => {
+  console.log(`🚀 MCP Server đang chạy tại http://0.0.0.0:${port}`);
+  console.log(`📡 SSE Endpoint: http://0.0.0.0:${port}/sse`);
   console.log(`Database (KV) URL is ${process.env.KV_REST_API_URL ? 'CONFIGURED' : 'MISSING'}`);
 });
