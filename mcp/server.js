@@ -203,6 +203,13 @@ let transport;
 // Route 1: Khởi tạo kết nối SSE
 app.get("/sse", async (req, res) => {
   console.log("Client connected via SSE");
+  
+  if (transport) {
+    try {
+      await transport.close();
+    } catch(e) {}
+  }
+  
   transport = new SSEServerTransport("/message", res);
   await server.connect(transport);
   
