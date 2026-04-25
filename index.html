@@ -672,7 +672,7 @@ img {
   <p class="hero-sub" style="color:#E8275A; font-weight:600; font-size:18px;">Hành trình giúp Phụ nữ thấy được phiên bản tốt đẹp hơn của chính mình hiện tại.</p>
   <p class="hero-desc" style="color: #2d6a4f; font-weight:500; font-size:17px;">Ngay cả khi hoàn cảnh chưa thay đổi. Đừng để bản thân "ngủ quên" trong những vai trò và đánh mất chính mình thêm nữa.</p>
   <img src="1.png" alt="Elsa Phương">
-  <a href="https://www.elsaphuong.com/thanh-toan" class="cta-btn">MÌNH MUỐN VƯƠN MÌNH RỰC RỠ NGAY BÂY GIỜ!</a>
+  <a href="https://www.elsaphuong.com/thanh-toan.html" class="cta-btn">MÌNH MUỐN VƯƠN MÌNH RỰC RỠ NGAY BÂY GIỜ!</a>
 </section>
 
 <!-- CALLOUT -->
@@ -733,7 +733,7 @@ img {
 
 <!-- CTA 1 -->
 <div class="cta-wrap" style="background: var(--rose-pale);">
-  <a href="https://www.elsaphuong.com/thanh-toan" class="cta-btn">MÌNH MUỐN VƯƠN MÌNH RỰC RỠ NGAY BÂY GIỜ!</a>
+  <a href="https://www.elsaphuong.com/thanh-toan.html" class="cta-btn">MÌNH MUỐN VƯƠN MÌNH RỰC RỠ NGAY BÂY GIỜ!</a>
 </div>
 
 <!-- CHAM METHOD -->
@@ -859,7 +859,7 @@ img {
 
 <!-- CTA 2 -->
 <div class="cta-wrap" style="background: var(--white);">
-  <a href="https://www.elsaphuong.com/thanh-toan" class="cta-btn">MÌNH MUỐN VƯƠN MÌNH RỰC RỠ NGAY BÂY GIỜ!</a>
+  <a href="https://www.elsaphuong.com/thanh-toan.html" class="cta-btn">MÌNH MUỐN VƯƠN MÌNH RỰC RỠ NGAY BÂY GIỜ!</a>
 </div>
 
 <!-- DELIVERABLES — ĐÃ CẬP NHẬT 3 MỤC -->
@@ -932,7 +932,7 @@ img {
         <p>Và Phương muốn những người giống Phương của 10 năm trước — người đang trống rỗng, đang nghi ngờ bản thân, đang không dám bỏ tiền cho chính mình — có thể bước vào mà không vì giá cả mà dừng lại ở cửa.</p>
         <p>Đây là mức giá của đợt khai giảng đầu tiên. Các đợt sau sẽ không còn mức này nữa.</p>
       </div>
-      <a href="https://www.elsaphuong.com/thanh-toan" class="cta-btn" style="background: white; color: var(--rose);">MÌNH MUỐN VƯƠN MÌNH RỰC RỠ NGAY BÂY GIỜ!</a>
+      <a href="https://www.elsaphuong.com/thanh-toan.html" class="cta-btn" style="background: white; color: var(--rose);">MÌNH MUỐN VƯƠN MÌNH RỰC RỠ NGAY BÂY GIỜ!</a>
     </div>
   </div>
 </section>
@@ -950,7 +950,7 @@ img {
 
 <!-- CTA 3 -->
 <div class="cta-wrap" style="background: var(--white);">
-  <a href="https://www.elsaphuong.com/thanh-toan" class="cta-btn">MÌNH MUỐN VƯƠN MÌNH RỰC RỠ NGAY BÂY GIỜ!</a>
+  <a href="https://www.elsaphuong.com/thanh-toan.html" class="cta-btn">MÌNH MUỐN VƯƠN MÌNH RỰC RỠ NGAY BÂY GIỜ!</a>
 </div>
 
 <!-- FAQ — ĐÃ CẬP NHẬT -->
@@ -1010,7 +1010,7 @@ img {
       <strong style="color:#E8275A">Khai giảng: 06/06/2026</strong>
     </p>
     <br>
-    <a href="https://www.elsaphuong.com/thanh-toan" class="cta-btn">MÌNH MUỐN VƯƠN MÌNH RỰC RỠ NGAY BÂY GIỜ!</a>
+    <a href="https://www.elsaphuong.com/thanh-toan.html" class="cta-btn">MÌNH MUỐN VƯƠN MÌNH RỰC RỠ NGAY BÂY GIỜ!</a>
   </div>
 </section>
 
@@ -1018,5 +1018,298 @@ img {
   Chạm Hành Trình Vươn Mình Rực Rỡ &nbsp;·&nbsp; Elsa Phương &nbsp;·&nbsp; 2026
 </footer>
 
+<!-- CHATBOT WIDGET -->
+<style>
+  /* Chatbot styles */
+  .chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    font-family: 'Inter', 'Be Vietnam Pro', sans-serif;
+  }
+  .chatbot-button {
+    width: 60px;
+    height: 60px;
+    background-color: #c0687a;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+  }
+  .chatbot-button:hover {
+    transform: scale(1.05);
+  }
+  .chatbot-button svg {
+    width: 32px;
+    height: 32px;
+    fill: white;
+  }
+  .chatbot-window {
+    display: none;
+    width: 350px;
+    height: 500px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    flex-direction: column;
+    overflow: hidden;
+    animation: slideUp 0.3s ease-out;
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .chatbot-header {
+    background-color: #c0687a;
+    color: white;
+    padding: 16px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+  }
+  .chatbot-close {
+    cursor: pointer;
+    font-size: 24px;
+    line-height: 1;
+  }
+  .chatbot-messages {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    background: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .chat-msg {
+    max-width: 85%;
+    padding: 12px 16px;
+    border-radius: 16px;
+    font-size: 14.5px;
+    line-height: 1.5;
+  }
+  .chat-msg.bot {
+    background: white;
+    color: #333;
+    align-self: flex-start;
+    border: 1px solid #e8d8da;
+    border-bottom-left-radius: 4px;
+  }
+  .chat-msg.user {
+    background: #c0687a;
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+  }
+  .chat-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .chat-option-btn {
+    background: white;
+    border: 1px solid #c0687a;
+    color: #c0687a;
+    padding: 10px 14px;
+    border-radius: 20px;
+    font-size: 13.5px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+  }
+  .chat-option-btn:hover {
+    background: #c0687a;
+    color: white;
+  }
+  @media (max-width: 400px) {
+    .chatbot-window {
+      width: calc(100vw - 40px);
+      height: 60vh;
+    }
+  }
+</style>
+
+<div class="chatbot-container">
+  <div class="chatbot-window" id="chatbotWindow">
+    <div class="chatbot-header">
+      <span>Tư vấn với Phương</span>
+      <span class="chatbot-close" onclick="toggleChat()">×</span>
+    </div>
+    <div class="chatbot-messages" id="chatbotMessages">
+      <!-- Messages will appear here -->
+    </div>
+  </div>
+  <div class="chatbot-button" onclick="toggleChat()">
+    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+  </div>
+</div>
+
+<script>
+  const chatData = {
+    greeting: "Chào chị em thân mến. Phương rất vui và biết ơn khi thấy chị em nhắn tin cho Phương hôm nay. Phương biết có thể chị em đang cảm thấy mệt mỏi, trống rỗng hay đang loay hoay với những trăn trở của riêng mình. Không sao cả, chị em cứ thả lỏng và chậm lại một chút nhé. Phương ở đây để lắng nghe và chia sẻ cùng chị em về CHẠM HÀNH TRÌNH VƯƠN MÌNH RỰC RỠ.",
+    questions: [
+      {
+        q: "1. Khác gì những khóa học ngoài kia?",
+        a: "Phương hiểu thắc mắc của chị em. Đa số sách hay khóa học ngoài kia thường chỉ hướng dẫn thay đổi từ ngoài vào trong. Nhưng Phương nhận ra nếu bên trong chưa sẵn sàng thì mọi cố gắng như đổ nước vào chiếc ly vỡ. Hành trình 21 ngày này giúp chuyển hoá từ sâu bên trong, thấm thía và chữa lành tận gốc rễ trước khi bước ra ngoài."
+      },
+      {
+        q: "2. Rất bận rộn thì có thời gian tham gia không?",
+        a: "Phương rất đồng cảm với sự tất bật của chị em. Mỗi ngày chị em chỉ cần 15-20 phút đọc bài và tĩnh lặng viết ra giấy. 15 phút đó chính là khoảng thời gian chị em tự dành cho mình để hít thở, rút mình ra khỏi guồng quay ngột ngạt."
+      },
+      {
+        q: "3. Mình sợ mua rồi lại bỏ dở giữa chừng...",
+        a: "Việc chị em từng bỏ dở không phải vì thiếu nghị lực đâu, mà vì đã ép bản thân làm sai cách. Hành trình này có nguyên tắc nhỏ: nộp bài hôm trước mới nhận bài hôm sau. Kỷ luật đó sẽ giữ nhịp cho chị em, và luôn có Phương cùng nhóm đồng hành mỗi ngày."
+      },
+      {
+        q: "4. Phương không có bằng cấp tâm lý thì sao giúp được?",
+        a: "Phương hoàn toàn hiểu sự lo lắng này. Điều Phương có là câu chuyện chân thật từ 39 năm sống loay hoay, tự rạn nứt rồi khóc trước gương. Sự đồng cảm thấu tâm can để dìu nhau qua mệt mỏi thì chỉ những người từng trải qua mới hiểu trọn vẹn chị em ạ."
+      },
+      {
+        q: "5. Khóa này mới quá chưa thấy kết quả từ ai?",
+        a: "Đúng vậy chị em ạ, đây là lần đầu Phương mở hành trình đón các chị em mới. Phương muốn những người đồng hành đợt này sẽ là những chứng nhân thật sự bằng sự chuyển hoá bình an của chính mình. Do đó mức phí đợt này rất nhỏ và Phương sẽ sát sao chăm sóc từng người."
+      },
+      {
+        q: "6. Mình tự học một lúc toàn bộ tài liệu được không?",
+        a: "Thực sự là không thể được. Hành trình thiết kế chặt chẽ để bóc tách từ từ. Hôm nay đối diện và thấm thía xong thì ngày mai bước tiếp mới giá trị. Nhảy cóc sẽ làm vỡ mất quá trình chuyển hoá tự nhiên của nội tâm."
+      },
+      {
+        q: "7. Cụ thể trong 21 ngày mình sẽ đi qua những đâu?",
+        a: "Chúng ta đi qua 4 tầng: 7 ngày đầu tĩnh lặng thấu hiểu chính mình. Tuần tiếp theo chuyển hoá và tha thứ. Những ngày sau thiết kế lại khuôn mẫu một ngày mới. Và 2 ngày cuối học cách nuôi dưỡng bình an lan toả ra gia đình."
+      },
+      {
+        q: "8. Có ép mình thay đổi để làm mẹ/vợ tốt hơn không?",
+        a: "Không đâu. Hành trình này không bắt chị em gồng mình hoàn hảo hay hi sinh thêm nữa. Mục đích là tìm lại đúng con người thật của mình. Khi tháo gỡ được bế tắc cho chính mình, sự thuận hoà gia đình sẽ đến như một lẽ tự nhiên."
+      },
+      {
+        q: "9. Ngoài bài đọc mình còn được hỗ trợ gì không?",
+        a: "Bên cạnh 21 bài PDF, mỗi tuần chị em sẽ có 60 phút gặp Phương qua livestream để gỡ vướng mắc. Chúng ta có nhóm Zalo chung, và 3 bản mẫu thực hành viết tay để tự vẽ lại bản đồ nội tâm."
+      },
+      {
+        q: "10. Khó khăn tài chính thì có nên tham gia lúc này?",
+        a: "Mức phí thật sự đã được rút xuống thấp nhất trong đợt đầu này. Phí như một món quà nhỏ để chị em có thêm bình an. Chỉ khi tâm trí bớt kiệt quệ thì các quyết định tài chính hay cuộc sống sau này mới rõ ràng và vững vàng hơn."
+      }
+    ],
+    closing_buy: "Phương cảm nhận được ánh sáng mong muốn tháo gỡ những nặng nề trong lòng chị em rồi. Hành trình này không hứa hẹn lột xác thần tốc, nhưng là sự khởi đầu để tìm lại sự bình an thực sự. Chị em bấm vào nút Đăng Ký bên dưới nhé. Phương rất sẵn lòng bắt đầu cùng chị em.",
+    closing_form: "Phương hoàn toàn hiểu được. Đôi khi mình cần thêm một khoảng lặng để tự cảm nhận. Không sao cả chị em thân mến. Nếu lúc này chưa tiện bắt đầu, chị em cứ để lại thông tin vào form cuối trang. Thi thoảng Phương sẽ gửi vài dòng tâm tình, bài học thấm thía để chị em đọc cho tĩnh tâm."
+  };
+
+  const msgsDiv = document.getElementById('chatbotMessages');
+  let isChatOpen = false;
+  let chatInitialized = false;
+
+  function toggleChat() {
+    const win = document.getElementById('chatbotWindow');
+    isChatOpen = !isChatOpen;
+    win.style.display = isChatOpen ? 'flex' : 'none';
+    if (isChatOpen && !chatInitialized) {
+      initChat();
+      chatInitialized = true;
+    }
+  }
+
+  function addBotMessage(text) {
+    const el = document.createElement('div');
+    el.className = 'chat-msg bot';
+    el.innerHTML = text;
+    msgsDiv.appendChild(el);
+    msgsDiv.scrollTop = msgsDiv.scrollHeight;
+  }
+
+  function addUserMessage(text) {
+    const el = document.createElement('div');
+    el.className = 'chat-msg user';
+    el.innerHTML = text;
+    msgsDiv.appendChild(el);
+    msgsDiv.scrollTop = msgsDiv.scrollHeight;
+  }
+
+  function showQuestions() {
+    const opts = document.createElement('div');
+    opts.className = 'chat-options';
+    chatData.questions.forEach((item, index) => {
+      const btn = document.createElement('button');
+      btn.className = 'chat-option-btn';
+      btn.innerText = item.q;
+      btn.onclick = () => handleQuestionClick(item.q, item.a, opts);
+      opts.appendChild(btn);
+    });
+    msgsDiv.appendChild(opts);
+    msgsDiv.scrollTop = msgsDiv.scrollHeight;
+  }
+
+  function handleQuestionClick(q, a, optsDiv) {
+    optsDiv.remove(); // Remove options
+    addUserMessage(q);
+    setTimeout(() => {
+      addBotMessage(a);
+      showFollowUpOptions();
+    }, 500);
+  }
+
+  function showFollowUpOptions() {
+    const opts = document.createElement('div');
+    opts.className = 'chat-options';
+    opts.style.marginTop = "8px";
+
+    const btn1 = document.createElement('button');
+    btn1.className = 'chat-option-btn';
+    btn1.innerText = "Mình muốn tham gia ngay";
+    btn1.style.background = "#c0687a";
+    btn1.style.color = "white";
+    btn1.onclick = () => {
+      opts.remove();
+      addUserMessage(btn1.innerText);
+      setTimeout(() => {
+        addBotMessage(chatData.closing_buy + '<br><br><a href="#dang-ky" onclick="toggleChat()" style="display:inline-block;background:#c0687a;color:white;padding:8px 16px;border-radius:4px;text-decoration:none;font-weight:bold;margin-top:8px;">Đăng Ký Ngay</a>');
+      }, 500);
+    };
+
+    const btn2 = document.createElement('button');
+    btn2.className = 'chat-option-btn';
+    btn2.innerText = "Mình cần suy nghĩ thêm";
+    btn2.onclick = () => {
+      opts.remove();
+      addUserMessage(btn2.innerText);
+      setTimeout(() => {
+        addBotMessage(chatData.closing_form);
+      }, 500);
+    };
+
+    const btn3 = document.createElement('button');
+    btn3.className = 'chat-option-btn';
+    btn3.innerText = "Quay lại danh sách câu hỏi";
+    btn3.onclick = () => {
+      opts.remove();
+      addUserMessage(btn3.innerText);
+      setTimeout(() => {
+        showQuestions();
+      }, 300);
+    };
+
+    opts.appendChild(btn1);
+    opts.appendChild(btn2);
+    opts.appendChild(btn3);
+    msgsDiv.appendChild(opts);
+    msgsDiv.scrollTop = msgsDiv.scrollHeight;
+  }
+
+  function initChat() {
+    addBotMessage(chatData.greeting);
+    setTimeout(() => {
+      showQuestions();
+    }, 800);
+  }
+</script>
 </body>
 </html>
