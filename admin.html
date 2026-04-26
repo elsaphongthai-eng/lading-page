@@ -102,6 +102,21 @@
     border: 1.5px solid #E8275A;
   }
   .btn-outline:hover { background: #fff0f4; }
+  .btn-approve {
+    background: #2e7d32;
+    color: white;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 5px;
+    font-family: 'Be Vietnam Pro';
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .btn-approve:hover { background: #1b5e20; }
+  .btn-approve:disabled { opacity: 0.6; cursor: not-allowed; }
 
   table { width: 100%; border-collapse: collapse; }
   th {
@@ -369,20 +384,24 @@
         <thead>
           <tr>
             <th>Mã đơn</th>
+            <th>Tên KH</th>
             <th>Số tiền</th>
             <th>Thời gian</th>
             <th>Trạng thái</th>
+            <th>Hành động</th>
           </tr>
         </thead>
         <tbody>
           ${orders.map(o => `
             <tr>
               <td><strong>${o.code || '—'}</strong></td>
+              <td>${o.name || '—'}</td>
               <td>${(o.amount || 0).toLocaleString('vi-VN')}đ</td>
               <td>${o.time ? new Date(o.time).toLocaleString('vi-VN') : '—'}</td>
               <td><span class="badge badge-${o.status === 'paid' ? 'paid' : 'pending'}">
                 ${o.status === 'paid' ? '✅ Đã thanh toán' : '⏳ Chờ thanh toán'}
               </span></td>
+              <td>${o.status !== 'paid' ? `<button class="btn-approve" onclick="approveOrder('${o.code}')">✔ Duyệt</button>` : '—'}</td>
             </tr>
           `).join('')}
         </tbody>
@@ -458,6 +477,32 @@
   function openAddCustomer() { document.getElementById('modal-customer').classList.add('open'); }
   function openAddProduct() { document.getElementById('modal-product').classList.add('open'); }
   function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+  async function approveOrder(code) {
+    if (!confirm(`Duyệt đơn hàng ${code} → paid?`)) return;
+    const btn = event.target;
+    btn.disabled = true;
+    btn.textContent = 'Đang xử lý...';
+    try {
+      const res = await fetch('/api/update-status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code, status: 'paid' })
+      });
+      const data = await res.json();
+      if (data.success) {
+        await loadData();
+      } else {
+        alert('Lỗi: ' + (data.error || 'Không thể duyệt đơn'));
+        btn.disabled = false;
+        btn.textContent = '✔ Duyệt';
+      }
+    } catch(e) {
+      alert('Lỗi kết nối: ' + e.message);
+      btn.disabled = false;
+      btn.textContent = '✔ Duyệt';
+    }
+  }
 
   async function saveToUpstash(key, value) {
     await fetch('/api/save-data', {
