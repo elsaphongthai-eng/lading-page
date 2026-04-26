@@ -813,6 +813,23 @@ fetch('/api/save-data', {
     }
   })
 });
+// Tạo đơn hàng pending vào Upstash
+fetch('/api/save-data', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    key: 'orders',
+    value: {
+      code: orderCode,
+      name: customerName,
+      phone: customerPhone,
+      email: customerEmail,
+      amount: AMOUNT,
+      status: 'pending',
+      time: new Date().toISOString()
+    }
+  })
+});
     showQRScreen();
   }
 
