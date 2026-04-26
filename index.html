@@ -1025,78 +1025,92 @@ img {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    z-index: 9999;
+    z-index: 2147483647;
     font-family: 'Inter', 'Be Vietnam Pro', sans-serif;
+    pointer-events: all;
   }
   .chatbot-button {
     width: 60px;
     height: 60px;
     background-color: #c0687a;
     border-radius: 50%;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 20px rgba(192,104,122,0.5);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    z-index: 2147483647;
+    pointer-events: all;
   }
   .chatbot-button:hover {
-    transform: scale(1.05);
+    transform: scale(1.08);
+    box-shadow: 0 6px 24px rgba(192,104,122,0.6);
   }
   .chatbot-button svg {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     fill: white;
+    pointer-events: none;
   }
   .chatbot-window {
     display: none;
-    width: 350px;
+    width: 340px;
     height: 500px;
     background: white;
-    border-radius: 12px;
-    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
-    position: absolute;
-    bottom: 80px;
-    right: 0;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    z-index: 2147483646;
     flex-direction: column;
     overflow: hidden;
-    animation: slideUp 0.3s ease-out;
+    animation: cbSlideUp 0.25s ease-out;
+    pointer-events: all;
   }
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+  @keyframes cbSlideUp {
+    from { opacity: 0; transform: translateY(16px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
   }
   .chatbot-header {
     background-color: #c0687a;
     color: white;
-    padding: 16px;
+    padding: 14px 18px;
     font-weight: bold;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-family: 'Playfair Display', serif;
-    font-size: 18px;
+    font-size: 17px;
+    flex-shrink: 0;
   }
   .chatbot-close {
     cursor: pointer;
-    font-size: 24px;
+    font-size: 26px;
     line-height: 1;
+    opacity: 0.85;
+    transition: opacity 0.2s;
   }
+  .chatbot-close:hover { opacity: 1; }
   .chatbot-messages {
     flex: 1;
-    padding: 16px;
+    padding: 14px;
     overflow-y: auto;
-    background: #f9f9f9;
+    background: #fdf7f8;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
+    min-height: 0;
   }
   .chat-msg {
-    max-width: 85%;
-    padding: 12px 16px;
-    border-radius: 16px;
-    font-size: 14.5px;
-    line-height: 1.5;
+    max-width: 88%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 14px;
+    line-height: 1.55;
+    word-break: break-word;
   }
   .chat-msg.bot {
     background: white;
@@ -1104,6 +1118,7 @@ img {
     align-self: flex-start;
     border: 1px solid #e8d8da;
     border-bottom-left-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
   }
   .chat-msg.user {
     background: #c0687a;
@@ -1114,28 +1129,37 @@ img {
   .chat-options {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    margin-top: 4px;
+    gap: 7px;
+    margin-top: 2px;
   }
   .chat-option-btn {
     background: white;
-    border: 1px solid #c0687a;
+    border: 1.5px solid #c0687a;
     color: #c0687a;
-    padding: 10px 14px;
+    padding: 9px 14px;
     border-radius: 20px;
-    font-size: 13.5px;
+    font-size: 13px;
     cursor: pointer;
     text-align: left;
-    transition: all 0.2s;
+    transition: all 0.18s;
+    line-height: 1.4;
+    pointer-events: all;
   }
   .chat-option-btn:hover {
     background: #c0687a;
     color: white;
   }
-  @media (max-width: 400px) {
+  @media (max-width: 420px) {
     .chatbot-window {
-      width: calc(100vw - 40px);
-      height: 60vh;
+      width: calc(100vw - 20px);
+      right: 10px;
+      bottom: 80px;
+      height: 62vh;
+      max-height: 520px;
+    }
+    .chatbot-container {
+      right: 10px;
+      bottom: 10px;
     }
   }
 </style>
