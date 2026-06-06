@@ -1,6 +1,8 @@
 {
   "rewrites": [
     { "source": "/thanh-toan", "destination": "/thanh-toan.html" },
-    { "source": "/admin", "destination": "/admin.html" }
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/thanh-toan-21ngay-dangngoc", "destination": "/thanh-toan-21ngay-dangngoc.html" },
+    { "source": "/cam-on-21ngay-dangngoc", "destination": "/cam-on-21ngay-dangngoc.html" }
   ]
 }

@@ -1,3 +1,8 @@
+// Webhook IPN từ SePay. Phân biệt gói theo SỐ TIỀN:
+//   amount >= 750000 && amount < 900000  -> Khoá 21 Ngày Dáng Ngọc An Nhiên (799K)
+//   else                                 -> Chạm Hành Trình Vươn Mình Rực Rỡ (990K, mặc định cũ)
+// Mã đơn: hỗ trợ cả tiền tố CHAM (cũ) và DNAN (Dáng Ngọc An Nhiên, mới).
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
@@ -6,11 +11,11 @@ export default async function handler(req, res) {
   const body = req.body;
   const content = body.transaction_content || body.content || body.description || '';
   const amount = parseInt(body.transferAmount || body.amount_in || body.amount || 0);
-  const match = content.match(/CHAM[A-Z0-9]+/i);
+  const match = content.match(/(?:CHAM|DNAN)[A-Z0-9]+/i);
   console.log('content:', content, 'amount:', amount, 'match:', match);
 
   if (match && amount >= 1000) {
-    const orderCode = match[0];
+    const orderCode = match[0].toUpperCase();
     const url = process.env.KV_REST_API_URL;
     const token = process.env.KV_REST_API_TOKEN;
 
@@ -45,16 +50,20 @@ export default async function handler(req, res) {
       }).filter(Boolean);
 
       console.log('orderCode looking for:', orderCode);
-      console.log('All customers data:', JSON.stringify(customers));
-      console.log('orderCode looking for:', orderCode);
-console.log('All customers data:', JSON.stringify(customers));
-const customer = customers.find(c => c.code === orderCode);
+      const customer = customers.find(c => c.code && c.code.toUpperCase() === orderCode);
       console.log('Customer found:', customer);
 
       if (customer && customer.email) {
         const host = req.headers['x-forwarded-host'] || req.headers.host;
         const protocol = 'https';
-        const response = await fetch(`${protocol}://${host}/api/send-order-confirm`, {
+
+        // Phân biệt gói theo số tiền (an toàn: chỉ thêm nhánh 799K, giữ y nguyên hành vi cũ)
+        const is799k = amount >= 750000 && amount < 900000;
+        const endpoint  = is799k ? 'send-order-confirm-21ngay-dangngoc' : 'send-order-confirm';
+        const product   = is799k ? 'Khoá 21 Ngày Dáng Ngọc An Nhiên' : 'Chạm Hành Trình Vươn Mình Rực Rỡ';
+        console.log('Payment type:', is799k ? '799K (Dáng Ngọc An Nhiên)' : '990K (Chạm Hành Trình)', '| amount:', amount);
+
+        const response = await fetch(`${protocol}://${host}/api/${endpoint}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -62,7 +71,7 @@ const customer = customers.find(c => c.code === orderCode);
             name: customer.name,
             code: orderCode,
             amount: amount,
-            product: 'Chạm Hành Trình Vươn Mình Rực Rỡ'
+            product: product
           })
         });
         console.log('Sent confirmation email to:', customer.email);
