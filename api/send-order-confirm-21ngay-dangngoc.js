@@ -21,9 +21,9 @@ export default async function handler(req, res) {
     <h3 style="color:#D81B60;font-size:18px;margin:28px 0 10px;">📚 Thông tin học viên — Vào học ngay</h3>
     <div style="background:#FFF8E1;border:2px dashed #D81B60;border-radius:12px;padding:20px 24px;margin:16px 0;font-family:'Courier New',monospace;">
       <p style="margin:6px 0;font-family:Georgia,serif;font-size:14px;color:#5C4404;">Phương đã tạo tài khoản học cho chị em. Đây là thông tin đăng nhập:</p>
-      <p style="margin:14px 0 6px;font-size:14px;">Mã số học viên: <strong style="color:#D81B60;font-size:16px;letter-spacing:1px;">${studentId}</strong></p>
-      <p style="margin:6px 0;font-size:14px;">Email đăng nhập: <strong style="color:#4A3429;">${email}</strong></p>
-      <p style="margin:6px 0;font-size:14px;">Mật khẩu: <strong style="color:#D81B60;font-size:18px;letter-spacing:2px;">${password}</strong></p>
+      <p style="margin:14px 0 6px;font-size:14px;">Email đăng nhập: <strong style="color:#4A3429;">${email}</strong></p>
+      <p style="margin:6px 0;font-size:14px;">Mã số học viên / Mật khẩu: <strong style="color:#D81B60;font-size:18px;letter-spacing:2px;">${studentId}</strong></p>
+      <p style="margin:6px 0 0;font-size:12px;color:#7B5A0D;font-style:italic;">(Mã số học viên cũng chính là mật khẩu đăng nhập của chị em)</p>
     </div>
     <p style="text-align:center;margin:24px 0;">
       <a href="${loginUrl}"
