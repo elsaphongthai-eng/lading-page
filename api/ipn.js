@@ -97,7 +97,7 @@ export default async function handler(req, res) {
               const incrData = await incrRes.json();
               const studentNum = incrData.result;
               studentId = 'DNAN' + String(studentNum).padStart(3, '0');
-              password = generatePassword(4);
+              password = studentId;  // password = mã số học viên (theo yêu cầu Phương)
 
               const userRecord = {
                 studentId,
