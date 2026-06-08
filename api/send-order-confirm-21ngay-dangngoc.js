@@ -1,5 +1,5 @@
 // Email xác nhận đơn hàng cho Khoá 21 Ngày Dáng Ngọc An Nhiên (799K).
-// Gọi từ api/ipn.js sau khi SePay xác nhận đã nhận tiền.
+// Có khối "Thông tin học viên" (Student ID + email + password) khi có credentials.
 import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -9,11 +9,32 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { email, name, code, amount, product } = req.body;
+  const { email, name, code, amount, product, studentId, password } = req.body;
   if (!email) return res.status(400).json({ error: 'Thiếu email' });
 
   const productName = product || 'Khoá 21 Ngày Dáng Ngọc An Nhiên';
   const greetingName = name || 'chị em';
+  const loginUrl = 'https://elsaphuong.com/khoahoc/';
+
+  // Khối credentials chỉ hiện khi có Student ID + password (paid 799K)
+  const credentialsBlock = (studentId && password) ? `
+    <h3 style="color:#D81B60;font-size:18px;margin:28px 0 10px;">📚 Thông tin học viên — Vào học ngay</h3>
+    <div style="background:#FFF8E1;border:2px dashed #D81B60;border-radius:12px;padding:20px 24px;margin:16px 0;font-family:'Courier New',monospace;">
+      <p style="margin:6px 0;font-family:Georgia,serif;font-size:14px;color:#5C4404;">Phương đã tạo tài khoản học cho chị em. Đây là thông tin đăng nhập:</p>
+      <p style="margin:14px 0 6px;font-size:14px;">Mã số học viên: <strong style="color:#D81B60;font-size:16px;letter-spacing:1px;">${studentId}</strong></p>
+      <p style="margin:6px 0;font-size:14px;">Email đăng nhập: <strong style="color:#4A3429;">${email}</strong></p>
+      <p style="margin:6px 0;font-size:14px;">Mật khẩu: <strong style="color:#D81B60;font-size:18px;letter-spacing:2px;">${password}</strong></p>
+    </div>
+    <p style="text-align:center;margin:24px 0;">
+      <a href="${loginUrl}"
+         style="background:linear-gradient(90deg,#D81B60,#AD1457);color:#fff;padding:14px 36px;border-radius:40px;text-decoration:none;font-weight:700;display:inline-block;font-family:'Be Vietnam Pro',sans-serif;box-shadow:0 6px 22px rgba(216,27,96,.3);">
+        → Vào học ngay
+      </a>
+    </p>
+    <p style="margin:12px 0;font-size:13px;color:#8B6F5C;font-style:italic;text-align:center;">
+      Chị em lưu lại email này để dùng đăng nhập sau này nhé.
+    </p>
+  ` : '';
 
   try {
     await resend.emails.send({
@@ -35,7 +56,9 @@ export default async function handler(req, res) {
             <p style="margin:4px 0;">💰 Số tiền: <strong>${Number(amount).toLocaleString('vi-VN')}đ</strong></p>
           </div>
 
-          <p><strong>Bước tiếp theo:</strong></p>
+          ${credentialsBlock}
+
+          <h3 style="color:#D81B60;font-size:17px;margin:28px 0 8px;">Bước tiếp theo:</h3>
           <ul style="padding-left: 22px;">
             <li>Trong vài giờ tới, Phương sẽ gửi cho chị một email riêng kèm <strong>link nhóm đồng hành</strong>, lịch khai giảng và hướng dẫn chi tiết.</li>
             <li>Chị nhớ kiểm tra hộp thư <em>Spam / Quảng cáo</em> giúp Phương nhé, đôi khi email lạc vào đó.</li>
@@ -43,7 +66,7 @@ export default async function handler(req, res) {
           </ul>
 
           <p style="text-align:center; margin:28px 0;">
-            <a href="https://zalo.me/0945461368"
+            <a href="https://zalo.me/0965050529"
                style="background:#0068FF; color:#fff; padding:12px 28px; border-radius:40px; text-decoration:none; font-weight:600; display:inline-block;">
               💬 Nhắn Zalo cho Phương
             </a>
