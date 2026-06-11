@@ -3,18 +3,9 @@
 //   else                                 -> Chạm Hành Trình Vươn Mình Rực Rỡ (990K, mặc định cũ)
 // Mã đơn: hỗ trợ cả tiền tố CHAM (cũ) và DNAN (Dáng Ngọc An Nhiên, mới).
 //
-// 799K paid → sinh Student ID + password → lưu user_<email> Upstash → email kèm credentials.
+// 799K paid → sinh Student ID (EP000001+) → password = studentId → lưu user_<email> Upstash → email kèm credentials + Telegram báo Phương.
 
-// 4 ký tự random, bỏ I/O/L/0/1 cho dễ đọc trên điện thoại
-function generatePassword(length) {
-  length = length || 4;
-  const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
-  let p = '';
-  for (let i = 0; i < length; i++) {
-    p += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return p;
-}
+import { notifyTelegram, vnd } from './_lib/notify-telegram.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
@@ -54,7 +45,7 @@ export default async function handler(req, res) {
 
     // Tìm thông tin khách hàng
     try {
-      const customersRes = await fetch(`${url}/lrange/customers/0/100`, {
+      const customersRes = await fetch(`${url}/lrange/customers/0/200`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const customersData = await customersRes.json();
@@ -62,7 +53,6 @@ export default async function handler(req, res) {
         try { return JSON.parse(c); } catch { return null; }
       }).filter(Boolean);
 
-      console.log('orderCode looking for:', orderCode);
       const customer = customers.find(c => c.code && c.code.toUpperCase() === orderCode);
       console.log('Customer found:', customer);
 
@@ -75,11 +65,11 @@ export default async function handler(req, res) {
         const product   = is799k ? 'Khoá 21 Ngày Dáng Ngọc An Nhiên' : 'Chạm Hành Trình Vươn Mình Rực Rỡ';
         console.log('Payment type:', is799k ? '799K (Dáng Ngọc An Nhiên)' : '990K (Chạm Hành Trình)', '| amount:', amount);
 
-        // ===== 799K: sinh Student ID + password + lưu user record =====
+        // ===== 799K: sinh Student ID + password (= studentId) + lưu user record =====
         let studentId = null, password = null;
         if (is799k) {
           try {
-            // Kiểm tra đã có user record chưa (idempotent — webhook có thể retry)
+            // Idempotent — webhook có thể retry
             const existingRes = await fetch(`${url}/get/user_${encodeURIComponent(customer.email.toLowerCase())}`, {
               headers: { Authorization: `Bearer ${token}` }
             });
@@ -90,14 +80,14 @@ export default async function handler(req, res) {
               password = existing.password;
               console.log('User record đã tồn tại, dùng lại:', studentId);
             } else {
-              // INCR atomic counter
+              // INCR atomic
               const incrRes = await fetch(`${url}/incr/student_count`, {
                 headers: { Authorization: `Bearer ${token}` }
               });
               const incrData = await incrRes.json();
               const studentNum = incrData.result;
-              studentId = 'DNAN' + String(studentNum).padStart(3, '0');
-              password = studentId;  // password = mã số học viên (theo yêu cầu Phương)
+              studentId = 'EP' + String(studentNum).padStart(6, '0');
+              password = studentId;
 
               const userRecord = {
                 studentId,
@@ -112,13 +102,14 @@ export default async function handler(req, res) {
               await fetch(`${url}/set/user_${encodeURIComponent(customer.email.toLowerCase())}/${encodeURIComponent(JSON.stringify(userRecord))}`, {
                 headers: { Authorization: `Bearer ${token}` }
               });
-              console.log('Created user record:', studentId, 'pwd:', password);
+              console.log('Created user record:', studentId);
             }
           } catch (e) {
             console.error('Error creating user record:', e);
           }
         }
 
+        // Gọi endpoint email confirm
         const response = await fetch(`${protocol}://${host}/api/${endpoint}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -132,11 +123,24 @@ export default async function handler(req, res) {
             password
           })
         });
-        console.log('Sent confirmation email to:', customer.email);
-        console.log('Email API response:', response.status);
+        console.log('Sent confirmation email to:', customer.email, '| status:', response.status);
+
+        // Báo Telegram cho Phương — chỉ cho gói 799K (DNAN)
+        if (is799k) {
+          const tgMsg =
+            '🌸 *Đơn 799K mới đã thanh toán*\n\n' +
+            '*Mã học viên:* `' + (studentId || '?') + '`\n' +
+            '*Tên:* ' + (customer.name || '—') + '\n' +
+            '*Email:* ' + customer.email + '\n' +
+            '*SĐT:* ' + (customer.phone || '—') + '\n' +
+            '*Mã đơn:* `' + orderCode + '`\n' +
+            '*Số tiền:* ' + vnd(amount) + '\n' +
+            '*Thời gian:* ' + new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
+          await notifyTelegram(tgMsg);
+        }
       }
     } catch(e) {
-      console.error('Error sending confirmation email:', e);
+      console.error('Error in paid flow:', e);
     }
   }
 
