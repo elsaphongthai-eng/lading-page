@@ -49,7 +49,19 @@ export default async function handler(req, res) {
          style="background:linear-gradient(90deg,#D81B60,#AD1457);color:#fff;padding:14px 36px;border-radius:40px;text-decoration:none;font-weight:700;display:inline-block;font-family:'Be Vietnam Pro',sans-serif;box-shadow:0 6px 22px rgba(216,27,96,.3);">
         → Vào học ngay
       </a>
-    </p>` : '';
+    </p>
+
+    <div style="background:#F1F8E9;border-left:4px solid #4CAF50;border-radius:8px;padding:14px 18px;margin:18px 0;">
+      <p style="margin:0 0 6px;font-size:14px;color:#2E7D32;"><strong>📱 Tuỳ chọn — Nhận nhắc nhở mỗi ngày qua Telegram</strong></p>
+      <p style="margin:6px 0;font-size:13px;color:#4A3429;">Bấm nút bên dưới để Phương gửi nhắc nhở khi bài mới mở khoá, khi chị em quên nộp bài, hoặc tin từ cộng đồng — gửi thẳng vào Telegram của chị em.</p>
+      <p style="text-align:center;margin:12px 0 4px;">
+        <a href="https://t.me/dau_elsaphuong_bot?start=${studentId}"
+           style="background:#0088cc;color:#fff;padding:10px 22px;border-radius:30px;text-decoration:none;font-weight:600;display:inline-block;font-size:13px;">
+          📲 Kết nối Telegram nhận nhắc
+        </a>
+      </p>
+      <p style="margin:8px 0 0;font-size:11px;color:#5C4404;font-style:italic;text-align:center;">(Không bắt buộc — bấm 1 lần là kết nối xong. Chưa có Telegram cũng được, sẽ tự hướng dẫn cài.)</p>
+    </div>` : '';
 
   try {
     await resend.emails.send({
