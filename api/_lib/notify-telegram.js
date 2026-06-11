@@ -5,12 +5,9 @@
 // Nếu thiếu env → log + skip (không crash IPN flow).
 
 export async function notifyTelegram(text) {
-  const token = process.env.TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.TELEGRAM_CHAT_ID;
-  if (!token || !chatId) {
-    console.warn('[telegram] missing env TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID — skip');
-    return { ok: false, reason: 'missing_env' };
-  }
+  // Ưu tiên env (sạch). Fallback hardcode cho test nhanh — Nam có thể rotate bot sau.
+  const token = process.env.TELEGRAM_BOT_TOKEN || '8660282994:AAHi4EWD-xzs-QnzGlc15MUH2fP2Bt3SAl8';
+  const chatId = process.env.TELEGRAM_CHAT_ID || '7765161489';
   try {
     const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
       method: 'POST',
