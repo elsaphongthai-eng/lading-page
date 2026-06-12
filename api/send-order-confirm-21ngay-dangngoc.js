@@ -36,13 +36,13 @@ export default async function handler(req, res) {
     '<p style="color:#8B6F5C;font-style:italic;">💬 Link nhóm Zalo sẽ được Phương gửi bổ sung qua email sau ít hôm nữa.</p>';
 
   const credentialsBlock = (studentId) ? `
-    <h3 style="color:#D81B60;font-size:18px;margin:28px 0 10px;">🎓 BƯỚC 2: ĐĂNG NHẬP TÀI KHOẢN HỌC TẬP</h3>
+    <h3 style="color:#D81B60;font-size:18px;margin:28px 0 10px;">📚 Thông tin học viên — Vào học ngay</h3>
     <p>🌐 <strong>Link học:</strong> <a href="${LINK_HOC}" style="color:#D81B60;">${LINK_HOC}</a></p>
-    <div style="background:#FFF8E1;border:2px dashed #D81B60;border-radius:12px;padding:18px 22px;margin:14px 0;">
-      <p style="margin:6px 0;font-size:14px;color:#5C4404;">Phương đã tạo tài khoản học cho chị em. Đây là thông tin đăng nhập:</p>
-      <p style="margin:10px 0;font-size:14px;">📧 <strong>Email:</strong> <span style="color:#4A3429;">${email}</span></p>
-      <p style="margin:6px 0;font-size:14px;">🔐 <strong>Mã số học viên / Mật khẩu:</strong> <span style="color:#D81B60;font-size:18px;font-weight:700;letter-spacing:2px;">${studentId}</span></p>
-      <p style="margin:8px 0 0;font-size:12px;color:#7B5A0D;font-style:italic;">(Mã số học viên cũng chính là mật khẩu — chị em lưu lại email này để đăng nhập sau này nhé)</p>
+    <div style="background:#FFF8E1;border:2px dashed #D81B60;border-radius:12px;padding:18px 22px;margin:14px 0;font-family:'Courier New',monospace;">
+      <p style="margin:6px 0 12px;font-family:Georgia,serif;font-size:14px;color:#5C4404;">Phương đã tạo tài khoản học cho chị em. Đây là thông tin đăng nhập:</p>
+      <p style="margin:8px 0;font-size:14px;">📧 Email đăng nhập: <strong style="color:#4A3429;">${email}</strong></p>
+      <p style="margin:8px 0;font-size:14px;">🔐 Mã số học viên: <strong style="color:#D81B60;font-size:18px;letter-spacing:2px;">${studentId}</strong></p>
+      <p style="margin:10px 0 0;font-family:Georgia,serif;font-size:12px;color:#7B5A0D;font-style:italic;">(Mã số học viên cũng chính là mật khẩu)</p>
     </div>
     <p style="text-align:center;margin:18px 0;">
       <a href="${LINK_HOC}"
@@ -101,6 +101,16 @@ export default async function handler(req, res) {
   <p style="margin:18px 0 6px;"><strong>Nhóm Telegram</strong> <span style="color:#8B6F5C;font-style:italic;">(Khuyến khích tham gia)</span></p>
   ${telegramBlock}
   <p style="color:#8B6F5C;font-style:italic;">Nhiều chị em nói rằng chính những cuộc trò chuyện trong Telegram mới là điều giúp họ thay đổi sâu sắc nhất.</p>
+
+  <div style="background:#F0F8FF;border-radius:10px;padding:14px 18px;margin:18px 0;border:1px solid #cce4f5;">
+    <p style="margin:0 0 8px;font-size:14px;color:#0088cc;"><strong>📱 Hướng dẫn cài đặt Telegram</strong></p>
+    <p style="margin:6px 0;font-size:13px;color:#8B6F5C;font-style:italic;">Nếu chị em chưa có Telegram:</p>
+    <p style="margin:10px 0 4px;font-size:13px;"><strong>Bước 1 — Tải ứng dụng Telegram</strong></p>
+    <p style="margin:4px 0;font-size:13px;">📲 iPhone: <a href="https://apps.apple.com/app/telegram-messenger/id686449807" style="color:#0088cc;">Tải trên App Store</a></p>
+    <p style="margin:4px 0;font-size:13px;">📲 Android: <a href="https://play.google.com/store/apps/details?id=org.telegram.messenger" style="color:#0088cc;">Tải trên Google Play</a></p>
+    <p style="margin:10px 0 4px;font-size:13px;"><strong>Bước 2 — Đăng ký bằng số điện thoại của mình</strong></p>
+    <p style="margin:4px 0 0;font-size:13px;"><strong>Bước 3 — Bấm vào link Telegram phía trên để tham gia cộng đồng</strong></p>
+  </div>
 
   ${credentialsBlock}
 
