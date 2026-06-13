@@ -42,6 +42,7 @@ export default async function handler(req, res) {
       name: user.name || '',
       email: user.email,
       ngay_tham_gia: user.ngay_tham_gia,
+      activated_at: user.activated_at || null,  // null = chưa kích hoạt → hiện màn welcome
       status: user.status || 'active'
     });
   } catch (e) {
