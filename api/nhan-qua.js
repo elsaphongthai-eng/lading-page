@@ -37,6 +37,7 @@ function esc(s) {
 function buildEmailHtml(name) {
   const zaloLink = 'https://zalo.me/g/ecq0oivwtdr2rxrr1mv9';
   const giftPageUrl = 'https://elsaphuong.com/da-nhan-qua/';
+  const gift1Url = 'https://elsaphuong.com/qua/5-phuong-phap.pdf';
   return `<!DOCTYPE html>
 <html><body style="margin:0;padding:0;background:#FFF9F5;font-family:'Segoe UI',Tahoma,Arial,sans-serif;color:#4A3429;line-height:1.6">
 <div style="max-width:600px;margin:0 auto;background:#fff;padding:0">
@@ -60,7 +61,7 @@ function buildEmailHtml(name) {
     <div style="background:#fff;border:1px dashed #D81B60;border-radius:6px;padding:8px 12px;margin-bottom:12px;font-size:14px">
       🔑 Yêu cầu mật khẩu: <b style="background:#D81B60;color:#fff;padding:2px 8px;border-radius:4px;font-family:monospace">1111</b>
     </div>
-    <a href="${giftPageUrl}" style="display:inline-block;background:linear-gradient(135deg,#D81B60,#AD1457);color:#fff;text-decoration:none;padding:10px 22px;border-radius:22px;font-weight:700;font-size:14px">📖 Nhận cẩm nang →</a>
+    <a href="${gift1Url}" style="display:inline-block;background:linear-gradient(135deg,#D81B60,#AD1457);color:#fff;text-decoration:none;padding:10px 22px;border-radius:22px;font-weight:700;font-size:14px">📖 Nhận cẩm nang →</a>
   </div>
 
   <!-- QUÀ 2 -->
