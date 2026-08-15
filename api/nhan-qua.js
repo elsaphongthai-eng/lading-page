@@ -8,24 +8,23 @@
 
 import { notifyTelegram } from './_lib/notify-telegram.js';
 
-const KV = {
-  url: process.env.KV_REST_API_URL,
-  token: process.env.KV_REST_API_TOKEN
-};
-const RESEND_KEY = process.env.RESEND_API_KEY;
 const FROM = 'Elsa Phương <elsa.phongthai@gmail.com>';
 
 async function kvGet(key) {
-  const r = await fetch(`${KV.url}/get/${encodeURIComponent(key)}`, {
-    headers: { Authorization: `Bearer ${KV.token}` }
+  const url = process.env.KV_REST_API_URL;
+  const token = process.env.KV_REST_API_TOKEN;
+  const r = await fetch(`${url}/get/${encodeURIComponent(key)}`, {
+    headers: { Authorization: `Bearer ${token}` }
   });
   const j = await r.json();
   return j.result;
 }
 async function kvSet(key, value) {
-  const r = await fetch(`${KV.url}/set/${encodeURIComponent(key)}`, {
+  const url = process.env.KV_REST_API_URL;
+  const token = process.env.KV_REST_API_TOKEN;
+  const r = await fetch(`${url}/set/${encodeURIComponent(key)}`, {
     method: 'POST',
-    headers: { Authorization: `Bearer ${KV.token}`, 'Content-Type': 'application/json' },
+    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
     body: JSON.stringify(value)
   });
   return r.json();
@@ -99,10 +98,11 @@ function buildEmailHtml(name) {
 }
 
 async function sendResend(to, name) {
-  if (!RESEND_KEY) return { skipped: 'no_resend_key' };
+  const key = process.env.RESEND_API_KEY;
+  if (!key) return { skipped: 'no_resend_key' };
   const r = await fetch('https://api.resend.com/emails', {
     method: 'POST',
-    headers: { Authorization: `Bearer ${RESEND_KEY}`, 'Content-Type': 'application/json' },
+    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       from: FROM,
       to: [to],
