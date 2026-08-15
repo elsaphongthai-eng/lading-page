@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cộng đồng · Dáng Ngọc An Nhiên</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lora:wght@400;500&family=Quicksand:wght@400;500;600;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Lora',serif;background:#FFF9F5;color:#4A3429;line-height:1.7;min-height:100vh}
+  a{color:inherit}
+
+  /* ===== HEADER (đồng bộ) ===== */
+  .dgan-header{background:#FFF9F5;border-bottom:1px solid #F6EBE2;position:sticky;top:0;z-index:50}
+  .dgan-wrap{max-width:1080px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:74px}
+  .dgan-logo{font-family:'Playfair Display',serif;font-size:21px;color:#D81B60;letter-spacing:.3px;text-decoration:none;line-height:1}
+  .dgan-logo span{display:block;font-family:'Dancing Script',cursive;font-size:18px;font-weight:600;color:#8B6F5C;line-height:1;margin-top:2px}
+  .dgan-menu{display:flex;gap:30px;font-family:'Quicksand',sans-serif;font-size:15px;font-weight:500;list-style:none;margin:0;padding:0;align-items:center}
+  .dgan-menu a{position:relative;color:#4A3429;text-decoration:none;transition:color .25s}
+  .dgan-menu a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;background:#D81B60;transition:width .3s}
+  .dgan-menu a:hover{color:#D81B60}
+  .dgan-menu a:hover::after,.dgan-menu a.active::after{width:100%}
+  .dgan-menu a.active{color:#D81B60}
+  .dgan-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:0;padding:8px}
+  .dgan-burger span{width:24px;height:2px;background:#4A3429;transition:.3s;display:block}
+  .login-cta{display:inline-block;background:linear-gradient(90deg,#D81B60,#AD1457);color:#fff !important;padding:9px 22px;border-radius:30px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:14px;letter-spacing:.3px;box-shadow:0 6px 16px rgba(216,27,96,.28);transition:transform .2s,box-shadow .2s}
+  .login-cta:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(216,27,96,.36);color:#fff !important}
+  .login-cta::after{display:none !important}
+  @media (max-width:768px){
+    .dgan-burger{display:flex}
+    .dgan-menu{position:fixed;top:74px;left:0;right:0;background:#FFF9F5;flex-direction:column;gap:0;padding:8px 28px 20px;border-bottom:1px solid #F6EBE2;transform:translateY(-120%);transition:transform .35s;box-shadow:0 16px 30px rgba(74,52,41,.1);z-index:49}
+    .dgan-menu.open{transform:translateY(0)}
+    .dgan-menu a{padding:13px 0;border-bottom:1px solid #F6EBE2}
+    .dgan-menu a::after{display:none}
+    .login-cta{margin-top:10px;align-self:flex-start}
+  }
+
+  /* ===== HERO ===== */
+  .hero{padding:70px 24px 40px;text-align:center;background:radial-gradient(ellipse at top,#FDECE3 0%,transparent 65%)}
+  .hero .prefix{font-family:'Dancing Script',cursive;color:#D81B60;font-size:1.5rem;margin-bottom:4px}
+  .hero h1{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:700;color:#4A3429;letter-spacing:.5px;margin-bottom:14px}
+  .hero .sub{max-width:640px;margin:0 auto;color:#6B4E3F;opacity:.85;font-size:1.05rem}
+
+  /* ===== CONTENT ===== */
+  .container{max-width:820px;margin:0 auto;padding:20px 24px 60px}
+
+  .section-tag{font-family:'Quicksand',sans-serif;font-size:.8rem;font-weight:700;color:#D81B60;letter-spacing:2.5px;text-transform:uppercase;text-align:center;margin-bottom:8px}
+  .section-title{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:#4A3429;text-align:center;margin-bottom:32px}
+
+  /* ===== BÀI GHIM FB — placeholder ===== */
+  .fb-pinned{
+    background:#fff;border-radius:16px;
+    box-shadow:0 12px 32px rgba(74,52,41,.1);
+    overflow:hidden;border:1px solid #F0E0D0;
+    margin-bottom:32px;
+  }
+  .fb-header{
+    display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid #F5EDE5;
+  }
+  .fb-avatar{
+    width:44px;height:44px;border-radius:50%;
+    background:linear-gradient(135deg,#D81B60,#AD1457);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-family:'Playfair Display',serif;font-weight:700;font-size:1.1rem;
+    flex-shrink:0;
+  }
+  .fb-meta{flex:1;min-width:0}
+  .fb-name{font-family:'Quicksand',sans-serif;font-weight:700;font-size:.98rem;color:#050505}
+  .fb-time{font-size:.78rem;color:#65676B;display:flex;align-items:center;gap:4px;margin-top:2px}
+  .fb-pin{color:#D81B60;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;background:#FDECE3;padding:3px 8px;border-radius:10px}
+
+  .fb-body{padding:20px 24px}
+  .fb-placeholder-text{
+    background:linear-gradient(90deg,#F5EDE5 0%,#FBF5EE 50%,#F5EDE5 100%);
+    background-size:200% 100%;animation:shim 2.5s ease-in-out infinite;
+    height:14px;border-radius:4px;margin-bottom:10px;
+  }
+  .fb-placeholder-text.w80{width:80%}
+  .fb-placeholder-text.w60{width:60%}
+  .fb-placeholder-text.w95{width:95%}
+  @keyframes shim{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+  .fb-image-placeholder{
+    margin-top:16px;height:280px;border-radius:12px;
+    background:linear-gradient(135deg,#FDECE3 0%,#F7DFC8 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    color:#8B6F5C;text-align:center;padding:20px;
+  }
+  .fb-image-placeholder .icon{font-size:3rem;opacity:.5;margin-bottom:10px}
+  .fb-image-placeholder .cap{font-family:'Quicksand',sans-serif;font-weight:600;font-size:.98rem;color:#8B6F5C;letter-spacing:.5px;margin-bottom:4px}
+  .fb-image-placeholder .sub{font-size:.85rem;opacity:.75}
+
+  .fb-actions{display:flex;gap:16px;padding:12px 24px;border-top:1px solid #F5EDE5;color:#65676B;font-family:'Quicksand',sans-serif;font-size:.88rem;font-weight:500}
+  .fb-actions span{display:flex;align-items:center;gap:6px}
+
+  .coming-soon-banner{
+    background:linear-gradient(135deg,#FFF3E0 0%,#FFE0B2 100%);
+    border-left:4px solid #F5D472;
+    padding:14px 18px;margin:0 24px 20px;border-radius:10px;
+    font-family:'Quicksand',sans-serif;font-size:.92rem;color:#7B5A0D;
+    display:flex;align-items:center;gap:10px;
+  }
+  .coming-soon-banner .em{font-size:1.3rem}
+
+  /* ===== FB Group / Telegram cards ===== */
+  .join-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:40px}
+  .join-card{
+    background:#fff;border-radius:14px;padding:24px 22px;
+    box-shadow:0 8px 22px rgba(74,52,41,.08);
+    display:flex;flex-direction:column;align-items:flex-start;gap:8px;
+    transition:transform .2s,box-shadow .2s;text-decoration:none;color:inherit;
+  }
+  .join-card:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(74,52,41,.14)}
+  .join-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.4rem;margin-bottom:6px}
+  .join-icon.fb{background:#1877F2}
+  .join-icon.tg{background:#0088cc}
+  .join-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#4A3429}
+  .join-desc{font-size:.88rem;color:#6B4E3F;opacity:.8;margin-bottom:8px}
+  .join-cta{font-family:'Quicksand',sans-serif;font-weight:600;font-size:.88rem;color:#D81B60}
+
+  @media (max-width:640px){
+    .hero h1{font-size:1.9rem}
+    .join-grid{grid-template-columns:1fr}
+    .fb-image-placeholder{height:220px}
+  }
+
+  /* ===== FOOTER ===== */
+  .site-footer{background:#4A3429;color:#F5E6DA;padding:36px 24px;text-align:center;font-family:'Quicksand',sans-serif;font-size:.88rem;margin-top:40px}
+  .site-footer .brand-f{font-family:'Playfair Display',serif;font-size:1.2rem;color:#fff;margin-bottom:6px}
+  .site-footer .tagline-f{opacity:.65;margin-bottom:14px}
+  .site-footer .fnav{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:12px}
+  .site-footer .fnav a{opacity:.8;text-decoration:none;color:inherit}
+  .site-footer .fnav a:hover{opacity:1;color:#fff}
+  .site-footer .copy{opacity:.5;font-size:.78rem}
+</style>
+</head>
+<body>
+
+<header class="dgan-header">
+  <div class="dgan-wrap">
+    <a href="/" class="dgan-logo">Dáng Ngọc An Nhiên<span>cùng Elsa Phương</span></a>
+    <button class="dgan-burger" aria-label="Menu" onclick="document.getElementById('dgan-menu').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="dgan-menu" id="dgan-menu">
+      <a href="/gioi-thieu/">Về Phương</a>
+      <a href="/khoa-21-ngay/">Dáng Ngọc An Nhiên</a>
+      <a href="/cong-dong/" class="active">Cộng Đồng</a>
+      <a href="/cau-chuyen/">Câu Chuyện</a>
+      <a href="/lien-he/">Liên hệ</a>
+      <a href="/khoahoc/" class="login-cta">Đăng nhập</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="prefix">Thương chào chị em</div>
+  <h1>Cộng Đồng Dáng Ngọc An Nhiên</h1>
+  <p class="sub">Không gian sẻ chia dành cho những chị em đang trên hành trình dưỡng dáng — dưỡng tâm cùng Phương.</p>
+</section>
+
+<div class="container">
+
+  <div class="section-tag">Bài ghim từ Phương</div>
+  <h2 class="section-title">Đọc trước khi tham gia</h2>
+
+  <article class="fb-pinned" id="pinnedPost">
+    <div class="fb-header">
+      <div class="fb-avatar">EP</div>
+      <div class="fb-meta">
+        <div class="fb-name">Elsa Phương</div>
+        <div class="fb-time">📌 Bài ghim · Công khai</div>
+      </div>
+      <div class="fb-pin">Ghim</div>
+    </div>
+
+    <div class="fb-body">
+      <div class="fb-placeholder-text w95"></div>
+      <div class="fb-placeholder-text w80"></div>
+      <div class="fb-placeholder-text w60"></div>
+
+      <div class="fb-image-placeholder">
+        <div class="icon">🖼️</div>
+        <div class="cap">SẮP CÓ</div>
+        <div class="sub">Phương đang chuẩn bị nội dung bài ghim + hình ảnh</div>
+      </div>
+    </div>
+
+    <div class="coming-soon-banner">
+      <span class="em">✨</span>
+      <span>Bài ghim đầy đủ sẽ được Phương cập nhật sớm. Chị em quay lại sau ít hôm nhé.</span>
+    </div>
+
+    <div class="fb-actions">
+      <span>👍 Thích</span>
+      <span>💬 Bình luận</span>
+      <span>↗ Chia sẻ</span>
+    </div>
+  </article>
+
+  <div class="section-tag" style="margin-top:20px">Tham gia cộng đồng</div>
+  <h2 class="section-title">Kết nối cùng Phương và chị em</h2>
+
+  <div class="join-grid">
+    <a class="join-card" href="#" target="_blank" rel="noopener" id="fbGroup">
+      <div class="join-icon fb">f</div>
+      <div class="join-title">Nhóm Facebook</div>
+      <div class="join-desc">Nơi chị em chia sẻ hành trình, nhận feedback và cổ vũ lẫn nhau mỗi ngày.</div>
+      <div class="join-cta">Tham gia →</div>
+    </a>
+    <a class="join-card" href="#" target="_blank" rel="noopener" id="tgGroup">
+      <div class="join-icon tg">✈</div>
+      <div class="join-title">Nhóm Telegram</div>
+      <div class="join-desc">Kênh cập nhật nhanh — bài học mới, live, thông báo quan trọng từ Phương.</div>
+      <div class="join-cta">Tham gia →</div>
+    </a>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="brand-f">Elsa Phương</div>
+  <div class="tagline-f">Khỏe đẹp bền vững · Tâm an từ nội lực</div>
+  <div class="fnav">
+    <a href="/gioi-thieu/">Về Phương</a>
+    <a href="/khoa-21-ngay/">Dáng Ngọc An Nhiên</a>
+    <a href="/cong-dong/">Cộng đồng</a>
+    <a href="/lien-he/">Liên hệ</a>
+    <a href="/khoahoc/">Đăng nhập học viên</a>
+  </div>
+  <div class="copy">© 2026 Elsa Phương. All rights reserved.</div>
+</footer>
+
+</body>
+</html>
