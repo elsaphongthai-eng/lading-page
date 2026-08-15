@@ -1,3 +1,5 @@
+spawn ssh -p 2018 -o StrictHostKeyChecking=accept-new -o ConnectTimeout=20 root@103.97.127.34 cat /var/www/elsaphuong-cong-dong/index.html
+root@103.97.127.34's password: 
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -134,6 +136,11 @@
   .site-footer .fnav a{opacity:.8;text-decoration:none;color:inherit}
   .site-footer .fnav a:hover{opacity:1;color:#fff}
   .site-footer .copy{opacity:.5;font-size:.78rem}
+
+  .menu-qua{position:relative;color:#D81B60 !important;font-weight:700 !important}
+  .menu-qua .qua-ico{display:inline-block;font-size:1.05em;transform-origin:50% 90%;animation:menuQuaWobble 1.2s ease-in-out infinite,menuQuaGlow 1.4s ease-in-out infinite;margin-right:2px}
+  @keyframes menuQuaWobble{0%,60%,100%{transform:rotate(0)}10%{transform:rotate(-14deg)}20%{transform:rotate(12deg)}30%{transform:rotate(-10deg)}40%{transform:rotate(8deg)}50%{transform:rotate(-4deg)}}
+  @keyframes menuQuaGlow{0%,100%{filter:drop-shadow(0 0 0 rgba(216,27,96,.7))}50%{filter:drop-shadow(0 0 8px rgba(232,181,71,.9))}}
 </style>
 </head>
 <body>
@@ -145,9 +152,11 @@
       <span></span><span></span><span></span>
     </button>
     <nav class="dgan-menu" id="dgan-menu">
+      <a href="/">Trang chủ</a>
       <a href="/gioi-thieu/">Về Phương</a>
       <a href="/khoa-21-ngay/">Dáng Ngọc An Nhiên</a>
       <a href="/cong-dong/" class="active">Cộng Đồng</a>
+      <a href="/nhan-qua/" class="menu-qua"><span class="qua-ico">ð</span> Nhận quà</a>
       <a href="/cau-chuyen/">Câu Chuyện</a>
       <a href="/lien-he/">Liên hệ</a>
       <a href="/khoahoc/" class="login-cta">Đăng nhập</a>
@@ -171,7 +180,7 @@
       <div class="fb-avatar">EP</div>
       <div class="fb-meta">
         <div class="fb-name">Elsa Phương</div>
-        <div class="fb-time">📌 Bài ghim · Công khai</div>
+        <div class="fb-time">ð Bài ghim · Công khai</div>
       </div>
       <div class="fb-pin">Ghim</div>
     </div>
@@ -182,7 +191,7 @@
       <div class="fb-placeholder-text w60"></div>
 
       <div class="fb-image-placeholder">
-        <div class="icon">🖼️</div>
+        <div class="icon">ð¼️</div>
         <div class="cap">SẮP CÓ</div>
         <div class="sub">Phương đang chuẩn bị nội dung bài ghim + hình ảnh</div>
       </div>
@@ -194,8 +203,8 @@
     </div>
 
     <div class="fb-actions">
-      <span>👍 Thích</span>
-      <span>💬 Bình luận</span>
+      <span>ð Thích</span>
+      <span>ð¬ Bình luận</span>
       <span>↗ Chia sẻ</span>
     </div>
   </article>
@@ -207,11 +216,11 @@
     <a class="join-card" href="https://zalo.me/g/ecq0oivwtdr2rxrr1mv9" target="_blank" rel="noopener" id="zaloGroup">
       <div class="join-icon" style="background:#0068FF">Z</div>
       <div class="join-title">Nhóm Zalo Cộng Đồng</div>
-      <div class="join-desc">Phụ Nữ Khỏe Đẹp 🌸 Giàu Toàn Diện — nơi chị em chia sẻ hành trình và nhận nội dung mới từ Phương.</div>
+      <div class="join-desc">Phụ Nữ Khỏe Đẹp ð¸ Giàu Toàn Diện — nơi chị em chia sẻ hành trình và nhận nội dung mới từ Phương.</div>
       <div class="join-cta">Tham gia ngay →</div>
     </a>
     <a class="join-card" href="/nhan-qua/" id="giftForm">
-      <div class="join-icon" style="background:linear-gradient(135deg,#D81B60,#AD1457)">🎁</div>
+      <div class="join-icon" style="background:linear-gradient(135deg,#D81B60,#AD1457)">ð</div>
       <div class="join-title">Nhận 2 quà chào mừng</div>
       <div class="join-desc">Điền form để nhận Cẩm Nang "5 Phương Pháp" + Bộ "3 Bài Tập Dưỡng" miễn phí qua email.</div>
       <div class="join-cta">Nhận quà →</div>

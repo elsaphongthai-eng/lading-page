@@ -42,6 +42,11 @@
   .nav{display:flex;align-items:center;gap:24px;font-family:var(--sans);font-size:.95rem}
   .nav a{color:var(--brown);opacity:.85;font-weight:500;transition:opacity .2s,color .2s}
   .nav a:hover{opacity:1;color:var(--pink)}
+  .nav a.active{color:var(--pink);opacity:1;font-weight:700}
+  .menu-qua{color:var(--pink) !important;opacity:1 !important;font-weight:700}
+  .menu-qua .qua-ico{display:inline-block;font-size:1.1em;transform-origin:50% 90%;animation:menuQuaWobble 1.2s ease-in-out infinite,menuQuaGlow 1.4s ease-in-out infinite;margin-right:2px}
+  @keyframes menuQuaWobble{0%,60%,100%{transform:rotate(0)}10%{transform:rotate(-14deg)}20%{transform:rotate(12deg)}30%{transform:rotate(-10deg)}40%{transform:rotate(8deg)}50%{transform:rotate(-4deg)}}
+  @keyframes menuQuaGlow{0%,100%{filter:drop-shadow(0 0 0 rgba(216,27,96,.7))}50%{filter:drop-shadow(0 0 8px rgba(232,181,71,.9))}}
   .btn-login{background:var(--pink);color:#fff !important;padding:9px 20px;border-radius:24px;opacity:1 !important;font-weight:600;box-shadow:0 4px 14px rgba(216,27,96,.25);transition:transform .2s,box-shadow .2s}
   .btn-login:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(216,27,96,.35);color:#fff !important}
 
@@ -236,9 +241,11 @@
   <div class="header-inner">
     <a href="/" class="brand">Elsa Phương<em>Khỏe đẹp bền vững</em></a>
     <nav class="nav">
+      <a href="/" class="active">Trang chủ</a>
       <a href="/gioi-thieu/">Về Phương</a>
       <a href="/khoa-21-ngay/">Dáng Ngọc An Nhiên</a>
       <a href="/cong-dong/">Cộng đồng</a>
+      <a href="/nhan-qua/" class="menu-qua"><span class="qua-ico">🎁</span> Nhận quà</a>
       <a href="/lien-he/">Liên hệ</a>
       <a href="/khoahoc/" class="btn-login">Đăng nhập</a>
     </nav>
