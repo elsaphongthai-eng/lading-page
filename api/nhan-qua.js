@@ -8,7 +8,7 @@
 
 import { notifyTelegram } from './_lib/notify-telegram.js';
 
-const FROM = 'Elsa Phương <elsa.phongthai@gmail.com>';
+const FROM = 'Elsa Phương <phuong@elsaphuong.com>';
 
 async function kvGet(key) {
   const url = process.env.KV_REST_API_URL;
