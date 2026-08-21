@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khu vực học viên · Dáng Ngọc An Nhiên</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lora:wght@400;500&family=Quicksand:wght@400;500;600;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --hong-dao:#D81B60;
+  --hong-dao-dam:#AD1457;
+  --choco:#4A3429;
+  --nau-sua:#8B6F5C;
+  --hong-nhat:#FCE4EC;
+  --hong-cuc-nhat:#FFF0F5;
+  --kem:#FFF9F5;
+  --kem-dam:#F6EBE2;
+  --line:rgba(74,52,41,.14);
+  --vang-note:#FFF9E0;
+  --vang-note-border:#F5D472;
+  --xanh-done:#4CAF50;
+  --serif:'Playfair Display',serif;
+  --body:'Lora',serif;
+  --sans:'Quicksand','Be Vietnam Pro',sans-serif;
+  --hand:'Dancing Script',cursive;
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--choco);background:var(--kem);line-height:1.7;font-size:15.5px;min-height:100vh}
+body.modal-open{overflow:hidden}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,textarea{font-family:inherit}
+h1,h2,h3,h4{font-family:var(--serif);line-height:1.3;font-weight:700;color:var(--choco)}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.dgan-header{background:var(--kem);border-bottom:1px solid var(--kem-dam);position:sticky;top:0;z-index:50}
+.dgan-wrap{max-width:1640px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:20px;height:64px}
+.dgan-logo{font-family:var(--serif);font-size:19px;color:var(--hong-dao);letter-spacing:.3px;line-height:1}
+.dgan-logo span{display:block;font-family:var(--hand);font-size:16px;font-weight:600;color:var(--nau-sua);line-height:1;margin-top:2px}
+.dgan-menu{display:flex;gap:24px;font-family:var(--sans);font-size:14.5px;font-weight:500;margin-left:auto}
+.dgan-menu a{position:relative;color:var(--choco);transition:color .25s}
+.dgan-menu a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--hong-dao);transition:width .3s}
+.dgan-menu a:hover{color:var(--hong-dao)}
+.dgan-menu a:hover::after,.dgan-menu a.active::after{width:100%}
+.dgan-menu a.active{color:var(--hong-dao)}
+.topbar-tools{display:flex;align-items:center;gap:12px}
+.search-box{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--kem-dam);border-radius:30px;padding:6px 14px;font-family:var(--sans);font-size:13px;color:var(--nau-sua);width:200px}
+.search-box input{border:0;outline:0;background:none;flex:1;font-size:13px;color:var(--choco);width:100%}
+.bell{position:relative;cursor:pointer;font-size:18px;color:var(--nau-sua)}
+.bell .dot{position:absolute;top:-3px;right:-5px;background:var(--hong-dao);color:#fff;font-size:9px;font-weight:700;border-radius:10px;padding:2px 5px;font-family:var(--sans)}
+.dgan-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:0;padding:8px}
+.dgan-burger span{width:24px;height:2px;background:var(--choco);transition:.3s;display:block}
+
+/* ============================================================
+   LOGIN
+   ============================================================ */
+.login-screen{min-height:calc(100vh - 64px);display:flex;align-items:center;justify-content:center;padding:24px;background:linear-gradient(160deg,var(--kem) 0%,var(--hong-cuc-nhat) 60%,var(--hong-nhat) 100%)}
+.login-card{width:100%;max-width:440px;background:#fff;border:1.5px solid var(--kem-dam);border-radius:20px;padding:42px 36px;box-shadow:0 24px 70px rgba(216,27,96,.10)}
+.login-brand{text-align:center;margin-bottom:28px}
+.login-brand .ribbon{display:inline-block;font-family:var(--sans);color:var(--hong-dao);font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+.login-brand h1{font-size:1.7rem;color:var(--hong-dao);margin-bottom:8px}
+.login-brand p{color:var(--nau-sua);font-size:.95rem;font-style:italic}
+.login-form label{display:block;font-family:var(--sans);font-size:.76rem;font-weight:700;color:var(--hong-dao);letter-spacing:.06em;text-transform:uppercase;margin:18px 0 8px}
+.login-form input{width:100%;padding:14px 18px;background:#fff;border:1.5px solid var(--kem-dam);border-radius:10px;color:var(--choco);font-size:1rem;font-family:var(--sans)}
+.login-form input:focus{outline:none;border-color:var(--hong-dao);box-shadow:0 0 0 3px rgba(216,27,96,.12)}
+.login-btn{width:100%;margin-top:24px;padding:15px;background:linear-gradient(90deg,var(--hong-dao),var(--hong-dao-dam));color:#fff;border-radius:60px;font-weight:700;font-family:var(--sans);font-size:1rem;letter-spacing:.3px;box-shadow:0 6px 22px rgba(216,27,96,.28);transition:transform .2s,box-shadow .2s}
+.login-btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(216,27,96,.34)}
+.login-help{text-align:center;margin-top:20px;font-size:.88rem;color:var(--nau-sua)}
+.login-help a{color:var(--hong-dao);text-decoration:underline}
+.login-error{display:none;text-align:center;color:#c0392b;font-size:.88rem;background:#fdecea;padding:10px;border-radius:8px;margin-top:14px}
+.login-error.show{display:block}
+.demo-hint{text-align:center;margin-top:16px;font-size:.78rem;color:var(--nau-sua);background:var(--hong-cuc-nhat);border:1px dashed var(--hong-nhat);border-radius:10px;padding:10px 14px;line-height:1.5}
+
+/* ============================================================
+   DASHBOARD — 3 cột rộng hơn
+   ============================================================ */
+.dashboard{display:none}
+.dashboard.active{display:block}
+.dashboard-wrap{max-width:1640px;margin:0 auto;padding:20px 24px 60px;display:grid;grid-template-columns:230px 1fr 290px;gap:20px;align-items:start}
+
+/* SIDEBAR TRÁI */
+.sidebar{position:sticky;top:84px;max-height:calc(100vh - 100px);overflow-y:auto;padding-right:4px}
+.side-block{background:#fff;border:1px solid var(--kem-dam);border-radius:var(--radius);padding:14px;margin-bottom:12px}
+.side-group{font-family:var(--sans);font-size:.7rem;font-weight:700;color:var(--nau-sua);letter-spacing:.18em;text-transform:uppercase;margin:6px 6px 8px}
+.side-nav a{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;font-family:var(--sans);font-size:.9rem;color:var(--choco);transition:all .2s;margin-bottom:2px}
+.side-nav a .ico{font-size:1.05rem;width:22px;text-align:center}
+.side-nav a:hover{background:var(--hong-cuc-nhat);color:var(--hong-dao)}
+.side-nav a.active{background:linear-gradient(135deg,var(--hong-dao),var(--hong-dao-dam));color:#fff;font-weight:600}
+
+.progress-box{background:linear-gradient(135deg,var(--hong-cuc-nhat),var(--hong-nhat));border-radius:var(--radius);padding:14px 16px;margin-bottom:12px}
+.progress-box .lab{font-family:var(--sans);font-size:.7rem;color:var(--hong-dao);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.progress-box .num{font-family:var(--serif);font-size:1.4rem;color:var(--hong-dao);font-weight:700;line-height:1}
+.progress-box .num small{font-size:.85rem;color:var(--nau-sua);font-weight:400;margin-left:4px}
+.progress-bar{margin-top:10px;height:6px;background:#fff;border-radius:10px;overflow:hidden}
+.progress-bar .fill{height:100%;background:linear-gradient(90deg,var(--hong-dao),var(--hong-dao-dam));transition:width .4s}
+
+.lesson-list-side{display:flex;flex-direction:column;gap:5px;max-height:380px;overflow-y:auto;padding-right:4px}
+.lesson-item-side{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:9px;border:1px solid var(--kem-dam);background:#fff;cursor:pointer;transition:all .2s;font-family:var(--sans);font-size:.85rem}
+.lesson-item-side:hover:not(.locked){border-color:var(--hong-dao);background:var(--hong-cuc-nhat)}
+.lesson-item-side.active{background:linear-gradient(135deg,var(--hong-dao),var(--hong-dao-dam));color:#fff;border-color:transparent}
+.lesson-item-side.active .lesson-num{background:rgba(255,255,255,.25);color:#fff}
+.lesson-item-side.locked{opacity:.55;cursor:not-allowed}
+.lesson-item-side.done{background:#F1F8E9;border-color:#C5E1A5}
+.lesson-item-side.done .lesson-num{background:var(--xanh-done);color:#fff}
+.lesson-num{width:26px;height:26px;flex-shrink:0;border-radius:50%;background:var(--hong-nhat);color:var(--hong-dao);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.78rem;font-family:var(--serif)}
+.lesson-meta-side{flex:1;line-height:1.25}
+.lesson-meta-side .ttl{font-weight:600;font-size:.85rem}
+.lesson-meta-side .sub{font-size:.7rem;color:var(--nau-sua)}
+.lesson-item-side.active .lesson-meta-side .sub{color:rgba(255,255,255,.8)}
+
+/* MAIN */
+.main-content{min-width:0}
+.back-link{font-family:var(--sans);font-size:.85rem;color:var(--nau-sua);margin-bottom:10px;display:inline-block}
+.challenge-header{background:#fff;border:1px solid var(--kem-dam);border-radius:var(--radius);padding:22px 26px;margin-bottom:16px}
+.challenge-header h1{font-size:1.7rem;margin-bottom:12px}
+.tag-row{display:flex;gap:8px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+.tag{font-family:var(--sans);font-size:.72rem;font-weight:700;padding:5px 12px;border-radius:20px;letter-spacing:.04em}
+.tag.normal{background:#E8F5E9;color:#2E7D32}
+.tag.reward{background:#FFF8E1;color:#F57F17}
+.goal-box{background:var(--hong-cuc-nhat);border-radius:10px;padding:14px 18px;margin-bottom:14px}
+.goal-box .lab{font-family:var(--sans);font-size:.72rem;font-weight:700;color:var(--hong-dao);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.goal-box .ttl{font-family:var(--serif);font-size:1.05rem;color:var(--hong-dao-dam);font-weight:700}
+.challenge-desc{color:var(--nau-sua);margin-bottom:16px;font-size:.94rem}
+.meta-row{display:flex;gap:28px;flex-wrap:wrap}
+.meta-item .lab{font-family:var(--sans);font-size:.7rem;color:var(--nau-sua);letter-spacing:.08em;text-transform:uppercase;font-weight:600;margin-bottom:3px}
+.meta-item .val{font-family:var(--serif);font-weight:700;color:var(--choco);font-size:1.05rem}
+
+.status-box{background:linear-gradient(135deg,#E8F5E9,#F1F8E9);border:1px solid #C5E1A5;border-radius:var(--radius);padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.status-box .check{width:32px;height:32px;border-radius:50%;background:var(--xanh-done);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+.status-box .txt{font-family:var(--sans);font-weight:600;color:#2E7D32}
+
+.reward-box{background:var(--vang-note);border:1px solid var(--vang-note-border);border-left:4px solid var(--vang-note-border);border-radius:10px;padding:16px 20px;margin-bottom:16px}
+.reward-box .ttl{font-family:var(--sans);font-weight:700;color:#7B5A0D;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.reward-box .desc{font-size:.9rem;color:#5C4404;margin-bottom:10px}
+.reward-box .form{display:flex;gap:8px;flex-wrap:wrap}
+.reward-box input{flex:1;min-width:180px;padding:11px 14px;border:1px solid var(--vang-note-border);border-radius:8px;font-size:.92rem;background:#fff}
+.reward-box .btn-send{background:var(--choco);color:#fff;padding:11px 22px;border-radius:8px;font-family:var(--sans);font-weight:600;font-size:.92rem}
+
+.daily-tasks{background:#fff;border:1px solid var(--kem-dam);border-radius:var(--radius);padding:22px 26px}
+.daily-tasks .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:8px}
+.daily-tasks .head h2{font-size:1.15rem}
+.daily-tasks .head .count{font-family:var(--sans);color:var(--nau-sua);font-size:.85rem}
+.daily-tasks .progress-bar{margin:10px 0 18px;height:5px;background:var(--kem-dam);border-radius:10px;overflow:hidden}
+
+.task-item{border-bottom:1px solid var(--kem-dam);padding:14px 0}
+.task-item:last-child{border-bottom:0;padding-bottom:0}
+.task-row{display:flex;align-items:center;gap:12px;cursor:pointer;font-family:var(--sans);flex-wrap:wrap}
+.task-row .check{width:24px;height:24px;border-radius:6px;background:var(--kem-dam);display:flex;align-items:center;justify-content:center;color:var(--nau-sua);flex-shrink:0;font-weight:700;font-size:.78rem}
+.task-item.done .task-row .check{background:var(--xanh-done);color:#fff}
+.task-item.today .task-row .check{background:var(--hong-dao);color:#fff}
+.task-item.locked .task-row{opacity:.55}
+.task-item.locked .task-row .check{background:#eee}
+.task-row .num{font-family:var(--sans);font-weight:700;color:var(--hong-dao);background:var(--hong-cuc-nhat);padding:3px 10px;border-radius:30px;font-size:.72rem;letter-spacing:.04em}
+.task-row .status-label{font-family:var(--sans);font-size:.78rem;color:var(--xanh-done);font-weight:600}
+.task-item.today .task-row .status-label{color:var(--hong-dao)}
+.task-item.locked .task-row .status-label{color:var(--nau-sua)}
+.task-row .ttl{flex:1;font-weight:600;color:var(--choco);font-size:.95rem;min-width:0}
+.task-row .chev{color:var(--nau-sua);transition:transform .25s;font-size:.85rem}
+.task-item.open .task-row .chev{transform:rotate(180deg)}
+
+.task-detail{display:none;padding:16px 0 4px 38px;animation:slideDown .3s ease}
+.task-item.open .task-detail{display:block}
+@keyframes slideDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.task-detail-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:22px;align-items:start;margin-top:6px}
+
+/* VIDEO THUMBNAIL */
+.video-thumb{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden;cursor:pointer;box-shadow:0 12px 30px rgba(216,27,96,.14);transition:transform .25s,box-shadow .25s}
+.video-thumb:hover{transform:translateY(-2px);box-shadow:0 18px 38px rgba(216,27,96,.20)}
+.video-thumb iframe{width:100%;height:100%;border:0;pointer-events:none}
+.video-thumb .play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(216,27,96,.06) 0%,rgba(74,52,41,.18) 100%);transition:background .25s}
+.video-thumb:hover .play-overlay{background:linear-gradient(135deg,rgba(216,27,96,.10),rgba(74,52,41,.24))}
+.video-thumb .play-btn{width:64px;height:64px;border-radius:50%;background:var(--hong-dao);color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 8px 24px rgba(216,27,96,.45);transition:transform .25s}
+.video-thumb:hover .play-btn{transform:scale(1.1)}
+.video-thumb .play-btn::after{content:'▶';margin-left:4px}
+.video-placeholder-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;background:linear-gradient(135deg,var(--hong-cuc-nhat),var(--hong-nhat));color:var(--hong-dao);text-align:center;padding:18px}
+.video-placeholder-inner .emoji{font-size:2.2rem;margin-bottom:5px}
+.video-placeholder-inner .ttl{font-family:var(--serif);font-size:1rem;color:var(--hong-dao-dam)}
+.video-placeholder-inner .sub{font-family:var(--sans);font-size:.78rem;color:var(--nau-sua);max-width:240px;margin-top:4px}
+
+.lesson-text{font-size:.93rem}
+.lesson-text p{margin-bottom:12px}
+.result-mini{background:var(--hong-cuc-nhat);border-left:3px solid var(--hong-dao);border-radius:8px;padding:12px 16px;margin:14px 0;font-size:.9rem}
+.result-mini b{color:var(--hong-dao)}
+
+.submit-link-box{background:#fff;border:1.5px dashed var(--hong-dao);border-radius:10px;padding:14px 18px;margin-top:14px}
+.submit-link-box .ttl{font-family:var(--sans);font-weight:700;color:var(--hong-dao);font-size:.85rem;margin-bottom:8px}
+.submit-link-box .form{display:flex;gap:8px;flex-wrap:wrap}
+.submit-link-box input{flex:1;min-width:180px;padding:11px 14px;border:1px solid var(--kem-dam);border-radius:8px;font-size:.92rem}
+.submit-link-box .btn-send{background:var(--hong-dao);color:#fff;padding:11px 22px;border-radius:8px;font-family:var(--sans);font-weight:600;font-size:.92rem;white-space:nowrap}
+.submit-link-box .btn-send:hover{background:var(--hong-dao-dam)}
+.submitted-link{margin-top:8px;font-size:.82rem;color:var(--xanh-done);font-family:var(--sans)}
+
+.host-note{background:var(--vang-note);border:1px solid var(--vang-note-border);border-left:4px solid var(--vang-note-border);border-radius:8px;padding:14px 18px;margin-top:14px;font-size:.9rem;font-style:italic;color:#5C4404}
+.host-note .lab{font-family:var(--sans);font-weight:700;color:#7B5A0D;font-style:normal;letter-spacing:.04em;margin-bottom:5px;display:block}
+
+/* COLUMN PHẢI */
+.right-col{position:sticky;top:84px;max-height:calc(100vh - 100px);overflow-y:auto;padding-left:4px}
+.profile-card{background:#fff;border:1px solid var(--kem-dam);border-radius:var(--radius);padding:16px;margin-bottom:12px}
+.profile-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.profile-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--hong-dao),var(--hong-dao-dam));color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:700;font-size:18px;flex-shrink:0}
+.profile-name{font-weight:700;font-size:.96rem;line-height:1.2;word-break:break-word}
+.profile-meta{font-family:var(--sans);font-size:.72rem;color:var(--nau-sua);margin-top:3px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.profile-meta .badge{background:var(--hong-nhat);color:var(--hong-dao);padding:1px 8px;border-radius:10px;font-size:.68rem;font-weight:700}
+.profile-meta .em{word-break:break-all}
+.level-row{display:flex;justify-content:space-between;align-items:center;font-family:var(--sans);font-size:.82rem;color:var(--nau-sua);margin-bottom:6px}
+.level-row b{color:var(--hong-dao);font-size:.95rem}
+.xp-bar{height:6px;background:var(--kem-dam);border-radius:10px;overflow:hidden;margin-bottom:12px}
+.xp-bar .fill{height:100%;background:linear-gradient(90deg,var(--hong-dao),var(--hong-dao-dam));transition:width .4s}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;text-align:center;padding-top:10px;border-top:1px solid var(--kem-dam)}
+.stat-grid .item{padding:5px 2px}
+.stat-grid .num{font-family:var(--serif);font-size:1.15rem;color:var(--hong-dao);font-weight:700;line-height:1}
+.stat-grid .lab{font-family:var(--sans);font-size:.62rem;color:var(--nau-sua);letter-spacing:.06em;text-transform:uppercase;margin-top:3px;font-weight:600}
+.logout-btn{font-family:var(--sans);font-size:.8rem;color:var(--nau-sua);padding:6px 14px;border:1px solid var(--kem-dam);border-radius:30px;margin-top:12px;display:block;margin-left:auto;margin-right:auto}
+.right-block{background:#fff;border:1px solid var(--kem-dam);border-radius:var(--radius);padding:14px;margin-bottom:12px}
+.right-block h3{font-family:var(--serif);font-size:.95rem;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.right-block h3 a{font-family:var(--sans);font-size:.72rem;color:var(--hong-dao);font-weight:600}
+.right-block .empty{font-family:var(--sans);font-size:.8rem;color:var(--nau-sua);text-align:center;padding:10px 4px;font-style:italic}
+.rank-item{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--kem-dam)}
+.rank-item:last-child{border-bottom:0}
+.rank-num{font-family:var(--serif);font-weight:700;color:var(--nau-sua);width:18px;font-size:.92rem}
+.rank-item.rank-1 .rank-num{color:#F9A825;font-size:1.02rem}
+.rank-item.rank-2 .rank-num{color:#9E9E9E}
+.rank-item.rank-3 .rank-num{color:#A1887F}
+.rank-ava{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--hong-nhat),var(--hong-dao));color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:700;font-size:.78rem;flex-shrink:0}
+.rank-name{flex:1;line-height:1.2;min-width:0}
+.rank-name .nm{font-weight:600;font-size:.82rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rank-name .xp{font-family:var(--sans);font-size:.7rem;color:var(--nau-sua)}
+
+/* ============================================================
+   VIDEO MODAL — bấm thumbnail → phóng to full screen
+   ============================================================ */
+.video-modal{position:fixed;inset:0;background:rgba(15,5,10,.92);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:999;animation:fadeIn .25s ease}
+.video-modal.active{display:flex}
+.video-modal-inner{width:min(95vw,1280px);position:relative;animation:zoomIn .35s cubic-bezier(.16,1,.3,1)}
+.video-modal-container{width:100%;aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.video-modal-container iframe{width:100%;height:100%;border:0}
+.video-modal-container .placeholder-big{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;background:linear-gradient(135deg,var(--hong-cuc-nhat),var(--hong-nhat));text-align:center;padding:40px}
+.video-modal-container .placeholder-big .emoji{font-size:4rem;margin-bottom:14px}
+.video-modal-container .placeholder-big h3{font-family:var(--serif);font-size:1.8rem;color:var(--hong-dao);margin-bottom:8px}
+.video-modal-container .placeholder-big p{font-family:var(--body);color:var(--nau-sua);max-width:440px;font-size:1rem}
+.modal-close{position:absolute;top:-50px;right:0;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.modal-close:hover{background:rgba(255,255,255,.28)}
+.modal-caption{position:absolute;bottom:-44px;left:0;right:0;text-align:center;color:rgba(255,255,255,.7);font-family:var(--sans);font-size:.85rem}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes zoomIn{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
+
+/* ============================================================
+   MOBILE DRAWER
+   ============================================================ */
+.drawer-overlay{position:fixed;inset:0;background:rgba(74,52,41,.5);backdrop-filter:blur(4px);z-index:60;display:none;animation:fadeIn .25s}
+.drawer-overlay.active{display:block}
+.mobile-fab{display:none;position:fixed;bottom:22px;left:22px;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--hong-dao),var(--hong-dao-dam));color:#fff;font-size:22px;font-weight:700;box-shadow:0 12px 30px rgba(216,27,96,.45);z-index:50;align-items:center;justify-content:center}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1180px){
+  .dashboard-wrap{grid-template-columns:220px 1fr 260px;gap:16px}
+  .search-box{display:none}
+}
+@media (max-width:1000px){
+  .dashboard-wrap{grid-template-columns:1fr;padding:16px}
+  .sidebar{position:fixed;top:0;left:0;width:280px;max-width:85vw;height:100vh;max-height:100vh;background:var(--kem);transform:translateX(-100%);transition:transform .35s ease;z-index:70;padding:18px;overflow-y:auto;box-shadow:0 10px 40px rgba(0,0,0,.2)}
+  .sidebar.open{transform:translateX(0)}
+  .mobile-fab{display:flex}
+  .right-col{position:static;max-height:none;display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0}
+  .right-col .profile-card{grid-column:1/-1}
+}
+@media (max-width:768px){
+  .dgan-burger{display:flex}
+  .dgan-menu{position:fixed;top:64px;left:0;right:0;background:var(--kem);flex-direction:column;gap:0;padding:8px 24px 20px;border-bottom:1px solid var(--kem-dam);transform:translateY(-120%);transition:transform .35s;box-shadow:0 16px 30px rgba(74,52,41,.1);z-index:49;margin-left:0}
+  .dgan-menu.open{transform:translateY(0)}
+  .dgan-menu a{padding:13px 0;border-bottom:1px solid var(--kem-dam)}
+  .dgan-menu a::after{display:none}
+  .dashboard-wrap{padding:12px}
+  .challenge-header{padding:18px 18px}
+  .challenge-header h1{font-size:1.35rem}
+  .daily-tasks{padding:16px 14px}
+  .task-detail{padding-left:0}
+  .task-detail-grid{grid-template-columns:1fr;gap:14px}
+  .task-row{gap:8px}
+  .task-row .num{font-size:.68rem;padding:2px 8px}
+  .task-row .status-label{font-size:.72rem}
+  .task-row .ttl{font-size:.88rem;width:100%;margin-left:36px;order:3}
+  .reward-box .form,.submit-link-box .form{flex-direction:column}
+  .reward-box input,.submit-link-box input{width:100%;font-size:1rem;padding:13px 16px}
+  .reward-box .btn-send,.submit-link-box .btn-send{width:100%;font-size:.95rem;padding:13px}
+  .meta-row{gap:18px}
+  .right-col{grid-template-columns:1fr}
+  .modal-close{top:-46px;right:8px}
+  .video-modal-inner{width:96vw}
+}
+  #form-blocks a:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(216,27,96,.12)}
+  .docs-box:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(216,27,96,.35) !important}
+  @media (max-width:680px){#form-blocks{grid-template-columns:1fr !important}}
+
+  .menu-qua{position:relative;color:#D81B60 !important;font-weight:700 !important}
+  .menu-qua .qua-ico{display:inline-block;font-size:1.05em;transform-origin:50% 90%;animation:menuQuaWobble 1.2s ease-in-out infinite,menuQuaGlow 1.4s ease-in-out infinite;margin-right:2px}
+  @keyframes menuQuaWobble{0%,60%,100%{transform:rotate(0)}10%{transform:rotate(-14deg)}20%{transform:rotate(12deg)}30%{transform:rotate(-10deg)}40%{transform:rotate(8deg)}50%{transform:rotate(-4deg)}}
+  @keyframes menuQuaGlow{0%,100%{filter:drop-shadow(0 0 0 rgba(216,27,96,.7))}50%{filter:drop-shadow(0 0 8px rgba(232,181,71,.9))}}
+</style>
+<style id="menu-compact-fix">
+  /* .dgan-menu — 5 trang */
+  .dgan-wrap{max-width:1200px !important;padding:0 20px !important;gap:16px}
+  .dgan-menu{gap:18px !important;font-size:13.5px !important;flex-wrap:nowrap !important;align-items:center !important}
+  .dgan-menu a{white-space:nowrap !important;line-height:1.2 !important}
+  .dgan-logo{font-size:18px !important;white-space:nowrap;flex-shrink:0}
+  .dgan-logo span{font-size:14px !important}
+  @media (max-width:900px){
+    .dgan-menu{gap:14px !important;font-size:12.5px !important}
+    .dgan-logo{font-size:16px !important}
+    .dgan-logo span{font-size:12px !important}
+  }
+  @media (max-width:768px){
+    /* mobile giữ burger như cũ, menu vẫn column */
+    .dgan-menu{flex-wrap:wrap !important}
+  }
+
+  /* .menu (gioi-thieu) — cùng nguyên tắc */
+  header .wrap.nav{max-width:1200px !important;gap:16px}
+  .menu{gap:18px !important;font-size:13.5px !important;flex-wrap:nowrap !important;align-items:center !important}
+  .menu a{white-space:nowrap !important;line-height:1.2 !important}
+  .logo{font-size:18px !important;white-space:nowrap;flex-shrink:0;line-height:1.15 !important}
+  .logo span{font-size:14px !important}
+  @media (max-width:900px){
+    .menu{gap:14px !important;font-size:12.5px !important}
+    .logo{font-size:16px !important}
+    .logo span{font-size:12px !important}
+  }
+  @media (max-width:768px){
+    .menu{flex-wrap:wrap !important}
+  }
+</style></head>
+<body>
+
+<header class="dgan-header">
+  <div class="dgan-wrap">
+    <a href="/" class="dgan-logo">Dáng Ngọc An Nhiên<span>cùng Elsa Phương</span></a>
+    <nav class="dgan-menu" id="dgan-menu">
+      <a href="/">Trang chủ</a>
+      <a href="/gioi-thieu/">Về Phương</a>
+      <a href="/khoa-21-ngay/">Dáng Ngọc An Nhiên</a>
+      <a href="/khoe-dep-tu-goc/">Khỏe Đẹp Từ Gốc</a>
+      <a href="/khoahoc/" class="active">Khu vực học viên</a>
+      <a href="/lien-he/">Liên hệ</a>
+    </nav>
+    <div class="topbar-tools">
+      <div class="search-box">ð <input placeholder="Tìm kiếm..."></div>
+      <div class="bell">ð<span class="dot">3</span></div>
+      <button class="dgan-burger" aria-label="Menu" onclick="document.getElementById('dgan-menu').classList.toggle('open')"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- LOGIN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <div class="login-brand">
+      <div class="ribbon">Khu vực học viên</div>
+      <h1>Chào mừng chị em</h1>
+      <p>Đăng nhập để tiếp tục hành trình cùng Phương</p>
+    </div>
+    <form class="login-form" id="loginForm">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="email@gmail.com" required>
+      <label for="password">Mật khẩu</label>
+      <input type="password" id="password" placeholder="Mật khẩu Phương gửi qua email" required>
+      <button type="submit" class="login-btn">Vào học</button>
+      <div class="login-error" id="loginError">Email hoặc mật khẩu chưa đúng.</div>
+    </form>
+    <div class="login-help">Chưa nhận được email? <a href="/lien-he/">Nhắn Phương</a></div>
+    <div class="demo-hint">ð§ <b>Chưa nhận được email?</b> Email kèm <b>Mã Học viên</b> và <b>mật khẩu</b> được Phương gửi ngay sau khi chị em thanh toán xong. Kiểm cả hộp Spam/Quảng cáo nhé.</div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+  <div class="dashboard-wrap">
+
+    <aside class="sidebar" id="sidebarLeft">
+      <div class="side-block">
+        <div class="side-group">Học tập</div>
+        <nav class="side-nav">
+          <a href="#" class="active"><span class="ico">ð¸</span> Dáng Ngọc An Nhiên</a>
+          <a href="#upsell-lcccd" onclick="alert('Khoá Làm Chủ Cuộc Đời sắp ra mắt — Phương sẽ thông báo khi mở.');return false;"><span class="ico">ð·</span> Làm Chủ Cuộc Đời</a>
+        </nav>
+        <div class="side-group" style="margin-top:14px">Cộng đồng</div>
+        <nav class="side-nav">
+          <a href="/cong-dong/"><span class="ico">ð¿</span> Cộng Đồng</a>
+          <a href="#thong-bao" onclick="alert('Phương sẽ gửi thông báo qua email và Telegram. Tính năng đang chuẩn bị.');return false;"><span class="ico">ð</span> Thông Báo</a>
+          <a href="#hoi-dap" onclick="alert('Tính năng Hỏi đáp đang chuẩn bị. Trong lúc đó, chị em nhắn Zalo Phương nhé.');return false;"><span class="ico">ð¬</span> Hỏi Đáp</a>
+        </nav>
+      </div>
+      <div class="progress-box">
+        <div class="lab">Tiến trình</div>
+        <div class="num"><span id="progNum">5</span>/21 <small>ngày</small></div>
+        <div class="progress-bar"><div class="fill" id="progFill" style="width:23.8%"></div></div>
+      </div>
+      <div class="side-block">
+        <div class="side-group">21 ngày</div>
+        <div class="lesson-list-side" id="lessonList"></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <a href="#" class="back-link">← Quay lại Challenge</a>
+      <div class="challenge-header">
+        <h1>Challenge 21 Ngày Dáng Ngọc An Nhiên</h1>
+        <div class="tag-row">
+          <span class="tag normal">Đang mở</span>
+          <span class="tag reward">ð Quà Đặc Biệt</span>
+          <span class="tag reward" style="background:#E0F7FA;color:#00838F;">ð Quà Kim Cương</span>
+        </div>
+        <div class="goal-box">
+          <div class="lab">Mục tiêu</div>
+          <div class="ttl">Lấy lại vóc dáng và sự an nhiên trong tâm</div>
+        </div>
+        <p class="challenge-desc">21 ngày, mỗi ngày một việc nhỏ. Phương đồng hành cùng chị em từng bài, từng giai đoạn cơ thể và nội tâm. Mỗi ngày 1 bài mới mở khoá sau 24h. Hoàn thành 21 ngày và nhận Quà giá trị.</p>
+        <div class="meta-row">
+          <div class="meta-item"><div class="lab">Người dẫn</div><div class="val">Phương</div></div>
+          <div class="meta-item"><div class="lab">Thành viên</div><div class="val">42</div></div>
+          <div class="meta-item"><div class="lab">Thời gian</div><div class="val">21 ngày</div></div>
+        </div>
+      </div>
+      <div class="status-box">
+        <div class="check">✓</div>
+        <div class="txt">Đang tham gia · Ngày <span id="statusToday">5</span>/21 · Còn <span id="statusRemain">16</span> ngày</div>
+      </div>
+      <!-- P2.5: 2 block form trước/sau hành trình -->
+      <div class="form-blocks-row" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
+        <a href="__FORM_TRUOC__" target="_blank" style="display:block;background:linear-gradient(135deg,#FFF3E0,#FFE0B2);border:1px solid #FFCC80;border-radius:12px;padding:14px 16px;text-decoration:none;color:#5D4037;transition:transform .2s;">
+          <div style="font-family:var(--sans);font-weight:700;font-size:.78rem;color:#E65100;letter-spacing:.04em;margin-bottom:4px;">ð ĐIỀN TRƯỚC HÀNH TRÌNH</div>
+          <div style="font-family:var(--serif);font-size:1rem;font-weight:700;margin-bottom:4px;">Form trước khi tham gia</div>
+          <div style="font-size:.78rem;color:#8B6F5C;">Để nhận <b>Quà Đặc Biệt</b> — bấm để mở →</div>
+        </a>
+        <a href="__FORM_SAU__" target="_blank" style="display:block;background:linear-gradient(135deg,#E8F5E9,#C8E6C9);border:1px solid #A5D6A7;border-radius:12px;padding:14px 16px;text-decoration:none;color:#1B5E20;transition:transform .2s;">
+          <div style="font-family:var(--sans);font-weight:700;font-size:.78rem;color:#2E7D32;letter-spacing:.04em;margin-bottom:4px;">ð SAU 21 NGÀY</div>
+          <div style="font-family:var(--serif);font-size:1rem;font-weight:700;margin-bottom:4px;">Form sau hành trình</div>
+          <div style="font-size:.78rem;color:#33691E;">Để nhận <b>Quà Đặc Biệt</b> — bấm để mở →</div>
+        </a>
+      </div>
+
+      <!-- P2.3: 2 ô quà expand (Đặc Biệt + Kim Cương) -->
+      <div class="gift-row" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
+        <div class="gift-card" style="background:linear-gradient(135deg,#FFF8E1,#FFECB3);border:1px solid #FFD54F;border-radius:12px;padding:18px 20px;cursor:pointer;text-align:center;transition:all .2s;" onclick="toggleGift('dac-biet')">
+          <div style="font-size:1.8rem;margin-bottom:4px;">ð</div>
+          <div style="font-family:var(--serif);font-weight:700;font-size:1.05rem;color:#5D4037;margin-bottom:4px;">Nhận Quà Đặc Biệt</div>
+          <div style="font-size:.75rem;color:#8B6F5C;font-style:italic;"><span id="giftToggle-dac-biet">Bấm xem điều kiện ▾</span></div>
+        </div>
+        <div class="gift-card" style="background:linear-gradient(135deg,#E1F5FE,#B3E5FC);border:1px solid #4FC3F7;border-radius:12px;padding:18px 20px;cursor:pointer;text-align:center;transition:all .2s;" onclick="toggleGift('kim-cuong')">
+          <div style="font-size:1.8rem;margin-bottom:4px;">ð</div>
+          <div style="font-family:var(--serif);font-weight:700;font-size:1.05rem;color:#01579B;margin-bottom:4px;">Nhận Quà Kim Cương</div>
+          <div style="font-size:.75rem;color:#0277BD;font-style:italic;"><span id="giftToggle-kim-cuong">Bấm xem điều kiện ▾</span></div>
+        </div>
+      </div>
+
+      <!-- Detail Quà Đặc Biệt -->
+      <div id="gift-detail-dac-biet" style="display:none;background:#FFFDE7;border:1px solid #FFE082;border-radius:12px;padding:18px 22px;margin-bottom:14px;">
+        <h4 style="color:#D81B60;font-family:var(--serif);font-size:1rem;margin-bottom:10px;">Quà tặng Đặc Biệt dành cho Chị em</h4>
+        <div style="background:#fff;border-left:4px solid #D81B60;padding:12px 16px;border-radius:8px;margin-bottom:12px;">
+          <div style="font-family:var(--sans);font-weight:700;font-size:.72rem;color:#D81B60;letter-spacing:.1em;margin-bottom:4px;">BẠN NHẬN ĐƯỢC</div>
+          <div style="font-weight:700;color:#D81B60;margin-bottom:4px;">Trọn chương trình "Chuyển Hoá Tâm Thức, Làm Chủ Cuộc Đời"</div>
+          <div style="font-size:.88rem;color:#4A3429;">Lộ trình đồng hành đi sâu vào gốc rễ, giúp chị em gỡ những nút thắt bên trong, làm chủ cảm xúc và bước vào một phiên bản bình an, vững vàng của chính mình. Và từng bước có được cuộc sống tự chủ, đủ đầy, hạnh phúc.</div>
+        </div>
+        <p style="font-weight:700;font-size:.9rem;margin-bottom:6px;">Điều kiện:</p>
+        <ul style="font-size:.88rem;color:#4A3429;padding-left:22px;line-height:1.6;">
+          <li>✦ Sau mỗi ngày học, đăng cảm nhận và video luyện tập trong nhóm Facebook, đúng hạn theo hệ thống cập nhật trong 21 ngày liên tục.</li>
+          <li>✦ Điền form trước và sau khi tham gia hành trình.</li>
+          <li>✦ Đăng 1 bài công khai tag Elsa Phương trên trang Facebook cá nhân.</li>
+        </ul>
+      </div>
+
+      <!-- Detail Quà Kim Cương -->
+      <div id="gift-detail-kim-cuong" style="display:none;background:#E1F5FE;border:1px solid #4FC3F7;border-radius:12px;padding:18px 22px;margin-bottom:14px;">
+        <h4 style="color:#0277BD;font-family:var(--serif);font-size:1rem;margin-bottom:10px;">Quà tặng Kim Cương dành cho Chị em</h4>
+        <div style="background:#fff;border-left:4px solid #FFC107;padding:12px 16px;border-radius:8px;margin-bottom:12px;">
+          <div style="font-family:var(--sans);font-weight:700;font-size:.72rem;color:#F57C00;letter-spacing:.1em;margin-bottom:4px;">BẠN NHẬN ĐƯỢC</div>
+          <div style="font-weight:700;color:#D81B60;margin-bottom:4px;">30 ngày tham gia Cộng Đồng Dáng Ngọc An Nhiên</div>
+          <div style="font-size:.88rem;color:#4A3429;">Bước vào không gian nơi chị em không còn đi một mình. Trọn 30 ngày được Phương trực tiếp đồng hành, Zoom cùng nhau mỗi tuần, có Coach hỗ trợ mỗi ngày, và những người chị em cùng chí hướng nâng đỡ nhau giữ vững thói quen mới. Đây là nơi giữ cho sự chuyển hoá của bạn tiếp tục đi xa sau 21 ngày.</div>
+        </div>
+        <p style="font-weight:700;font-size:.9rem;margin-bottom:6px;">Điều kiện:</p>
+        <ul style="font-size:.88rem;color:#4A3429;padding-left:22px;line-height:1.6;">
+          <li>✦ Quay 1 video cảm nhận về hành trình 21 ngày, tải lên Drive và gửi link trên trang học tập (theo yêu cầu quay video bên dưới).</li>
+          <li>✦ Đăng 1 bài công khai tag Elsa Phương trên trang Facebook cá nhân.</li>
+        </ul>
+        <div style="background:#FFF3E0;border-radius:8px;padding:10px 14px;margin-top:12px;font-size:.85rem;color:#5D4037;">
+          Chị em đã đủ điều kiện nhận <b>Quà Đặc Biệt</b> thì chỉ cần gửi thêm video cảm nhận là nhận được <b>Quà Kim Cương</b>.
+        </div>
+      </div>
+
+      <!-- 2 form trước/sau hành trình — nhận Quà Đặc Biệt -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;" id="form-blocks">
+        <a href="#" target="_blank" id="formBefore" style="text-decoration:none;display:block;background:#FFF8E1;border:1px solid #F5D472;border-left:4px solid #F5D472;border-radius:10px;padding:14px 18px;transition:transform .2s,box-shadow .2s;">
+          <div style="font-family:var(--sans);font-weight:700;color:#7B5A0D;font-size:.92rem;margin-bottom:4px;">ð Form TRƯỚC hành trình</div>
+          <div style="font-size:.82rem;color:#5C4404;line-height:1.5;">Điền form đo lường vóc dáng + tâm trạng <b>trước khi bắt đầu 21 ngày</b> để nhận <b>Quà Đặc Biệt</b>.</div>
+          <div style="margin-top:8px;font-size:.78rem;color:#D81B60;font-weight:600;">Bấm để mở form →</div>
+        </a>
+        <a href="#" target="_blank" id="formAfter" style="text-decoration:none;display:block;background:#F1F8E9;border:1px solid #C5E1A5;border-left:4px solid #4CAF50;border-radius:10px;padding:14px 18px;transition:transform .2s,box-shadow .2s;">
+          <div style="font-family:var(--sans);font-weight:700;color:#2E7D32;font-size:.92rem;margin-bottom:4px;">✅ Form SAU 21 ngày</div>
+          <div style="font-size:.82rem;color:#1B5E20;line-height:1.5;">Điền form đo lường + cảm nhận <b>sau khi hoàn thành 21 ngày</b> để nhận <b>Quà Đặc Biệt</b>.</div>
+          <div style="margin-top:8px;font-size:.78rem;color:#D81B60;font-weight:600;">Bấm để mở form →</div>
+        </a>
+      </div>
+
+      <!-- Nộp Video Cảm Nhận (giữ, di chuyển xuống dưới) -->
+      <div class="reward-box">
+        <div class="ttl">ð¬ Nộp Video Cảm Nhận — Yêu cầu Quà Kim Cương</div>
+        <div class="desc">Độ dài 1 đến 3 phút, chị em chia sẻ 3 ý: <b>Trước khi vào hành trình</b> mình đang gặp điều gì về vóc dáng và tinh thần · <b>Trong 21 ngày</b> mình đã thực hành ra sao · <b>Sau 21 ngày</b> mình thấy khác biệt thế nào. Tải video lên Google Drive (đặt quyền "bất kỳ ai có link đều xem được"), dán link vào ô bên dưới.</div>
+        <div class="form">
+          <input type="url" id="rewardLink" placeholder="Paste link video Drive...">
+          <button class="btn-send" onclick="submitReward()">Gửi</button>
+        </div>
+      </div>
+      <div class="daily-tasks">
+        <div class="head">
+          <h2>Nhiệm vụ hàng ngày</h2>
+          <div class="count"><span id="taskCount">4</span>/21 hoàn thành</div>
+        </div>
+        <div class="progress-bar"><div class="fill" id="taskProgFill" style="width:19%"></div></div>
+        <div id="tasksList"></div>
+      </div>
+    </main>
+
+    <aside class="right-col">
+      <div class="profile-card">
+        <div class="profile-row">
+          <div class="profile-avatar" id="userAvatar">C</div>
+          <div style="flex:1;min-width:0">
+            <div class="profile-name" id="userName">Chị em</div>
+            <div class="profile-meta"><span class="badge" id="userStudentId">DNAN—</span> <span class="em" id="userEmail"></span></div>
+          </div>
+        </div>
+        <div class="stat-grid">
+          <div class="item"><div class="num" id="statOnTime" style="color:#4CAF50">0</div><div class="lab">Đúng hạn</div></div>
+          <div class="item"><div class="num" id="statLate" style="color:#E65100">0</div><div class="lab">Quá hạn</div></div>
+          <div class="item"><div class="num" id="statPct">0%</div><div class="lab">Hoàn thành</div></div>
+        </div>
+        <button class="logout-btn" id="logoutBtn">Đăng xuất</button>
+      </div>
+      <div class="right-block" style="background:linear-gradient(135deg,#E1F5FE,#F0F8FF);border-color:#B3E5FC;">
+        <h3 style="color:#0277BD;">ð¬ Cần hỗ trợ trong hành trình?</h3>
+        <p style="font-size:.85rem;color:#4A3429;margin-bottom:10px;">Tham gia nhóm Telegram để <b>Coach CHẠM</b> hỗ trợ chị em 24/7: giải đáp về bài học, hướng dẫn nộp bài, đồng hành mỗi ngày.</p>
+        <p style="text-align:center;margin:10px 0;">
+          <a href="https://t.me/+ycpmYBgJFGQ4ZjZl" target="_blank" style="display:inline-block;background:#0088cc;color:#fff;padding:9px 20px;border-radius:30px;font-family:var(--sans);font-weight:600;font-size:.85rem;text-decoration:none;">ð² Vào nhóm Telegram</a>
+        </p>
+        <details style="margin-top:10px;font-family:var(--sans);font-size:.82rem;color:var(--nau-sua);">
+          <summary style="cursor:pointer;color:#0277BD;font-weight:600;">Chưa có Telegram? Bấm xem hướng dẫn ▾</summary>
+          <div style="padding:10px 4px;line-height:1.6;">
+            <p><b>Bước 1</b> — Tải app Telegram:</p>
+            <p style="padding-left:10px;">ð² <a href="https://apps.apple.com/app/telegram-messenger/id686449807" target="_blank" style="color:#0088cc;">iPhone</a><br>ð² <a href="https://play.google.com/store/apps/details?id=org.telegram.messenger" target="_blank" style="color:#0088cc;">Android</a></p>
+            <p><b>Bước 2</b> — Đăng ký bằng số điện thoại của mình.</p>
+            <p><b>Bước 3</b> — Bấm nút <b>"Vào nhóm Telegram"</b> phía trên để vào cộng đồng.</p>
+          </div>
+        </details>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<!-- Drawer overlay (mobile) + FAB mở sidebar -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="toggleSidebar(false)"></div>
+<button class="mobile-fab" onclick="toggleSidebar(true)" aria-label="Mở danh sách bài">☰</button>
+
+<!-- VIDEO MODAL -->
+<div class="video-modal" id="videoModal" onclick="if(event.target.id==='videoModal')closeVideoModal()">
+  <div class="video-modal-inner">
+    <button class="modal-close" onclick="closeVideoModal()" aria-label="Đóng">✕</button>
+    <div class="video-modal-container" id="videoModalContainer"></div>
+    <div class="modal-caption" id="modalCaption"></div>
+  </div>
+</div>
+
+<script>
+const VERIFY_URL = 'https://project-fa985.vercel.app/api/verify-login';
+const DEMO_DAY_INDEX = 5;  // fallback nếu không tính được ngày từ ngay_tham_gia
+
+const LESSONS = {};
+for (let i = 1; i <= 21; i++) {
+  LESSONS[i] = {
+    title: `Ngày ${i} · Nội dung sẽ được Phương cập nhật`,
+    intro: `Phần thực hành Ngày ${i} của Dáng Ngọc An Nhiên — sẽ có hướng dẫn nhỏ về cơ thể và tâm trí, bài tập 10-20 phút trong ngày.`,
+    result: `Một thay đổi nhỏ trong cảm nhận thân và tâm.`,
+    note: `Chị em nhớ đăng bài trải nghiệm Ngày ${i} lên trang cá nhân với hashtag #DangNgocAnNhien rồi dán link vào ô dưới để Phương ghi nhận nhé.`,
+    videoId: null,
+    submitted: i < DEMO_DAY_INDEX ? `https://facebook.com/post-ngay-${i}` : null
+  };
+}
+LESSONS[1].title = 'Ngày 1 · Khởi đầu — Gặp lại bản thân';
+LESSONS[1].intro = 'Phương mời chị em dành 15 phút đầu ngày để đứng trước gương, ngắm nhìn cơ thể mình một cách dịu dàng. Đây không phải để soi xét hay phán xét, mà để chào lại bản thân sau bao năm chị em đã đặt mình cuối hàng.';
+LESSONS[1].result = 'Một khoảnh khắc dịu dàng với chính mình. Bắt đầu hành trình bằng sự chấp nhận, không phải sự thay đổi.';
+LESSONS[1].note = 'Bài đầu tiên có thể chị em sẽ thấy lạ. Cứ làm thử, đừng phán xét cảm xúc nào hết. Phương ở đây cùng chị.';
+LESSONS[5].title = 'Ngày 5 · Lắng nghe nhịp thở';
+
+const TOP_RANK = [];
+
+const loginScreen = document.getElementById('loginScreen');
+const dashboard = document.getElementById('dashboard');
+const loginForm = document.getElementById('loginForm');
+const loginError = document.getElementById('loginError');
+
+loginForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
+  loginError.classList.remove('show');
+  if (!email || !password) { loginError.classList.add('show'); return; }
+
+  const btn = e.target.querySelector('.login-btn');
+  const btnText = btn.textContent;
+  btn.disabled = true; btn.textContent = 'Đang đăng nhập...';
+
+  try {
+    const res = await fetch(VERIFY_URL, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+    if (!data.success) {
+      loginError.classList.add('show');
+      btn.disabled = false; btn.textContent = btnText;
+      return;
+    }
+    // Lưu session + show
+    const dayIndex = computeDayIndex(data.activated_at);
+    sessionStorage.setItem('dgan_session', JSON.stringify({
+      email: data.email, name: data.name, studentId: data.studentId,
+      ngay_tham_gia: data.ngay_tham_gia, activated_at: data.activated_at
+    }));
+    showDashboard(data.email, data.name, dayIndex, data.studentId, data.activated_at);
+  } catch (err) {
+    console.error('Login error:', err);
+    loginError.textContent = 'Lỗi kết nối, chị em thử lại sau.';
+    loginError.classList.add('show');
+    btn.disabled = false; btn.textContent = btnText;
+  }
+});
+
+function computeDayIndex(activatedAt) {
+  if (!activatedAt) return 0; // 0 = chưa kích hoạt
+  const start = new Date(activatedAt).getTime();
+  const now = Date.now();
+  const diff = Math.floor((now - start) / 86400000) + 1;
+  return Math.max(1, Math.min(21, diff));
+}
+
+// Auto-login từ session
+const _session = sessionStorage.getItem('dgan_session');
+if (_session) {
+  try {
+    const s = JSON.parse(_session);
+    const di = computeDayIndex(s.activated_at);
+    showDashboard(s.email, s.name, di, s.studentId, s.activated_at);
+  } catch (e) { sessionStorage.removeItem('dgan_session'); }
+}
+
+function showDashboard(email, name, dayIndex, studentId, activatedAt) {
+  const displayName = name || email.split('@')[0].replace(/[._-]/g,' ').replace(/\b\w/g, c => c.toUpperCase());
+  document.getElementById('userName').textContent = displayName || 'Học viên';
+  document.getElementById('userEmail').textContent = email;
+  document.getElementById('userAvatar').textContent = (displayName || 'C').charAt(0).toUpperCase();
+  if (studentId) {
+    const sidEl = document.getElementById('userStudentId');
+    if (sidEl) sidEl.textContent = studentId;
+  }
+  loginScreen.style.display = 'none';
+  // Chưa kích hoạt → show welcome, không vào dashboard
+  if (!activatedAt) {
+    const wel = document.getElementById('welcomeScreen');
+    if (wel) {
+      document.getElementById('welcomeName').textContent = displayName || 'chị em';
+      wel.style.display = 'flex';
+      return;
+    }
+  }
+  dashboard.classList.add('active');
+  window.CURRENT_DAY = dayIndex;
+  // Mốc unlock = activated_at (timestamp chính xác). Ngày N mở sau (N-1)*24h.
+  window.UNLOCK_TS_BASE = new Date(activatedAt).getTime();
+  const done = dayIndex - 1;
+  const pct = Math.round(done / 21 * 100);
+  document.getElementById('progNum').textContent = done;
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('statusToday').textContent = dayIndex;
+  document.getElementById('statusRemain').textContent = 21 - dayIndex;
+  document.getElementById('taskCount').textContent = done;
+  document.getElementById('taskProgFill').style.width = pct + '%';
+  document.getElementById('statOnTime').textContent = done;
+  document.getElementById('statLate').textContent = 0;
+  document.getElementById('statPct').textContent = pct + '%';
+  renderSidebar(dayIndex);
+  renderTasks(dayIndex);
+  // renderTopRank(); // bỏ Top tuần
+}
+
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  sessionStorage.removeItem('dgan_session');
+  dashboard.classList.remove('active');
+  loginScreen.style.display = 'flex';
+  document.getElementById('email').value = '';
+  document.getElementById('password').value = '';
+  loginError.classList.remove('show');
+});
+
+function renderSidebar(currentDay) {
+  const list = document.getElementById('lessonList');
+  list.innerHTML = '';
+  for (let i = 1; i <= 21; i++) {
+    const li = document.createElement('div');
+    const isLocked = i > currentDay;
+    const isDone = i < currentDay;
+    const isActive = i === currentDay;
+    li.className = 'lesson-item-side';
+    if (isLocked) li.classList.add('locked');
+    if (isDone) li.classList.add('done');
+    if (isActive) li.classList.add('active');
+    let sub;
+    if (isLocked) {
+      const unlockTs = window.UNLOCK_TS_BASE + (i-1) * 86400000;
+      sub = 'ð <span class="countdown" data-unlock="'+unlockTs+'">Mở sau...</span>';
+    } else if (isDone) sub = 'Hoàn thành';
+    else sub = 'Hôm nay';
+    li.innerHTML = '<div class="lesson-num">' + i + '</div><div class="lesson-meta-side"><div class="ttl">Ngày ' + i + '</div><div class="sub">' + sub + '</div></div>';
+    if (!isLocked) {
+      li.addEventListener('click', () => {
+        document.querySelectorAll('.lesson-item-side').forEach(el => el.classList.remove('active'));
+        li.classList.add('active');
+        const target = document.querySelector('[data-day="' + i + '"]');
+        if (target) {
+          document.querySelectorAll('.task-item').forEach(t => t.classList.remove('open'));
+          target.classList.add('open');
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        toggleSidebar(false);
+      });
+    }
+    list.appendChild(li);
+  }
+}
+
+function renderTasks(currentDay) {
+  const wrap = document.getElementById('tasksList');
+  wrap.innerHTML = '';
+  for (let i = 1; i <= 21; i++) {
+    const lesson = LESSONS[i];
+    const isLocked = i > currentDay;
+    const isDone = i < currentDay;
+    const isToday = i === currentDay;
+    const stateClass = isLocked ? 'locked' : (isDone ? 'done' : (isToday ? 'today open' : ''));
+    let statusLabel;
+    if (isLocked) {
+      const unlockTs = window.UNLOCK_TS_BASE + (i-1) * 86400000;
+      statusLabel = '<span class="countdown" data-unlock="'+unlockTs+'">Khoá</span>';
+    } else if (isDone) statusLabel = 'Hoàn thành';
+    else statusLabel = 'Hôm nay';
+    const checkIcon = isLocked ? 'ð' : (isDone ? '✓' : '!');
+
+    let videoBlock;
+    const docsLink = lesson.docsUrl || '#';
+    const docsBox = `
+        <a href="${docsLink}" target="_blank" class="docs-box" style="display:flex;align-items:center;gap:12px;background:linear-gradient(90deg,#D81B60,#AD1457);color:#fff;padding:12px 18px;border-radius:12px;margin-top:12px;text-decoration:none;box-shadow:0 8px 22px rgba(216,27,96,.25);transition:transform .2s,box-shadow .2s;">
+          <span style="font-size:1.4rem;">ð</span>
+          <div style="flex:1;">
+            <div style="font-family:var(--sans);font-weight:700;font-size:.92rem;letter-spacing:.4px;">TÀI LIỆU BUỔI HỌC</div>
+            <div style="font-family:var(--body);font-size:.78rem;opacity:.88;margin-top:2px;">Bấm để xem tài liệu Phương đã soạn cho ngày này</div>
+          </div>
+          <span style="font-size:1rem;">→</span>
+        </a>`;
+    if (lesson.videoId) {
+      videoBlock = `
+        <div class="video-thumb" onclick="openVideoModal(${i})">
+          <iframe src="https://www.youtube.com/embed/${lesson.videoId}?rel=0&modestbranding=1&controls=0&showinfo=0"></iframe>
+          <div class="play-overlay"><div class="play-btn"></div></div>
+        </div>` + docsBox;
+    } else {
+      videoBlock = `
+        <div class="video-thumb" onclick="openVideoModal(${i})">
+          <div class="video-placeholder-inner">
+            <div class="emoji">ð¬</div>
+            <div class="ttl">Video Ngày ${i}</div>
+            <div class="sub">Bấm để xem (placeholder demo)</div>
+          </div>
+          <div class="play-overlay"><div class="play-btn"></div></div>
+        </div>` + docsBox;
+    }
+
+    const detailHtml = isLocked ? '' : `
+      <div class="task-detail">
+        <div class="task-detail-grid">
+          <div class="lesson-text">
+            <p>${lesson.intro}</p>
+            <div class="result-mini"><b>ð Kết quả ngày hôm nay:</b> ${lesson.result}</div>
+            ${lesson.note ? '<div class="host-note"><span class="lab">ð Lời nhắn từ Phương</span>' + lesson.note + '</div>' : ''}
+            <div class="submit-link-box">
+              <div class="ttl">ð Dán link bài đăng Facebook của chị em</div>
+              <div class="form">
+                <input type="url" placeholder="https://facebook.com/..." id="linkInput-${i}" ${lesson.submitted ? 'value="' + lesson.submitted + '"' : ''} ${isDone ? 'disabled' : ''}>
+                <button class="btn-send" onclick="submitLink(${i})">${isDone ? 'Đã gửi ✓' : 'Gửi'}</button>
+              </div>
+              ${lesson.submitted ? '<div class="submitted-link">✓ Đã ghi nhận lúc ' + new Date().toLocaleDateString('vi-VN') + '</div>' : ''}
+            </div>
+          </div>
+          <div>${videoBlock}</div>
+        </div>
+      </div>`;
+
+    wrap.insertAdjacentHTML('beforeend', `
+      <div class="task-item ${stateClass}" data-day="${i}" id="task-${i}">
+        <div class="task-row" onclick="toggleTask(${i})">
+          <div class="check">${checkIcon}</div>
+          <div class="num">Ngày ${i}</div>
+          <div class="status-label">${statusLabel}</div>
+          <div class="ttl">${lesson.title}</div>
+          <div class="chev">▾</div>
+        </div>
+        ${detailHtml}
+      </div>`);
+  }
+}
+
+function toggleTask(day) {
+  const item = document.getElementById('task-' + day);
+  if (item.classList.contains('locked')) return;
+  document.querySelectorAll('.task-item').forEach(t => { if (t !== item) t.classList.remove('open'); });
+  item.classList.toggle('open');
+}
+
+function submitLink(day) {
+  const inp = document.getElementById('linkInput-' + day);
+  const link = inp.value.trim();
+  if (!link.startsWith('http')) { alert('Vui lòng dán đúng link bài đăng'); return; }
+  LESSONS[day].submitted = link;
+  alert('Đã gửi link bài Ngày ' + day + '. Phương sẽ ghi nhận.');
+}
+
+function submitReward() {
+  const link = document.getElementById('rewardLink').value.trim();
+  if (!link.startsWith('http')) { alert('Vui lòng dán đúng link video'); return; }
+  alert('Đã gửi link video cảm nhận. Phương sẽ xét quà Tier 1 trong vài ngày tới.');
+}
+
+
+// Toggle gift detail
+function toggleGift(which) {
+  const detail = document.getElementById('gift-detail-' + which);
+  const toggle = document.getElementById('giftToggle-' + which);
+  if (!detail) return;
+  const isOpen = detail.style.display !== 'none';
+  // Close both first
+  ['dac-biet','kim-cuong'].forEach(k => {
+    const d = document.getElementById('gift-detail-' + k);
+    const tg = document.getElementById('giftToggle-' + k);
+    if (d) d.style.display = 'none';
+    if (tg) tg.textContent = 'Bấm xem điều kiện ▾';
+  });
+  // Open this one if it wasn't open
+  if (!isOpen) {
+    detail.style.display = 'block';
+    if (toggle) toggle.textContent = 'Đóng ▲';
+    detail.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+}
+
+function renderTopRank() {
+  const wrap = document.getElementById('topRank');
+  wrap.innerHTML = '';
+  TOP_RANK.forEach((r, i) => {
+    const rank = i + 1;
+    const ini = r.name.split(' ').pop().charAt(0);
+    wrap.insertAdjacentHTML('beforeend', `
+      <div class="rank-item rank-${rank}">
+        <div class="rank-num">#${rank}</div>
+        <div class="rank-ava">${ini}</div>
+        <div class="rank-name">
+          <div class="nm">${r.name}</div>
+          <div class="xp">${r.xp.toLocaleString('vi-VN')} XP</div>
+        </div>
+      </div>`);
+  });
+}
+
+/* ============================================================
+   VIDEO MODAL — phóng to player với controls
+   ============================================================ */
+function openVideoModal(day) {
+  const lesson = LESSONS[day];
+  const container = document.getElementById('videoModalContainer');
+  const caption = document.getElementById('modalCaption');
+  if (lesson.videoId) {
+    // YouTube embed full controls + autoplay
+    container.innerHTML = '<iframe src="https://www.youtube.com/embed/' + lesson.videoId + '?autoplay=1&rel=0&modestbranding=1" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+  } else {
+    container.innerHTML = '<div class="placeholder-big"><div class="emoji">ð¬</div><h3>Video Ngày ' + day + '</h3><p>Phương đang chuẩn bị video bài học. Chị em quay lại sau ít hôm nhé. Bấm phím <b>Esc</b> hoặc bấm ra ngoài để đóng.</p></div>';
+  }
+  caption.textContent = lesson.title;
+  document.getElementById('videoModal').classList.add('active');
+  document.body.classList.add('modal-open');
+}
+
+function closeVideoModal() {
+  document.getElementById('videoModal').classList.remove('active');
+  document.getElementById('videoModalContainer').innerHTML = '';
+  document.body.classList.remove('modal-open');
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVideoModal(); });
+
+/* ============================================================
+   MOBILE SIDEBAR DRAWER
+   ============================================================ */
+function toggleSidebar(open) {
+  const sb = document.getElementById('sidebarLeft');
+  const ov = document.getElementById('drawerOverlay');
+  if (open === true) { sb.classList.add('open'); ov.classList.add('active'); }
+  else if (open === false) { sb.classList.remove('open'); ov.classList.remove('active'); }
+  else { sb.classList.toggle('open'); ov.classList.toggle('active'); }
+}
+
+// === COUNTDOWN realtime cho ngày khoá ===
+function fmtCountdown(ms){
+  if(ms<=0) return 'Đã mở';
+  const h=Math.floor(ms/3600000);
+  const m=Math.floor((ms%3600000)/60000);
+  const s=Math.floor((ms%60000)/1000);
+  if(h>=24){
+    const d=Math.floor(h/24);
+    const rh=h%24;
+    return 'Còn '+d+' ngày '+rh+'h';
+  }
+  return 'Còn '+String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+let needRerender = false;
+function tickCountdowns(){
+  const now = Date.now();
+  document.querySelectorAll('.countdown').forEach(el => {
+    const ts = parseInt(el.dataset.unlock||'0',10);
+    if(!ts) return;
+    const remain = ts - now;
+    el.textContent = fmtCountdown(remain);
+    if(remain <= 0 && !needRerender){
+      needRerender = true;
+      setTimeout(() => {
+        // Recompute dayIndex và re-render
+        const base = window.UNLOCK_TS_BASE || 0;
+        const dayIdx = Math.max(1, Math.min(21, Math.floor((Date.now() - base) / 86400000) + 1));
+        if(dayIdx > (window.CURRENT_DAY||1)){
+          window.CURRENT_DAY = dayIdx;
+          if(typeof renderSidebar==='function') renderSidebar(dayIdx);
+          if(typeof renderTasks==='function') renderTasks(dayIdx);
+        }
+        needRerender = false;
+      }, 500);
+    }
+  });
+}
+setInterval(tickCountdowns, 1000);
+// Tick ngay khi DOM mount
+document.addEventListener('DOMContentLoaded', tickCountdowns);
+
+
+// === Kích hoạt khoá học ===
+async function activateCourse() {
+  const btn = document.getElementById('btnActivate');
+  const err = document.getElementById('activateError');
+  const sess = JSON.parse(sessionStorage.getItem('dgan_session') || '{}');
+  if (!sess.email) {
+    err.textContent = 'Phiên đăng nhập hết hạn. Chị em đăng nhập lại nhé.';
+    err.style.display = 'block';
+    return;
+  }
+  btn.disabled = true;
+  btn.textContent = '⏳ Đang kích hoạt...';
+  err.style.display = 'none';
+  try {
+    const res = await fetch(VERIFY_URL.replace('verify-login', 'activate-course'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: sess.email })
+    });
+    const data = await res.json();
+    if (!data.success) {
+      err.textContent = 'Lỗi kích hoạt: ' + (data.error || 'thử lại sau');
+      err.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'ð¸ Bắt đầu hành trình 21 ngày';
+      return;
+    }
+    // Cập nhật session + show dashboard
+    sess.activated_at = data.activated_at;
+    sessionStorage.setItem('dgan_session', JSON.stringify(sess));
+    document.getElementById('welcomeScreen').style.display = 'none';
+    const di = computeDayIndex(data.activated_at);
+    showDashboard(sess.email, sess.name, di, sess.studentId, data.activated_at);
+  } catch (e) {
+    err.textContent = 'Lỗi kết nối, thử lại sau.';
+    err.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'ð¸ Bắt đầu hành trình 21 ngày';
+  }
+}
+
+</script>
+
+<!-- Welcome screen — hiện khi học viên chưa kích hoạt -->
+<div id="welcomeScreen" style="display:none;position:fixed;inset:0;background:linear-gradient(160deg,#FFF9F5 0%,#FCE4EC 50%,#FFE4F0 100%);z-index:100;align-items:center;justify-content:center;padding:24px;overflow-y:auto;">
+  <div style="max-width:560px;width:100%;background:#fff;border-radius:24px;padding:42px 36px;box-shadow:0 24px 70px rgba(216,27,96,.15);text-align:center;">
+    <div style="font-family:'Dancing Script',cursive;font-size:26px;color:#D81B60;margin-bottom:6px;">cảm ơn chị em đã đến đây</div>
+    <h1 style="font-family:'Playfair Display',serif;font-size:30px;color:#D81B60;margin:8px 0 14px;font-weight:700;line-height:1.25;">Chào mừng <span id="welcomeName">chị em</span></h1>
+    <p style="color:#8B6F5C;font-size:15px;line-height:1.7;margin-bottom:18px;">
+      Trước khi bắt đầu, Phương muốn chị em đọc kỹ điều này:
+    </p>
+    <div style="background:#FCE4EC;border-left:4px solid #D81B60;border-radius:10px;padding:14px 18px;margin:14px 0 22px;font-size:14px;line-height:1.7;color:#4A3429;text-align:left;">
+      <p style="margin:0 0 8px;">• Khi chị em bấm <b style="color:#D81B60;">"Bắt đầu hành trình"</b>, <b>Ngày 1 sẽ mở ngay lập tức</b>.</p>
+      <p style="margin:8px 0;">• Các ngày tiếp theo sẽ <b>tự động mở sau mỗi 24h</b>, đếm từ giây phút này.</p>
+      <p style="margin:8px 0;">• Mỗi ngày Phương sẽ hiện <b>deadline nộp bài</b> để chị em biết.</p>
+      <p style="margin:8px 0 0;">• Chị em chỉ kích hoạt 1 lần duy nhất. Hãy bắt đầu khi đã sẵn sàng.</p>
+    </div>
+    <p style="font-style:italic;color:#8B6F5C;font-size:13px;margin:16px 0 22px;">
+      Hành trình 21 ngày của chị em chính thức bắt đầu khi chị em bấm nút bên dưới.
+    </p>
+    <button id="btnActivate" onclick="activateCourse()" style="width:100%;padding:16px;background:linear-gradient(90deg,#D81B60,#AD1457);color:#fff;border:0;border-radius:60px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:16px;letter-spacing:.4px;cursor:pointer;box-shadow:0 10px 26px rgba(216,27,96,.32);transition:transform .2s;">
+      ð¸ Bắt đầu hành trình 21 ngày
+    </button>
+    <p style="margin-top:14px;font-size:12px;color:#8B6F5C;font-style:italic;">
+      Sau khi bấm, Ngày 1 mở ngay. Không thể tạm dừng hay huỷ.
+    </p>
+    <div id="activateError" style="display:none;margin-top:12px;padding:10px;background:#fdecea;color:#c0392b;border-radius:8px;font-size:13px;"></div>
+  </div>
+</div>
+
+</body>
+</html>
