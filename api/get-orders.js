@@ -11,7 +11,12 @@ export default async function handler(req, res) {
 
   const url = process.env.KV_REST_API_URL;
   const token = process.env.KV_REST_API_TOKEN;
-  const adminToken = process.env.ADMIN_TOKEN;
+  // Chấp nhận NHIỀU password: env ADMIN_TOKENS (CSV) hoặc ADMIN_TOKEN (single, legacy).
+  // Nam/Phương/Vân có thể dùng cùng 1 password, hoặc mỗi máy 1 password riêng.
+  const adminTokens = [
+    ...(process.env.ADMIN_TOKENS || '').split(',').map(s => s.trim()).filter(Boolean),
+    ...(process.env.ADMIN_TOKEN ? [process.env.ADMIN_TOKEN] : [])
+  ];
   const headers = { Authorization: `Bearer ${token}` };
   const resource = req.query.resource;
 
@@ -45,8 +50,9 @@ export default async function handler(req, res) {
     } catch (e) { return res.status(500).json({ error: e.message }); }
   }
 
-  // ==== Admin: cần token ====
-  if (!adminToken || req.headers['x-admin-token'] !== adminToken) {
+  // ==== Admin: match bất kỳ 1 token nào trong list ====
+  const clientToken = req.headers['x-admin-token'];
+  if (!clientToken || !adminTokens.includes(clientToken)) {
     return res.status(401).json({ error: 'unauthorized' });
   }
 
