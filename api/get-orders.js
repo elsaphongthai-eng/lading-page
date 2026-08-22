@@ -57,8 +57,8 @@ export default async function handler(req, res) {
   }
 
   try {
-    if (resource === 'users' || resource === 'leads') {
-      const prefix = resource === 'users' ? 'user_' : 'lead:';
+    if (resource === 'users' || resource === 'leads' || resource === 'coupons') {
+      const prefix = resource === 'users' ? 'user_' : (resource === 'coupons' ? 'coupon:' : 'lead:');
       // SCAN all keys với prefix
       const items = [];
       let cursor = '0';

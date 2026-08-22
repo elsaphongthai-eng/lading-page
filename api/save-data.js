@@ -12,9 +12,42 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
 
   try {
-    const { key, value } = req.body;
+    const { key, value, action } = req.body;
     const url = process.env.KV_REST_API_URL;
     const token = process.env.KV_REST_API_TOKEN;
+
+    // ===== Admin-only ops (coupon create/delete) — cần X-Admin-Token =====
+    if (key === 'coupon' || key === 'coupon-delete') {
+      const adminTokens = [
+        ...(process.env.ADMIN_TOKENS || '').split(',').map(s=>s.trim()).filter(Boolean),
+        ...(process.env.ADMIN_TOKEN ? [process.env.ADMIN_TOKEN] : [])
+      ];
+      if (!adminTokens.includes(req.headers['x-admin-token'])) {
+        return res.status(401).json({ error: 'unauthorized' });
+      }
+      if (key === 'coupon-delete') {
+        const code = String(value.code || '').toUpperCase();
+        await fetch(`${url}/del/coupon:${encodeURIComponent(code)}`, { headers: { Authorization: `Bearer ${token}` } });
+        return res.json({ success: true, deleted: code });
+      }
+      // Create/update coupon
+      const code = String(value.code || '').toUpperCase();
+      if (!code) return res.status(400).json({ error: 'missing_code' });
+      const record = {
+        code,
+        discount_percent: value.discount_percent ? Number(value.discount_percent) : null,
+        discount_amount: value.discount_amount ? Number(value.discount_amount) : null,
+        applies_to: Array.isArray(value.applies_to) ? value.applies_to : [],
+        expires: value.expires || null,
+        uses_left: value.uses_left != null ? Number(value.uses_left) : null,
+        uses_total: value.uses_total || 0,
+        created_at: value.created_at || new Date().toISOString(),
+        note: value.note || ''
+      };
+      await fetch(`${url}/set/coupon:${encodeURIComponent(code)}/${encodeURIComponent(JSON.stringify(record))}`,
+        { headers: { Authorization: `Bearer ${token}` } });
+      return res.json({ success: true, coupon: record });
+    }
 
     let data;
     if (key === 'products') data = `${value.name}|${value.price}|${value.description}`;

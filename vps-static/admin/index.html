@@ -99,10 +99,11 @@
       <button class="tab-btn active" onclick="switchTab('users')" id="tabUsers">👥 Học viên</button>
       <button class="tab-btn" onclick="switchTab('orders')" id="tabOrders">💳 Đơn hàng</button>
       <button class="tab-btn" onclick="switchTab('leads')" id="tabLeads">🎁 Lead nhận quà</button>
+      <button class="tab-btn" onclick="switchTab('coupons')" id="tabCoupons">🎟 Coupon</button>
     </div>
 
     <!-- Toolbar -->
-    <div class="flex flex-wrap items-center gap-3 mt-6">
+    <div class="flex flex-wrap items-center gap-3 mt-6" id="toolbar">
       <input id="searchInput" class="input flex-1 min-w-[240px]" placeholder="🔍 Search tên / email / SĐT / mã đơn..." oninput="renderTable()">
       <select id="filterCourse" class="input" onchange="renderTable()">
         <option value="">Tất cả khoá</option>
@@ -110,6 +111,7 @@
         <option value="goi-dau-thong-khi">Gội Đầu Thông Khí</option>
       </select>
       <button onclick="exportCSV()" class="btn-secondary">⬇ Xuất CSV</button>
+      <button onclick="openCouponForm()" class="btn-primary" id="btnNewCoupon" style="display:none">+ Tạo coupon</button>
     </div>
 
     <!-- Content -->
@@ -133,11 +135,69 @@
   </div>
 </div>
 
+<!-- Modal coupon form -->
+<div class="modal-bg" id="couponModal" onclick="if(event.target===this)closeCouponModal()">
+  <div class="modal">
+    <div class="flex items-start justify-between mb-6">
+      <h3 class="text-xl font-bold text-gray-900" id="couponModalTitle">Tạo mã giảm giá</h3>
+      <button onclick="closeCouponModal()" class="text-gray-400 hover:text-gray-700 text-2xl leading-none">×</button>
+    </div>
+    <form id="couponForm" onsubmit="submitCoupon(event)" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Mã coupon *</label>
+        <input id="cpCode" class="input w-full uppercase" placeholder="VD: WELCOME50, TET2026, VAN20" required>
+        <p class="text-xs text-gray-500 mt-1">Chỉ chữ + số, tự động uppercase.</p>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Giảm %</label>
+          <input id="cpPct" type="number" min="0" max="100" class="input w-full" placeholder="VD: 20">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Hoặc giảm cứng (₫)</label>
+          <input id="cpAmt" type="number" min="0" class="input w-full" placeholder="VD: 100000">
+        </div>
+      </div>
+      <p class="text-xs text-gray-500 -mt-2">Chọn 1 trong 2: giảm % hoặc giảm cứng.</p>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Áp dụng cho khoá</label>
+        <div class="space-y-1">
+          <label class="flex items-center gap-2"><input type="checkbox" name="cpCourses" value="21ngay-dangngoc"> Dáng Ngọc An Nhiên (799K)</label>
+          <label class="flex items-center gap-2"><input type="checkbox" name="cpCourses" value="goi-dau-thong-khi"> Gội Đầu Thông Khí (399K/999K)</label>
+        </div>
+        <p class="text-xs text-gray-500 mt-1">Bỏ trống = áp dụng mọi khoá.</p>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Hết hạn</label>
+          <input id="cpExp" type="date" class="input w-full">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Số lượt tối đa</label>
+          <input id="cpMax" type="number" min="1" class="input w-full" placeholder="VD: 50 (bỏ trống = vô hạn)">
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Ghi chú nội bộ</label>
+        <input id="cpNote" class="input w-full" placeholder="VD: Post Facebook 15/10">
+      </div>
+      <div class="flex gap-3 pt-2">
+        <button type="submit" class="btn-primary flex-1">Lưu</button>
+        <button type="button" onclick="closeCouponModal()" class="btn-secondary flex-1">Huỷ</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <script>
   const API = 'https://project-fa985.vercel.app/api/get-orders';
   let TOKEN = '';
   let activeTab = 'users';
-  let data = { users: [], orders: [], leads: [] };
+  let data = { users: [], orders: [], leads: [], coupons: [] };
+  const COURSE_OPTIONS = [
+    {value:'21ngay-dangngoc', label:'Dáng Ngọc An Nhiên (799K)'},
+    {value:'goi-dau-thong-khi', label:'Gội Đầu Thông Khí (399K/999K)'}
+  ];
 
   // ===== Auth =====
   function doLogin() {
@@ -168,13 +228,14 @@
     return j.items || [];
   }
   async function loadAll() {
-    const [users, orders, leads] = await Promise.all([
-      fetchResource('users'), fetchResource('orders'), fetchResource('leads')
+    const [users, orders, leads, coupons] = await Promise.all([
+      fetchResource('users'), fetchResource('orders'), fetchResource('leads'), fetchResource('coupons')
     ]);
     if (users === null) return false;
     data.users = users || [];
     data.orders = (orders || []).sort((a,b) => (b.time||'').localeCompare(a.time||''));
     data.leads = (leads || []).sort((a,b) => (b.created_at||'').localeCompare(a.created_at||''));
+    data.coupons = (coupons || []).sort((a,b) => (b.created_at||'').localeCompare(a.created_at||''));
     updateStats();
     renderTable();
     return true;
@@ -201,8 +262,8 @@
     document.getElementById('tab' + t.charAt(0).toUpperCase() + t.slice(1)).classList.add('active');
     document.getElementById('searchInput').value = '';
     document.getElementById('filterCourse').value = '';
-    // Hide course filter for orders/leads (only meaningful for users)
     document.getElementById('filterCourse').style.display = t === 'users' ? '' : 'none';
+    document.getElementById('btnNewCoupon').style.display = t === 'coupons' ? '' : 'none';
     renderTable();
   }
 
@@ -233,6 +294,8 @@
       html += '<th>Mã đơn</th><th>Sản phẩm</th><th>Số tiền</th><th>Trạng thái</th><th>Thời gian</th><th></th>';
     } else if (activeTab === 'leads') {
       html += '<th>Tên</th><th>Liên hệ</th><th>Nguồn</th><th>Tuổi/Nghề</th><th>Ngày</th><th></th>';
+    } else if (activeTab === 'coupons') {
+      html += '<th>Mã</th><th>Giảm</th><th>Áp dụng khoá</th><th>Hết hạn</th><th>Còn/đã dùng</th><th></th>';
     }
     html += '</tr></thead><tbody>';
 
@@ -265,6 +328,18 @@
           <td class="text-xs">${esc(it.age||'')}<div class="text-gray-500">${esc(it.job||'')}</div></td>
           <td class="text-gray-600 text-xs">${esc((it.created_at||'').slice(0,10))}</td>
           <td><button class="btn-secondary text-xs" onclick='showDetail(${JSON.stringify(idx)},"leads")'>Chi tiết</button></td>
+        </tr>`;
+      } else if (activeTab === 'coupons') {
+        const disc = it.discount_percent ? `${it.discount_percent}%` : (it.discount_amount ? `${Number(it.discount_amount).toLocaleString('vi-VN')}₫` : '—');
+        const applies = (it.applies_to||[]).length ? it.applies_to.map(s=>s==='21ngay-dangngoc'?'Dáng Ngọc':s==='goi-dau-thong-khi'?'Gội Đầu':s).join(', ') : 'Tất cả';
+        const usage = (it.uses_left !== null && it.uses_left !== undefined) ? `Còn <b>${it.uses_left}</b> · Đã dùng ${it.uses_total||0}` : `Đã dùng ${it.uses_total||0}`;
+        html += `<tr>
+          <td><code class="font-bold text-[#D81B60]">${esc(it.code||'—')}</code>${it.note ? '<div class="text-xs text-gray-500">'+esc(it.note)+'</div>' : ''}</td>
+          <td class="font-semibold text-green-700">${disc}</td>
+          <td class="text-xs">${esc(applies)}</td>
+          <td class="text-gray-600 text-xs">${it.expires ? esc(it.expires) : 'Vô hạn'}</td>
+          <td class="text-xs">${usage}</td>
+          <td class="flex gap-2"><button class="btn-secondary text-xs" onclick='editCoupon(${JSON.stringify(idx)})'>Sửa</button><button class="btn-secondary text-xs" style="color:#B71C1C" onclick='deleteCoupon("${esc(it.code)}")'>Xoá</button></td>
         </tr>`;
       }
     });
@@ -313,6 +388,80 @@
     a.href = URL.createObjectURL(blob);
     a.download = `elsa-${activeTab}-${new Date().toISOString().slice(0,10)}.csv`;
     a.click();
+  }
+
+  // ===== COUPON =====
+  function openCouponForm() {
+    document.getElementById('couponModalTitle').textContent = 'Tạo mã giảm giá';
+    document.getElementById('couponForm').reset();
+    document.getElementById('cpCode').disabled = false;
+    document.getElementById('couponModal').classList.add('open');
+  }
+  function editCoupon(idx) {
+    const c = filterItems()[idx];
+    document.getElementById('couponModalTitle').textContent = 'Sửa mã ' + c.code;
+    document.getElementById('cpCode').value = c.code;
+    document.getElementById('cpCode').disabled = true;  // ko cho đổi code
+    document.getElementById('cpPct').value = c.discount_percent || '';
+    document.getElementById('cpAmt').value = c.discount_amount || '';
+    document.getElementById('cpExp').value = c.expires || '';
+    document.getElementById('cpMax').value = c.uses_left != null ? (c.uses_left + (c.uses_total||0)) : '';
+    document.getElementById('cpNote').value = c.note || '';
+    document.querySelectorAll('input[name="cpCourses"]').forEach(ch => {
+      ch.checked = (c.applies_to || []).includes(ch.value);
+    });
+    document.getElementById('couponModal').classList.add('open');
+  }
+  function closeCouponModal() {
+    document.getElementById('couponModal').classList.remove('open');
+  }
+  async function submitCoupon(e) {
+    e.preventDefault();
+    const code = document.getElementById('cpCode').value.trim().toUpperCase();
+    const pct = document.getElementById('cpPct').value;
+    const amt = document.getElementById('cpAmt').value;
+    if (!pct && !amt) return alert('Vui lòng nhập giảm % HOẶC giảm cứng');
+    const courses = [...document.querySelectorAll('input[name="cpCourses"]:checked')].map(c => c.value);
+    const max = document.getElementById('cpMax').value;
+    const existing = data.coupons.find(c => c.code === code);
+    const body = {
+      key: 'coupon',
+      value: {
+        code,
+        discount_percent: pct ? Number(pct) : null,
+        discount_amount: amt ? Number(amt) : null,
+        applies_to: courses,
+        expires: document.getElementById('cpExp').value || null,
+        uses_left: max ? (Number(max) - (existing?.uses_total || 0)) : null,
+        uses_total: existing?.uses_total || 0,
+        created_at: existing?.created_at || new Date().toISOString(),
+        note: document.getElementById('cpNote').value
+      }
+    };
+    try {
+      const res = await fetch('https://project-fa985.vercel.app/api/save-data', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json', 'X-Admin-Token': TOKEN},
+        body: JSON.stringify(body)
+      });
+      const json = await res.json();
+      if (json.success) {
+        closeCouponModal();
+        await loadAll();
+        alert('Lưu coupon thành công: ' + code);
+      } else alert('Lỗi: ' + (json.error || 'không rõ'));
+    } catch (e) { alert('Lỗi mạng: ' + e.message); }
+  }
+  async function deleteCoupon(code) {
+    if (!confirm(`Xoá mã ${code}? Không thể hoàn tác.`)) return;
+    try {
+      await fetch('https://project-fa985.vercel.app/api/save-data', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json', 'X-Admin-Token': TOKEN},
+        body: JSON.stringify({ key: 'coupon-delete', value: { code } })
+      });
+      await loadAll();
+    } catch (e) { alert('Lỗi: ' + e.message); }
   }
 
   // ===== Auto-login từ localStorage =====
