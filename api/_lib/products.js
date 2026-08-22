@@ -16,7 +16,7 @@ export const PRODUCTS = [
     amount: 799000,
     name: 'Khoá 21 Ngày Dáng Ngọc An Nhiên',
     slug: '21ngay-dangngoc',
-    sendRegEmail: 'send-registration-email',
+    sendRegEmail: 'send-registration-email',            // legacy endpoint
     sendConfirmEmail: 'send-order-confirm-21ngay-dangngoc',
     createStudent: true,
     telegramLabel: 'Dáng Ngọc An Nhiên'
@@ -26,8 +26,7 @@ export const PRODUCTS = [
     amount: 399000,
     name: 'Gội Đầu Thông Khí — Gói Cá Nhân',
     slug: 'goi-dau-thong-khi',
-    sendRegEmail: 'send-registration-email-goi-dau',
-    sendConfirmEmail: 'send-order-confirm-goi-dau',
+    emailModule: 'goi-dau',       // ← module trong _lib/emails-*.js
     createStudent: true,
     telegramLabel: 'Gội Đầu · Cá Nhân'
   },
@@ -36,8 +35,7 @@ export const PRODUCTS = [
     amount: 999000,
     name: 'Gội Đầu Thông Khí — Gói Dịch Vụ',
     slug: 'goi-dau-thong-khi',
-    sendRegEmail: 'send-registration-email-goi-dau',
-    sendConfirmEmail: 'send-order-confirm-goi-dau',
+    emailModule: 'goi-dau',
     createStudent: true,
     telegramLabel: 'Gội Đầu · Dịch Vụ'
   },

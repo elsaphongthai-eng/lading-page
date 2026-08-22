@@ -4,6 +4,7 @@
 
 import { notifyTelegram, vnd } from './_lib/notify-telegram.js';
 import { CODE_REGEX, productFromCodeAndAmount } from './_lib/products.js';
+import { sendGoiDauConfirmEmail } from './_lib/emails-goi-dau.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
@@ -105,21 +106,24 @@ export default async function handler(req, res) {
       } catch (e) { console.error('student creation error:', e); }
     }
 
-    // Gửi email confirm
-    if (product.sendConfirmEmail) {
+    // Gửi email confirm — 2 route:
+    //  - emailModule='goi-dau' → import _lib module (không tốn function slot)
+    //  - sendConfirmEmail=<endpoint> → HTTP call endpoint cũ (legacy)
+    const payload = {
+      email: customer.email, name: customer.name, code: orderCode,
+      amount, product: product.name, slug: product.slug, studentId, password
+    };
+    if (product.emailModule === 'goi-dau') {
+      try {
+        const r = await sendGoiDauConfirmEmail(payload);
+        console.log('Sent goi-dau confirm:', r?.id || r);
+      } catch (e) { console.error('goi-dau email err:', e); }
+    } else if (product.sendConfirmEmail) {
       const host = req.headers['x-forwarded-host'] || req.headers.host;
       const response = await fetch(`https://${host}/api/${product.sendConfirmEmail}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: customer.email,
-          name: customer.name,
-          code: orderCode,
-          amount,
-          product: product.name,
-          slug: product.slug,
-          studentId, password
-        })
+        body: JSON.stringify(payload)
       });
       console.log('Sent confirm email:', product.sendConfirmEmail, '| status:', response.status);
     }

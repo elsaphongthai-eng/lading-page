@@ -5,6 +5,7 @@
 
 import { notifyTelegram, vnd } from './_lib/notify-telegram.js';
 import { productFromCode } from './_lib/products.js';
+import { sendGoiDauRegEmail } from './_lib/emails-goi-dau.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
@@ -27,22 +28,24 @@ export default async function handler(req, res) {
       const baseUrl = 'https://project-fa985.vercel.app';
       const product = productFromCode(value.code);
 
-      if (product && product.sendRegEmail) {
+      if (product) {
         // ===== Product config-driven =====
+        const payload = {
+          email: value.email, name: value.name, code: value.code,
+          phone: value.phone || '',
+          amount: product.amount, product: product.name, slug: product.slug
+        };
         try {
-          await fetch(`${baseUrl}/api/${product.sendRegEmail}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              email: value.email,
-              name: value.name,
-              code: value.code,
-              phone: value.phone || '',
-              amount: product.amount,
-              product: product.name,
-              slug: product.slug
-            })
-          });
+          if (product.emailModule === 'goi-dau') {
+            const r = await sendGoiDauRegEmail(payload);
+            console.log('Sent goi-dau reg:', r?.id || r);
+          } else if (product.sendRegEmail) {
+            await fetch(`${baseUrl}/api/${product.sendRegEmail}`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+          }
         } catch (e) { console.error('send reg email error:', e); }
 
         try {
@@ -57,7 +60,7 @@ export default async function handler(req, res) {
             '*Thời gian:* ' + new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
           await notifyTelegram(tgMsg);
         } catch (e) { console.error('telegram reg error:', e); }
-      } else if (!product) {
+      } else {
         // ===== Không match product nào — luồng legacy Chạm Hành Trình =====
         const isTest = value.email.includes('+test');
         try {
