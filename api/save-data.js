@@ -1,7 +1,10 @@
-// Save customer / order vào Upstash. Khi có customer mới:
-//   - code DNAN... (Dáng Ngọc An Nhiên 799K): gọi send-registration-email + Telegram báo Phương
-//   - khác:                                    giữ flow cũ (send-email.js Chạm Hành Trình)
+// Save customer/order Upstash. Khi customer mới có code khớp product config:
+//   - Gọi endpoint đăng ký (sendRegEmail) — email chờ chuyển khoản với QR
+//   - Notify Telegram Phương
+// Product-agnostic — thêm khoá mới chỉ cần update _lib/products.js.
+
 import { notifyTelegram, vnd } from './_lib/notify-telegram.js';
+import { productFromCode } from './_lib/products.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
@@ -13,52 +16,49 @@ export default async function handler(req, res) {
     const token = process.env.KV_REST_API_TOKEN;
 
     let data;
-    if (key === 'products') {
-      data = `${value.name}|${value.price}|${value.description}`;
-    } else {
-      data = JSON.stringify(value);
-    }
+    if (key === 'products') data = `${value.name}|${value.price}|${value.description}`;
+    else data = JSON.stringify(value);
 
     await fetch(`${url}/lpush/${key}/${encodeURIComponent(data)}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
 
-    // Khi có customer mới → gửi email đăng ký + báo Telegram
-    if (key === 'customers' && value.email) {
+    if (key === 'customers' && value.email && value.code) {
       const baseUrl = 'https://project-fa985.vercel.app';
-      const isDangNgoc = value.code && /^DNAN/i.test(value.code);
+      const product = productFromCode(value.code);
 
-      if (isDangNgoc) {
-        // ===== GÓI 799K — DÁNG NGỌC AN NHIÊN =====
-        // 1. Email "Chúc mừng đã đăng ký" (chưa paid)
+      if (product && product.sendRegEmail) {
+        // ===== Product config-driven =====
         try {
-          await fetch(`${baseUrl}/api/send-registration-email`, {
+          await fetch(`${baseUrl}/api/${product.sendRegEmail}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               email: value.email,
               name: value.name,
               code: value.code,
-              phone: value.phone || ''
+              phone: value.phone || '',
+              amount: product.amount,
+              product: product.name,
+              slug: product.slug
             })
           });
-        } catch (e) { console.error('send-registration-email error:', e); }
+        } catch (e) { console.error('send reg email error:', e); }
 
-        // 2. Telegram báo Phương — có đơn đăng ký mới
         try {
           const tgMsg =
-            '✨ *Đơn đăng ký mới — Dáng Ngọc An Nhiên*\n\n' +
+            '✨ *Đơn đăng ký mới — ' + product.telegramLabel + '*\n\n' +
             '*Tên:* ' + (value.name || '—') + '\n' +
             '*Email:* ' + value.email + '\n' +
             '*SĐT:* ' + (value.phone || '—') + '\n' +
             '*Mã đơn:* `' + value.code + '`\n' +
-            '*Số tiền:* ' + vnd(799000) + '\n' +
+            '*Số tiền:* ' + vnd(product.amount) + '\n' +
             '*Trạng thái:* Chờ chuyển khoản\n' +
             '*Thời gian:* ' + new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
           await notifyTelegram(tgMsg);
-        } catch (e) { console.error('telegram registration error:', e); }
-      } else {
-        // ===== Gói cũ (Chạm Hành Trình) — flow legacy =====
+        } catch (e) { console.error('telegram reg error:', e); }
+      } else if (!product) {
+        // ===== Không match product nào — luồng legacy Chạm Hành Trình =====
         const isTest = value.email.includes('+test');
         try {
           await fetch(`${baseUrl}/api/send-email`, {
@@ -67,23 +67,20 @@ export default async function handler(req, res) {
             body: JSON.stringify({ email: value.email, name: value.name, emailNumber: 1 })
           });
           if (isTest) {
-            await fetch(`${baseUrl}/api/send-email`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ email: value.email, name: value.name, emailNumber: 2 })
-            });
-            await fetch(`${baseUrl}/api/send-email`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ email: value.email, name: value.name, emailNumber: 3 })
-            });
+            for (const n of [2, 3]) {
+              await fetch(`${baseUrl}/api/send-email`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: value.email, name: value.name, emailNumber: n })
+              });
+            }
           }
-        } catch (e) { console.error('legacy send-email error:', e); }
+        } catch (e) { console.error('legacy email error:', e); }
       }
     }
 
     res.json({ success: true });
-  } catch(e) {
+  } catch (e) {
     res.status(500).json({ error: e.message });
   }
 }

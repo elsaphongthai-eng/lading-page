@@ -1,11 +1,9 @@
-// Webhook IPN từ SePay. Phân biệt gói theo SỐ TIỀN:
-//   amount >= 750000 && amount < 900000  -> Khoá 21 Ngày Dáng Ngọc An Nhiên (799K)
-//   else                                 -> Chạm Hành Trình Vươn Mình Rực Rỡ (990K, mặc định cũ)
-// Mã đơn: hỗ trợ cả tiền tố CHAM (cũ) và DNAN (Dáng Ngọc An Nhiên, mới).
-//
-// 799K paid → sinh Student ID (EP000001+) → password = studentId → lưu user_<email> Upstash → email kèm credentials + Telegram báo Phương.
+// Webhook IPN từ SePay — CONFIG-DRIVEN.
+// Đọc product từ prefix orderCode qua _lib/products.js.
+// createStudent=true → sinh EP + password sau khi paid.
 
 import { notifyTelegram, vnd } from './_lib/notify-telegram.js';
+import { CODE_REGEX, productFromCodeAndAmount } from './_lib/products.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
@@ -15,134 +13,133 @@ export default async function handler(req, res) {
   const body = req.body;
   const content = body.transaction_content || body.content || body.description || '';
   const amount = parseInt(body.transferAmount || body.amount_in || body.amount || 0);
-  const match = content.match(/(?:CHAM|DNAN)[A-Z0-9]+/i);
+  const match = content.match(CODE_REGEX);
   console.log('content:', content, 'amount:', amount, 'match:', match);
 
-  if (match && amount >= 1000) {
-    const orderCode = match[0].toUpperCase();
-    const url = process.env.KV_REST_API_URL;
-    const token = process.env.KV_REST_API_TOKEN;
-
-    // Lưu trạng thái thanh toán
-    await fetch(`${url}/set/order_${orderCode}/paid`, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-
-    // Lưu đơn hàng vào danh sách
-    const order = {
-      code: orderCode,
-      amount,
-      content,
-      time: new Date().toISOString(),
-      status: 'paid'
-    };
-
-    await fetch(`${url}/lpush/orders/${JSON.stringify(order)}`, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-
-    console.log('Saved order:', orderCode);
-
-    // Tìm thông tin khách hàng
-    try {
-      const customersRes = await fetch(`${url}/lrange/customers/0/200`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      const customersData = await customersRes.json();
-      const customers = (customersData.result || []).map(c => {
-        try { return JSON.parse(c); } catch { return null; }
-      }).filter(Boolean);
-
-      const customer = customers.find(c => c.code && c.code.toUpperCase() === orderCode);
-      console.log('Customer found:', customer);
-
-      if (customer && customer.email) {
-        const host = req.headers['x-forwarded-host'] || req.headers.host;
-        const protocol = 'https';
-
-        const is799k = amount >= 750000 && amount < 900000;
-        const endpoint  = is799k ? 'send-order-confirm-21ngay-dangngoc' : 'send-order-confirm';
-        const product   = is799k ? 'Khoá 21 Ngày Dáng Ngọc An Nhiên' : 'Chạm Hành Trình Vươn Mình Rực Rỡ';
-        console.log('Payment type:', is799k ? '799K (Dáng Ngọc An Nhiên)' : '990K (Chạm Hành Trình)', '| amount:', amount);
-
-        // ===== 799K: sinh Student ID + password (= studentId) + lưu user record =====
-        let studentId = null, password = null;
-        if (is799k) {
-          try {
-            // Idempotent — webhook có thể retry
-            const existingRes = await fetch(`${url}/get/user_${encodeURIComponent(customer.email.toLowerCase())}`, {
-              headers: { Authorization: `Bearer ${token}` }
-            });
-            const existingData = await existingRes.json();
-            if (existingData.result) {
-              const existing = JSON.parse(existingData.result);
-              studentId = existing.studentId;
-              password = existing.password;
-              console.log('User record đã tồn tại, dùng lại:', studentId);
-            } else {
-              // INCR atomic
-              const incrRes = await fetch(`${url}/incr/student_count`, {
-                headers: { Authorization: `Bearer ${token}` }
-              });
-              const incrData = await incrRes.json();
-              const studentNum = incrData.result;
-              studentId = 'EP' + String(studentNum).padStart(6, '0');
-              password = studentId;
-
-              const userRecord = {
-                studentId,
-                password,
-                email: customer.email.toLowerCase(),
-                name: customer.name || '',
-                phone: customer.phone || '',
-                orderCode,
-                ngay_tham_gia: new Date().toISOString().slice(0, 10),
-                status: 'active'
-              };
-              await fetch(`${url}/set/user_${encodeURIComponent(customer.email.toLowerCase())}/${encodeURIComponent(JSON.stringify(userRecord))}`, {
-                headers: { Authorization: `Bearer ${token}` }
-              });
-              console.log('Created user record:', studentId);
-            }
-          } catch (e) {
-            console.error('Error creating user record:', e);
-          }
-        }
-
-        // Gọi endpoint email confirm
-        const response = await fetch(`${protocol}://${host}/api/${endpoint}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email: customer.email,
-            name: customer.name,
-            code: orderCode,
-            amount: amount,
-            product: product,
-            studentId,
-            password
-          })
-        });
-        console.log('Sent confirmation email to:', customer.email, '| status:', response.status);
-
-        // Báo Telegram cho Phương — chỉ cho gói 799K (DNAN)
-        if (is799k) {
-          const tgMsg =
-            '🌸 *Đơn 799K mới đã thanh toán*\n\n' +
-            '*Mã học viên:* `' + (studentId || '?') + '`\n' +
-            '*Tên:* ' + (customer.name || '—') + '\n' +
-            '*Email:* ' + customer.email + '\n' +
-            '*SĐT:* ' + (customer.phone || '—') + '\n' +
-            '*Mã đơn:* `' + orderCode + '`\n' +
-            '*Số tiền:* ' + vnd(amount) + '\n' +
-            '*Thời gian:* ' + new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
-          await notifyTelegram(tgMsg);
-        }
-      }
-    } catch(e) {
-      console.error('Error in paid flow:', e);
-    }
+  if (!match || amount < 1000) {
+    return res.status(200).json({ success: true, skipped: 'no_match' });
   }
 
-  res.status(200).json({ success: true });
+  const orderCode = match[0].toUpperCase();
+  const product = productFromCodeAndAmount(orderCode, amount);
+  if (!product) {
+    console.warn('No product config for orderCode:', orderCode);
+    return res.status(200).json({ success: true, skipped: 'unknown_product' });
+  }
+  console.log('Product matched:', product.name, '| amount:', amount);
+
+  const url = process.env.KV_REST_API_URL;
+  const token = process.env.KV_REST_API_TOKEN;
+
+  // Idempotent: order_${code} = paid
+  await fetch(`${url}/set/order_${orderCode}/paid`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+
+  await fetch(`${url}/lpush/orders/${encodeURIComponent(JSON.stringify({
+    code: orderCode, amount, content, product: product.name,
+    time: new Date().toISOString(), status: 'paid'
+  }))}`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+
+  try {
+    // Look up customer
+    const customersRes = await fetch(`${url}/lrange/customers/0/500`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    const customersData = await customersRes.json();
+    const customers = (customersData.result || []).map(c => {
+      try { return JSON.parse(c); } catch { return null; }
+    }).filter(Boolean);
+    const customer = customers.find(c => c.code && c.code.toUpperCase() === orderCode);
+    console.log('Customer found:', customer);
+
+    if (!customer || !customer.email) {
+      return res.status(200).json({ success: true, warn: 'no_customer' });
+    }
+
+    // Sinh EP student nếu product cần
+    let studentId = null, password = null;
+    if (product.createStudent) {
+      try {
+        const existingRes = await fetch(`${url}/get/user_${encodeURIComponent(customer.email.toLowerCase())}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const existingData = await existingRes.json();
+        if (existingData.result) {
+          const existing = JSON.parse(existingData.result);
+          studentId = existing.studentId;
+          password = existing.password;
+          // Append course nếu chưa có
+          const enrolled = new Set(existing.enrolled_courses || [product.slug]);
+          enrolled.add(product.slug);
+          existing.enrolled_courses = [...enrolled];
+          existing.last_paid_order = orderCode;
+          await fetch(`${url}/set/user_${encodeURIComponent(customer.email.toLowerCase())}/${encodeURIComponent(JSON.stringify(existing))}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          console.log('User đã tồn tại, thêm course:', product.slug);
+        } else {
+          const incrRes = await fetch(`${url}/incr/student_count`, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          const incrData = await incrRes.json();
+          studentId = 'EP' + String(incrData.result).padStart(6, '0');
+          password = studentId;
+          const userRecord = {
+            studentId, password,
+            email: customer.email.toLowerCase(),
+            name: customer.name || '',
+            phone: customer.phone || '',
+            orderCode,
+            enrolled_courses: [product.slug],
+            ngay_tham_gia: new Date().toISOString().slice(0, 10),
+            status: 'active'
+          };
+          await fetch(`${url}/set/user_${encodeURIComponent(customer.email.toLowerCase())}/${encodeURIComponent(JSON.stringify(userRecord))}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          console.log('Created student:', studentId);
+        }
+      } catch (e) { console.error('student creation error:', e); }
+    }
+
+    // Gửi email confirm
+    if (product.sendConfirmEmail) {
+      const host = req.headers['x-forwarded-host'] || req.headers.host;
+      const response = await fetch(`https://${host}/api/${product.sendConfirmEmail}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: customer.email,
+          name: customer.name,
+          code: orderCode,
+          amount,
+          product: product.name,
+          slug: product.slug,
+          studentId, password
+        })
+      });
+      console.log('Sent confirm email:', product.sendConfirmEmail, '| status:', response.status);
+    }
+
+    // Telegram Phương — mọi gói createStudent (không spam legacy CHAM)
+    if (product.createStudent) {
+      const tgMsg =
+        '🌸 *Đơn ' + product.telegramLabel + ' đã thanh toán*\n\n' +
+        '*Mã học viên:* `' + (studentId || '?') + '`\n' +
+        '*Tên:* ' + (customer.name || '—') + '\n' +
+        '*Email:* ' + customer.email + '\n' +
+        '*SĐT:* ' + (customer.phone || '—') + '\n' +
+        '*Mã đơn:* `' + orderCode + '`\n' +
+        '*Số tiền:* ' + vnd(amount) + '\n' +
+        '*Thời gian:* ' + new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
+      await notifyTelegram(tgMsg);
+    }
+  } catch (e) {
+    console.error('Error in paid flow:', e);
+  }
+
+  return res.status(200).json({ success: true });
 }
