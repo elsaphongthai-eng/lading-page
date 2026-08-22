@@ -35,6 +35,16 @@ export default async function handler(req, res) {
       return res.status(200).json({ success: false, error: 'wrong_password' });
     }
 
+    // Migration inline: activated_at cũ (chỉ Dáng Ngọc) → progress structure
+    const progress = user.progress || {};
+    if (user.activated_at && !progress['21ngay-dangngoc']) {
+      progress['21ngay-dangngoc'] = {
+        activated_at: user.activated_at,
+        completed_lessons: [],
+        last_seen: user.activated_at
+      };
+    }
+
     // Trả tối thiểu — không trả password
     return res.status(200).json({
       success: true,
@@ -42,7 +52,9 @@ export default async function handler(req, res) {
       name: user.name || '',
       email: user.email,
       ngay_tham_gia: user.ngay_tham_gia,
-      activated_at: user.activated_at || null,  // null = chưa kích hoạt → hiện màn welcome
+      activated_at: user.activated_at || null,  // giữ backward compat (client cũ đọc)
+      enrolled_courses: user.enrolled_courses || [],
+      progress,                                  // { [course]: { activated_at, completed_lessons, last_seen } }
       status: user.status || 'active'
     });
   } catch (e) {
