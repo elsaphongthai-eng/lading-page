@@ -1,0 +1,2 @@
+# Upstash daily backup — chạy 4:00 sáng mỗi ngày
+0 4 * * * root /usr/bin/python3 /opt/upstash-backup/upstash-backup.py dump >> /var/log/upstash-backup.log 2>&1
