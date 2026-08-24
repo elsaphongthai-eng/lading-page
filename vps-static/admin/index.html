@@ -55,6 +55,115 @@
   .guide-body table{margin:12px 0}
   .guide-body strong{color:#111827;font-weight:600}
   .guide-body hr{margin:24px 0;border:none;border-top:1px solid #E5E7EB}
+
+  /* ===== ANIMATIONS + INTERACTIONS ===== */
+  *,*::before,*::after{box-sizing:border-box}
+  body{background:linear-gradient(135deg,#F8F5F1 0%,#FDF6F0 100%);min-height:100vh}
+
+  /* Buttons — press effect + ripple */
+  .btn-primary,.btn-secondary{transition:all .2s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;user-select:none}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(216,27,96,.35);background:#C81758}
+  .btn-primary:active{transform:translateY(1px) scale(.98);box-shadow:0 2px 6px rgba(216,27,96,.4)}
+  .btn-secondary:hover{transform:translateY(-1px);box-shadow:0 6px 14px rgba(0,0,0,.06);border-color:#D81B60;color:#D81B60}
+  .btn-secondary:active{transform:translateY(1px) scale(.98)}
+  .btn-primary::after,.btn-secondary::after{content:'';position:absolute;top:50%;left:50%;width:0;height:0;border-radius:50%;background:rgba(255,255,255,.5);transform:translate(-50%,-50%);transition:width .6s,height .6s,opacity .6s;opacity:0;pointer-events:none}
+  .btn-primary:active::after,.btn-secondary:active::after{width:300px;height:300px;opacity:0}
+  .btn-primary:active::after{background:rgba(255,255,255,.3)}
+  .btn-primary:focus-visible,.btn-secondary:focus-visible{outline:2px solid #D81B60;outline-offset:2px}
+
+  /* Stat cards — hover lift + colored top border */
+  main > .grid > div{position:relative;transition:all .25s cubic-bezier(.16,1,.3,1);cursor:default;overflow:hidden}
+  main > .grid > div::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#D81B60,#F472B6);transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.16,1,.3,1)}
+  main > .grid > div:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,0,0,.06),0 4px 8px rgba(216,27,96,.05)}
+  main > .grid > div:hover::before{transform:scaleX(1)}
+  main > .grid > div:nth-child(2)::before{background:linear-gradient(90deg,#16A34A,#4ADE80)}
+  main > .grid > div:nth-child(3)::before{background:linear-gradient(90deg,#2563EB,#60A5FA)}
+  main > .grid > div:nth-child(4)::before{background:linear-gradient(90deg,#D81B60,#EAB308)}
+
+  /* Sidebar — smoother, more polished */
+  .side-item{border-radius:0 8px 8px 0;margin-right:12px;transition:all .18s cubic-bezier(.16,1,.3,1)}
+  .side-item:hover{background:#FEFBF7;transform:translateX(2px)}
+  .side-item.active{background:linear-gradient(90deg,#FCE7F3,#FFF9F5);box-shadow:inset 3px 0 0 #D81B60,0 2px 6px rgba(216,27,96,.08)}
+  .side-item.active:hover{transform:translateX(2px)}
+  .side-item .count{transition:all .2s}
+  .side-item:hover .count{transform:scale(1.08)}
+  .side-item:active{transform:translateX(0) scale(.98)}
+
+  /* Table rows — hover feedback smoother */
+  tbody tr{transition:all .15s;position:relative}
+  tbody tr:hover td{background:linear-gradient(90deg,#FEF7F0 0%,transparent 100%)}
+  tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 #D81B60}
+  tbody tr:active td{background:#FDECE3}
+
+  /* Badges — micro animation */
+  .badge{transition:all .2s;cursor:default}
+  tr:hover .badge{transform:scale(1.05)}
+  .b-paid{background:linear-gradient(135deg,#DCFCE7,#A7F3D0);color:#166534;box-shadow:0 1px 2px rgba(22,101,52,.08)}
+  .b-pending{background:linear-gradient(135deg,#FEF3C7,#FDE68A);color:#92400E;box-shadow:0 1px 2px rgba(146,64,14,.08)}
+  .b-course{background:linear-gradient(135deg,#FCE7F3,#FBCFE8);color:#9D174D;box-shadow:0 1px 2px rgba(157,23,77,.08)}
+
+  /* Inputs — better focus */
+  .input{transition:all .2s cubic-bezier(.16,1,.3,1)}
+  .input:hover:not(:focus){border-color:#D1D5DB;background:#FCFCFC}
+  .input:focus{transform:translateY(-1px);box-shadow:0 0 0 3px rgba(216,27,96,.12),0 4px 12px rgba(216,27,96,.08)}
+
+  /* Header — subtle gradient */
+  header{background:linear-gradient(180deg,#fff 0%,#FEFBF7 100%);backdrop-filter:blur(8px)}
+
+  /* Sidebar — background subtle */
+  .sidebar{background:linear-gradient(180deg,#fff 0%,#FEFBF7 100%)}
+  .side-group{position:relative}
+  .side-group::before{content:'';position:absolute;left:20px;right:20px;bottom:-2px;height:1px;background:linear-gradient(90deg,#FCE7F3,transparent)}
+
+  /* Modal — fade + scale in */
+  .modal-bg{background:rgba(30,20,20,.55);backdrop-filter:blur(4px);opacity:0;transition:opacity .25s;pointer-events:none}
+  .modal-bg.open{opacity:1;pointer-events:auto}
+  .modal{transform:scale(.92) translateY(20px);opacity:0;transition:all .3s cubic-bezier(.16,1,.3,1);box-shadow:0 30px 80px rgba(216,27,96,.18),0 10px 20px rgba(0,0,0,.08);border:1px solid rgba(216,27,96,.08)}
+  .modal-bg.open .modal{transform:scale(1) translateY(0);opacity:1}
+
+  /* Spinner — replaced by skeleton in JS. Fallback vẫn giữ */
+  .spinner{width:32px;height:32px;border:3px solid #FCE7F3;border-top-color:#D81B60;border-right-color:#F9A8D4;box-shadow:0 4px 12px rgba(216,27,96,.15)}
+
+  /* Skeleton loader */
+  .skeleton{background:linear-gradient(90deg,#F3F4F6 25%,#FCE7F3 50%,#F3F4F6 75%);background-size:200% 100%;animation:shim 1.4s ease-in-out infinite;border-radius:6px;height:14px}
+  @keyframes shim{0%{background-position:200% 0}100%{background-position:-200% 0}}
+  .skeleton-row{display:flex;gap:14px;padding:14px 16px;border-bottom:1px solid #F3F4F6}
+  .skeleton-row > *{height:14px}
+
+  /* Empty state */
+  .empty-state{padding:80px 20px;text-align:center}
+  .empty-state .em{font-size:3rem;margin-bottom:12px;display:inline-block;animation:float 3s ease-in-out infinite}
+  .empty-state .ttl{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#374151;margin-bottom:6px}
+  .empty-state .sub{color:#9CA3AF;font-size:14px}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+  /* Toast */
+  .toast{position:fixed;top:20px;right:20px;background:#111827;color:#fff;padding:12px 20px;border-radius:12px;font-weight:600;font-size:14px;box-shadow:0 12px 30px rgba(0,0,0,.2);z-index:200;transform:translateX(120%);transition:transform .35s cubic-bezier(.16,1,.3,1);display:flex;align-items:center;gap:10px}
+  .toast.show{transform:translateX(0)}
+  .toast.success{background:linear-gradient(135deg,#16A34A,#059669)}
+  .toast.error{background:linear-gradient(135deg,#DC2626,#B91C1C)}
+
+  /* Login screen — polish */
+  #loginScreen{background:linear-gradient(135deg,#FDF6F0 0%,#FCE7F3 50%,#F3E8FF 100%)}
+  #loginScreen > div{transform:translateY(0);transition:transform .3s;border:1px solid rgba(216,27,96,.08)}
+  #loginScreen > div:hover{transform:translateY(-2px);box-shadow:0 24px 48px rgba(216,27,96,.12)}
+
+  /* Section title — polish */
+  #viewTitle{background:linear-gradient(90deg,#D81B60,#8E2946);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:800;letter-spacing:-.3px}
+
+  /* Affiliate link input — click-to-select feedback */
+  input[readonly]{cursor:pointer;transition:all .2s}
+  input[readonly]:hover{background:#FEFBF7;border-color:#F472B6}
+  input[readonly]:focus{background:#FEFBF7;border-color:#D81B60}
+
+  /* Content card lift */
+  #content{transition:box-shadow .3s;box-shadow:0 4px 16px rgba(0,0,0,.03)}
+  #content:hover{box-shadow:0 8px 24px rgba(0,0,0,.05)}
+
+  /* Reduce motion nếu user prefer */
+  @media (prefers-reduced-motion: reduce) {
+    *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+  }
 </style>
 </head>
 <body class="min-h-screen">
@@ -84,7 +193,7 @@
         <div class="text-xs text-gray-500">Học viên · Đơn hàng · Lead · Affiliate · Coupon</div>
       </div>
       <div class="flex items-center gap-3">
-        <button onclick="refreshAll()" class="btn-secondary">🔄 Làm mới</button>
+        <button onclick="refreshAll()" class="btn-secondary">ð Làm mới</button>
         <button onclick="logout()" class="btn-secondary">Đăng xuất</button>
       </div>
     </div>
@@ -95,35 +204,35 @@
     <aside class="sidebar" id="sidebar">
       <div class="side-group">Học viên</div>
       <div class="side-item active" data-view="users-all" onclick="switchView(this)">
-        <span>👥 Tất cả học viên</span><span class="count" id="cntUsersAll">–</span>
+        <span>ð¥ Tất cả học viên</span><span class="count" id="cntUsersAll">–</span>
       </div>
       <div class="side-item sub" data-view="users-21ngay-dangngoc" onclick="switchView(this)">
-        <span><span class="ico">🌸</span>Dáng Ngọc An Nhiên</span><span class="count" id="cntUsers21">–</span>
+        <span><span class="ico">ð¸</span>Dáng Ngọc An Nhiên</span><span class="count" id="cntUsers21">–</span>
       </div>
       <div class="side-item sub" data-view="users-goi-dau-thong-khi" onclick="switchView(this)">
-        <span><span class="ico">🌿</span>Gội Đầu Thông Khí</span><span class="count" id="cntUsersGD">–</span>
+        <span><span class="ico">ð¿</span>Gội Đầu Thông Khí</span><span class="count" id="cntUsersGD">–</span>
       </div>
 
       <div class="side-group">Đơn hàng</div>
       <div class="side-item" data-view="orders-all" onclick="switchView(this)">
-        <span>💳 Tất cả đơn</span><span class="count" id="cntOrdersAll">–</span>
+        <span>ð³ Tất cả đơn</span><span class="count" id="cntOrdersAll">–</span>
       </div>
       <div class="side-item sub" data-view="orders-21ngay-dangngoc" onclick="switchView(this)">
-        <span><span class="ico">🌸</span>Dáng Ngọc An Nhiên</span><span class="count" id="cntOrders21">–</span>
+        <span><span class="ico">ð¸</span>Dáng Ngọc An Nhiên</span><span class="count" id="cntOrders21">–</span>
       </div>
       <div class="side-item sub" data-view="orders-goi-dau-thong-khi" onclick="switchView(this)">
-        <span><span class="ico">🌿</span>Gội Đầu Thông Khí</span><span class="count" id="cntOrdersGD">–</span>
+        <span><span class="ico">ð¿</span>Gội Đầu Thông Khí</span><span class="count" id="cntOrdersGD">–</span>
       </div>
 
       <div class="side-group">Marketing</div>
       <div class="side-item" data-view="leads" onclick="switchView(this)">
-        <span>🎁 Lead nhận quà</span><span class="count" id="cntLeads">–</span>
+        <span>ð Lead nhận quà</span><span class="count" id="cntLeads">–</span>
       </div>
       <div class="side-item" data-view="affiliate" onclick="switchView(this)">
-        <span>🔗 Affiliate</span><span class="count" id="cntAff">–</span>
+        <span>ð Affiliate</span><span class="count" id="cntAff">–</span>
       </div>
       <div class="side-item" data-view="coupons" onclick="switchView(this)">
-        <span>🎟 Coupon</span><span class="count" id="cntCoupons">–</span>
+        <span>ð Coupon</span><span class="count" id="cntCoupons">–</span>
       </div>
 
       <div class="side-group">Trợ giúp</div>
@@ -158,14 +267,14 @@
       <!-- Toolbar -->
       <div class="flex flex-wrap items-center gap-3 mb-4" id="toolbar">
         <h2 class="text-xl font-bold text-gray-900 mr-auto" id="viewTitle">Học viên</h2>
-        <input id="searchInput" class="input min-w-[240px]" placeholder="🔍 Search..." oninput="renderContent()">
+        <input id="searchInput" class="input min-w-[240px]" placeholder="ð Search..." oninput="renderContent()">
         <button onclick="exportCSV()" class="btn-secondary" id="btnExport">⬇ Xuất CSV</button>
         <button onclick="openCouponForm()" class="btn-primary hidden" id="btnNewCoupon">+ Tạo coupon</button>
       </div>
 
       <!-- Content -->
       <div id="content" class="bg-white rounded-xl border border-gray-200 overflow-hidden">
-        <div class="p-16 text-center"><div class="spinner mx-auto"></div><div class="mt-4 text-gray-500 text-sm">Đang tải...</div></div>
+        <div>
       </div>
     </main>
   </div>
@@ -206,8 +315,8 @@
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">Áp dụng cho khoá (bỏ trống = tất cả)</label>
         <div class="space-y-1">
-          <label class="flex items-center gap-2"><input type="checkbox" name="cpCourses" value="21ngay-dangngoc"> 🌸 Dáng Ngọc An Nhiên</label>
-          <label class="flex items-center gap-2"><input type="checkbox" name="cpCourses" value="goi-dau-thong-khi"> 🌿 Gội Đầu Thông Khí</label>
+          <label class="flex items-center gap-2"><input type="checkbox" name="cpCourses" value="21ngay-dangngoc"> ð¸ Dáng Ngọc An Nhiên</label>
+          <label class="flex items-center gap-2"><input type="checkbox" name="cpCourses" value="goi-dau-thong-khi"> ð¿ Gội Đầu Thông Khí</label>
         </div>
       </div>
       <div class="grid grid-cols-2 gap-3">
@@ -281,7 +390,7 @@
     return true;
   }
   async function refreshAll() {
-    document.getElementById('content').innerHTML = '<div class="p-16 text-center"><div class="spinner mx-auto"></div></div>';
+    document.getElementById('content').innerHTML = skeletonRows(6);
     await loadAll();
   }
 
@@ -327,12 +436,12 @@
     document.getElementById('btnExport').classList.toggle('hidden', ['guide','affiliate'].includes(activeView));
     document.getElementById('searchInput').classList.toggle('hidden', activeView === 'guide');
     const titles = {
-      'users-all':'👥 Tất cả học viên', 'users-21ngay-dangngoc':'🌸 Học viên · Dáng Ngọc An Nhiên',
-      'users-goi-dau-thong-khi':'🌿 Học viên · Gội Đầu Thông Khí',
-      'orders-all':'💳 Tất cả đơn hàng', 'orders-21ngay-dangngoc':'🌸 Đơn hàng · Dáng Ngọc An Nhiên',
-      'orders-goi-dau-thong-khi':'🌿 Đơn hàng · Gội Đầu Thông Khí',
-      'leads':'🎁 Lead nhận quà', 'affiliate':'🔗 Affiliate — Học viên giới thiệu',
-      'coupons':'🎟 Mã giảm giá', 'guide':'❓ Hướng dẫn vận hành'
+      'users-all':'ð¥ Tất cả học viên', 'users-21ngay-dangngoc':'ð¸ Học viên · Dáng Ngọc An Nhiên',
+      'users-goi-dau-thong-khi':'ð¿ Học viên · Gội Đầu Thông Khí',
+      'orders-all':'ð³ Tất cả đơn hàng', 'orders-21ngay-dangngoc':'ð¸ Đơn hàng · Dáng Ngọc An Nhiên',
+      'orders-goi-dau-thong-khi':'ð¿ Đơn hàng · Gội Đầu Thông Khí',
+      'leads':'ð Lead nhận quà', 'affiliate':'ð Affiliate — Học viên giới thiệu',
+      'coupons':'ð Mã giảm giá', 'guide':'❓ Hướng dẫn vận hành'
     };
     document.getElementById('viewTitle').textContent = titles[activeView] || '';
     renderContent();
@@ -362,7 +471,7 @@
     const items = filterItems();
     const c = document.getElementById('content');
     if (!items.length) {
-      c.innerHTML = '<div class="p-16 text-center text-gray-400">Chưa có dữ liệu.</div>';
+      c.innerHTML = emptyState('ð­', 'Chưa có dữ liệu', 'Khi có học viên/đơn/lead mới sẽ hiện ở đây.');
       return;
     }
     let html = '<div class="overflow-x-auto"><table><thead><tr>';
@@ -374,7 +483,7 @@
 
     items.forEach((it, idx) => {
       if (activeView.startsWith('users-')) {
-        const courses = (it.enrolled_courses||[]).map(c => `<span class="badge b-course">${c==='21ngay-dangngoc'?'🌸 Dáng Ngọc':c==='goi-dau-thong-khi'?'🌿 Gội Đầu':c}</span>`).join(' ');
+        const courses = (it.enrolled_courses||[]).map(c => `<span class="badge b-course">${c==='21ngay-dangngoc'?'ð¸ Dáng Ngọc':c==='goi-dau-thong-khi'?'ð¿ Gội Đầu':c}</span>`).join(' ');
         html += `<tr>
           <td><b>${esc(it.name||'—')}</b><div class="text-xs text-gray-500">${esc(it.status||'')}</div></td>
           <td>${esc(it.email||'')}<div class="text-xs text-gray-500">${esc(it.phone||'')}</div></td>
@@ -386,7 +495,7 @@
       } else if (activeView.startsWith('orders-')) {
         const badge = it.status==='paid' ? '<span class="badge b-paid">✓ Đã trả</span>' : '<span class="badge b-pending">⏳ Chờ</span>';
         const courseTag = codeToCourse(it.code);
-        const courseLabel = courseTag==='21ngay-dangngoc' ? '🌸 Dáng Ngọc' : courseTag==='goi-dau-thong-khi' ? '🌿 Gội Đầu' : '';
+        const courseLabel = courseTag==='21ngay-dangngoc' ? 'ð¸ Dáng Ngọc' : courseTag==='goi-dau-thong-khi' ? 'ð¿ Gội Đầu' : '';
         html += `<tr>
           <td><code class="font-bold">${esc(it.code||'—')}</code>${courseLabel?'<div class="text-xs text-gray-500 mt-1">'+courseLabel+'</div>':''}</td>
           <td>${esc(it.product||'—')}</td>
@@ -441,7 +550,7 @@
           <div><div class="text-xs text-gray-500 uppercase tracking-widest">Đã mời thành công</div><div class="text-2xl font-bold text-[#D81B60] mt-1">${users.filter(u=>u._paid>0).length}</div></div>
           <div><div class="text-xs text-gray-500 uppercase tracking-widest">Tổng đơn từ affiliate</div><div class="text-2xl font-bold text-green-700 mt-1">${totalPaid}</div></div>
         </div>
-        <p class="text-xs text-gray-500 mt-4">💡 Mỗi học viên tự có link affiliate <code>elsaphuong.com/?ref={mã HV}</code>. Ai click link → thanh toán → tính là mời thành công. <b>Rate hoa hồng chưa cấu hình</b> — chỉ track số lượng.</p>
+        <p class="text-xs text-gray-500 mt-4">ð¡ Mỗi học viên tự có link affiliate <code>elsaphuong.com/?ref={mã HV}</code>. Ai click link → thanh toán → tính là mời thành công. <b>Rate hoa hồng chưa cấu hình</b> — chỉ track số lượng.</p>
       </div>
       <div class="overflow-x-auto"><table><thead><tr>
         <th>Học viên</th><th>Mã HV</th><th>Link affiliate</th><th>Đã mời</th><th></th>
@@ -452,7 +561,7 @@
         <td><code class="text-[#D81B60] font-bold">${esc(u.studentId)}</code></td>
         <td><input class="input text-xs w-full max-w-[380px]" value="${u._link}" readonly onclick="this.select()"></td>
         <td><b class="text-[#D81B60]">${u._paid}</b> đơn ${u._clicks?'<div class="text-xs text-gray-500">'+u._clicks+' clicks</div>':''}</td>
-        <td><button class="btn-secondary text-xs" onclick="navigator.clipboard.writeText('${u._link}'); this.textContent='✓ Đã copy'">Copy link</button></td>
+        <td><button class="btn-secondary text-xs" onclick="navigator.clipboard.writeText('${u._link}'); this.textContent='✓ Đã copy'; showToast('Đã copy link của '+`${esc(u.name||u.studentId)}`, 'success')">Copy link</button></td>
       </tr>`;
     });
     html += '</tbody></table></div>';
@@ -519,7 +628,7 @@
   async function submitCoupon(e) {
     e.preventDefault();
     const code = document.getElementById('cpCode').value.trim().toUpperCase();
-    const pct = document.getElementById('cpPct').value;
+    const pct = document.getElementById('cpPct').value;
     const amt = document.getElementById('cpAmt').value;
     if (!pct && !amt) return alert('Vui lòng nhập giảm % HOẶC giảm cứng');
     const courses = [...document.querySelectorAll('input[name="cpCourses"]:checked')].map(c => c.value);
@@ -535,12 +644,12 @@
           uses_left: max ? (Number(max) - (existing?.uses_total||0)) : null,
           uses_total: existing?.uses_total||0,
           created_at: existing?.created_at || new Date().toISOString(),
-          note: document.getElementById('cpNote').value
+          note: document.getElementById('cpNote').value
         }})
       });
       const j = await res.json();
-      if (j.success) { closeCouponModal(); await loadAll(); alert('Lưu coupon: ' + code); }
-      else alert('Lỗi: ' + (j.error || 'không rõ'));
+      if (j.success) { closeCouponModal(); await loadAll(); showToast('Đã lưu coupon: ' + code, 'success'); }
+      else showToast('Lỗi: ' + (j.error || 'không rõ'), 'error');
     } catch(e) { alert('Lỗi: ' + e.message); }
   }
   async function deleteCoupon(code) {
@@ -579,6 +688,39 @@
       } else localStorage.removeItem('elsa_admin_token');
     });
   }
+
+  // ===== TOAST =====
+  function showToast(msg, type = 'info') {
+    let el = document.getElementById('_toast');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = '_toast';
+      el.className = 'toast';
+      document.body.appendChild(el);
+    }
+    const icons = { success: '✓', error: '⚠', info: 'ℹ' };
+    el.className = 'toast ' + type;
+    el.innerHTML = '<span style="font-size:18px">' + (icons[type] || 'ℹ') + '</span><span>' + msg + '</span>';
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(el._t);
+    el._t = setTimeout(() => el.classList.remove('show'), 3200);
+  }
+
+  function skeletonRows(count = 6, cols = 5) {
+    let html = '<div>';
+    for (let i = 0; i < count; i++) {
+      html += '<div class="skeleton-row">';
+      const widths = ['30%','25%','15%','15%','10%'];
+      for (let j = 0; j < cols; j++) html += '<div class="skeleton" style="flex:0 0 ' + (widths[j]||'20%') + '"></div>';
+      html += '</div>';
+    }
+    return html + '</div>';
+  }
+
+  function emptyState(icon, title, sub) {
+    return '<div class="empty-state"><div class="em">' + icon + '</div><div class="ttl">' + title + '</div><div class="sub">' + sub + '</div></div>';
+  }
+
 </script>
 </body>
 </html>
