@@ -55,6 +55,7 @@ export default async function handler(req, res) {
       activated_at: user.activated_at || null,  // giữ backward compat (client cũ đọc)
       enrolled_courses: user.enrolled_courses || [],
       progress,                                  // { [course]: { activated_at, completed_lessons, last_seen } }
+      referral_count: user.referral_count || 0,  // số đơn được ghi nhận từ affiliate link
       status: user.status || 'active'
     });
   } catch (e) {

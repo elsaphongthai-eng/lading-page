@@ -128,6 +128,39 @@ export default async function handler(req, res) {
       console.log('Sent confirm email:', product.sendConfirmEmail, '| status:', response.status);
     }
 
+    // ===== REFERRAL — nếu customer được mời bởi 1 student → tăng counter cho người mời =====
+    if (customer.referred_by) {
+      try {
+        const refSid = String(customer.referred_by).toUpperCase().trim();
+        // SCAN user_* tìm user có studentId khớp
+        let cursor = '0';
+        let iters = 0;
+        while (iters < 20) {
+          const scRes = await fetch(`${url}/scan/${cursor}?match=user_*&count=500`, { headers: { Authorization: `Bearer ${token}` }});
+          const scData = await scRes.json();
+          cursor = scData.result[0];
+          const keys = scData.result[1] || [];
+          for (const k of keys) {
+            const gr = await fetch(`${url}/get/${encodeURIComponent(k)}`, { headers: { Authorization: `Bearer ${token}` }});
+            const gd = await gr.json();
+            if (!gd.result) continue;
+            try {
+              const rUser = JSON.parse(gd.result);
+              if (rUser.studentId && rUser.studentId.toUpperCase() === refSid) {
+                rUser.referral_count = (rUser.referral_count || 0) + 1;
+                rUser.referral_orders = [...(rUser.referral_orders || []), orderCode];
+                await fetch(`${url}/set/${encodeURIComponent(k)}/${encodeURIComponent(JSON.stringify(rUser))}`, { headers: { Authorization: `Bearer ${token}` }});
+                console.log('Referral credited to', refSid, 'now count=', rUser.referral_count);
+                break;
+              }
+            } catch(_){}
+          }
+          if (cursor === '0') break;
+          iters++;
+        }
+      } catch (e) { console.error('referral update err:', e); }
+    }
+
     // Telegram Phương — mọi gói createStudent (không spam legacy CHAM)
     if (product.createStudent) {
       const tgMsg =

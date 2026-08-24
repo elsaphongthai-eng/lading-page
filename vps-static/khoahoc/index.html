@@ -338,6 +338,17 @@ h1,h2,h3,h4{font-family:var(--serif);line-height:1.3;font-weight:700;color:var(-
   .goi-dau-view h2{font-family:var(--serif);font-size:1.8rem;color:#2E3D2F;margin-bottom:14px}
   .goi-dau-view p{color:#3F5340;font-size:1rem;margin-bottom:20px;line-height:1.7}
   .goi-dau-view .btn{display:inline-block;background:#B93A5A;color:#fff;padding:12px 28px;border-radius:24px;text-decoration:none;font-family:var(--sans);font-weight:600}
+
+  .affiliate-box{background:linear-gradient(135deg,#FFF9F5,#FDECE3);border:1px solid rgba(216,27,96,.2);border-radius:16px;padding:22px 24px;margin-top:20px}
+  .affiliate-box h3{font-family:var(--serif);font-size:1.1rem;color:#D81B60;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  .affiliate-box .desc{font-size:.88rem;color:#6B4E3F;margin-bottom:14px}
+  .affiliate-link{display:flex;gap:6px;background:#fff;border:1px dashed #D81B60;border-radius:10px;padding:6px 6px 6px 12px;align-items:center}
+  .affiliate-link input{flex:1;border:0;outline:0;font-size:13px;background:transparent;font-family:'SF Mono',Menlo,monospace;color:#D81B60;font-weight:600}
+  .affiliate-link button{background:#D81B60;color:#fff;border:0;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--sans)}
+  .affiliate-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+  .aff-stat{background:#fff;border-radius:10px;padding:12px 14px;text-align:center}
+  .aff-stat .num{font-family:var(--serif);font-size:1.6rem;font-weight:700;color:#D81B60;line-height:1}
+  .aff-stat .lab{font-size:.75rem;color:#8B6F5C;text-transform:uppercase;letter-spacing:1px;margin-top:4px}
 </style>
 <style id="menu-compact-fix">
   /* .dgan-menu — 5 trang */
@@ -466,7 +477,20 @@ h1,h2,h3,h4{font-family:var(--serif);line-height:1.3;font-weight:700;color:var(-
         <div class="side-group">21 ngày</div>
         <div class="lesson-list-side" id="lessonList"></div>
       </div>
-    </aside>
+    
+      <div class="affiliate-box" id="affiliateBox" style="display:none">
+        <h3>ð Link giới thiệu bạn bè</h3>
+        <div class="desc">Gửi link này cho bạn — khi bạn đăng ký khoá bất kỳ, chị em được ghi nhận là đã mời.</div>
+        <div class="affiliate-link">
+          <input id="affLink" readonly onclick="this.select()">
+          <button onclick="copyAffLink()">Copy</button>
+        </div>
+        <div class="affiliate-stats">
+          <div class="aff-stat"><div class="num" id="affCount">0</div><div class="lab">Đã mời</div></div>
+          <div class="aff-stat"><div class="num" id="affSid">—</div><div class="lab">Mã HV</div></div>
+        </div>
+      </div>
+</aside>
 
     <main class="main-content">
       <a href="#" class="back-link">← Quay lại Challenge</a>
@@ -477,7 +501,7 @@ h1,h2,h3,h4{font-family:var(--serif);line-height:1.3;font-weight:700;color:var(-
           <span class="tag reward">ð Quà Đặc Biệt</span>
           <span class="tag reward" style="background:#E0F7FA;color:#00838F;">ð Quà Kim Cương</span>
         </div>
-        <div class="goal-box">
+        <div class="goal-box">
           <div class="lab">Mục tiêu</div>
           <div class="ttl">Lấy lại vóc dáng và sự an nhiên trong tâm</div>
         </div>
@@ -491,7 +515,7 @@ h1,h2,h3,h4{font-family:var(--serif);line-height:1.3;font-weight:700;color:var(-
       <div class="status-box">
         <div class="check">✓</div>
         <div class="txt">Đang tham gia · Ngày <span id="statusToday">5</span>/21 · Còn <span id="statusRemain">16</span> ngày</div>
-      </div>
+      </div>
       <!-- P2.5: 2 block form trước/sau hành trình -->
       <div class="form-blocks-row" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
         <a href="__FORM_TRUOC__" target="_blank" style="display:block;background:linear-gradient(135deg,#FFF3E0,#FFE0B2);border:1px solid #FFCC80;border-radius:12px;padding:14px 16px;text-decoration:none;color:#5D4037;transition:transform .2s;">
@@ -693,7 +717,8 @@ loginForm.addEventListener('submit', async (e) => {
       ngay_tham_gia: data.ngay_tham_gia,
       activated_at: data.activated_at,
       enrolled_courses: data.enrolled_courses || [],
-      progress: data.progress || {}
+      progress: data.progress || {},
+      referral_count: data.referral_count || 0
     };
     sessionStorage.setItem('dgan_session', JSON.stringify(USER_SESSION));
     loginScreen.style.display = 'none';
@@ -901,7 +926,7 @@ function renderTasks(currentDay) {
     wrap.insertAdjacentHTML('beforeend', `
       <div class="task-item ${stateClass}" data-day="${i}" id="task-${i}">
         <div class="task-row" onclick="toggleTask(${i})">
-          <div class="check">${checkIcon}</div>
+          <div class="check">${checkIcon}</div>
           <div class="num">Ngày ${i}</div>
           <div class="status-label">${statusLabel}</div>
           <div class="ttl">${lesson.title}</div>
@@ -989,7 +1014,7 @@ function openVideoModal(day) {
   caption.textContent = lesson.title;
   document.getElementById('videoModal').classList.add('active');
   document.body.classList.add('modal-open');
-}
+}
 
 function closeVideoModal() {
   document.getElementById('videoModal').classList.remove('active');
@@ -1138,6 +1163,7 @@ function selectCourse(slug) {
 
 function renderActiveCourse() {
   const swBtn = document.getElementById('switchCourseBtn');
+  updateAffiliateBox();
   if (swBtn) swBtn.style.display = (USER_SESSION?.enrolled_courses || []).length > 1 ? '' : 'none';
 
   const gd = document.getElementById('dashboardGoiDau');
@@ -1203,6 +1229,23 @@ async function markLessonDone(day) {
   } catch(e) { alert('Lỗi lưu tiến độ, thử lại.'); }
   btn.disabled = false;
 }
+
+
+  function updateAffiliateBox() {
+    if (!USER_SESSION || !USER_SESSION.studentId) return;
+    const box = document.getElementById('affiliateBox');
+    if (!box) return;
+    const link = 'https://elsaphuong.com/?ref=' + USER_SESSION.studentId;
+    document.getElementById('affLink').value = link;
+    document.getElementById('affSid').textContent = USER_SESSION.studentId;
+    document.getElementById('affCount').textContent = USER_SESSION.referral_count || 0;
+    box.style.display = 'block';
+  }
+  function copyAffLink() {
+    navigator.clipboard.writeText(document.getElementById('affLink').value);
+    event.target.textContent = '✓ Đã copy';
+    setTimeout(()=>event.target.textContent='Copy',2000);
+  }
 
 </script>
 

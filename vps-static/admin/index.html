@@ -10,51 +10,51 @@
 <style>
   body{font-family:'Inter',system-ui,sans-serif;background:#F8F5F1}
   .brand{font-family:'Playfair Display',serif}
-  .stat-card{background:linear-gradient(135deg,#fff 0%,#FFF9F5 100%)}
   .badge{display:inline-flex;align-items:center;font-size:11px;font-weight:600;padding:2px 8px;border-radius:12px}
   .b-paid{background:#DCFCE7;color:#166534}
   .b-pending{background:#FEF3C7;color:#92400E}
-  .b-lead{background:#DBEAFE;color:#1E40AF}
   .b-course{background:#FCE7F3;color:#9D174D}
   table{border-collapse:collapse;width:100%}
-  th{text-align:left;font-weight:600;font-size:12px;color:#6B7280;text-transform:uppercase;letter-spacing:.5px;padding:12px 16px;background:#F9FAFB;border-bottom:1px solid #E5E7EB}
+  th{text-align:left;font-weight:600;font-size:11px;color:#6B7280;text-transform:uppercase;letter-spacing:.5px;padding:12px 16px;background:#F9FAFB;border-bottom:1px solid #E5E7EB;position:sticky;top:0;z-index:5}
   td{padding:14px 16px;border-bottom:1px solid #F3F4F6;font-size:14px;vertical-align:top}
   tr:hover td{background:#FEFBF7}
-  .tab-btn{padding:10px 20px;border-radius:8px;font-weight:600;font-size:14px;transition:all .2s;cursor:pointer;border:none;background:transparent;color:#6B7280}
-  .tab-btn:hover{background:#F3F4F6;color:#374151}
-  .tab-btn.active{background:#D81B60;color:#fff}
-  .tab-btn.active:hover{background:#AD1457}
-  .btn-primary{background:#D81B60;color:#fff;padding:8px 16px;border-radius:8px;font-weight:600;font-size:13px;transition:background .2s;border:none;cursor:pointer}
+  .btn-primary{background:#D81B60;color:#fff;padding:8px 16px;border-radius:8px;font-weight:600;font-size:13px;transition:.2s;border:none;cursor:pointer}
   .btn-primary:hover{background:#AD1457}
-  .btn-secondary{background:#fff;color:#374151;padding:8px 14px;border-radius:8px;font-weight:500;font-size:13px;border:1px solid #E5E7EB;cursor:pointer;transition:all .2s}
+  .btn-secondary{background:#fff;color:#374151;padding:8px 14px;border-radius:8px;font-weight:500;font-size:13px;border:1px solid #E5E7EB;cursor:pointer;transition:.2s}
   .btn-secondary:hover{background:#F9FAFB;border-color:#D1D5DB}
-  .input{padding:8px 12px;border:1px solid #E5E7EB;border-radius:8px;font-size:14px;background:#fff;transition:border-color .2s}
+  .input{padding:8px 12px;border:1px solid #E5E7EB;border-radius:8px;font-size:14px;background:#fff;transition:.2s}
   .input:focus{outline:none;border-color:#D81B60;box-shadow:0 0 0 3px rgba(216,27,96,.1)}
   .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
   .modal-bg.open{display:flex}
   .modal{background:#fff;border-radius:16px;max-width:640px;width:100%;max-height:90vh;overflow-y:auto;padding:32px;box-shadow:0 24px 48px rgba(0,0,0,.2)}
   .spinner{width:24px;height:24px;border:3px solid #FCE7F3;border-top-color:#D81B60;border-radius:50%;animation:spin .6s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* SIDEBAR */
+  .sidebar{width:260px;flex-shrink:0;background:#fff;border-right:1px solid #E5E7EB;height:calc(100vh - 68px);overflow-y:auto;position:sticky;top:68px;padding:18px 0}
+  .side-group{padding:8px 20px 6px;font-size:10px;font-weight:700;color:#9CA3AF;letter-spacing:1.5px;text-transform:uppercase;margin-top:8px}
+  .side-item{display:flex;align-items:center;justify-content:space-between;padding:9px 20px;font-size:14px;color:#374151;cursor:pointer;transition:.15s;border-left:3px solid transparent}
+  .side-item:hover{background:#FEFBF7;color:#111827}
+  .side-item.active{background:linear-gradient(90deg,#FCE7F3 0%,transparent 100%);border-left-color:#D81B60;color:#D81B60;font-weight:600}
+  .side-item .count{background:#F3F4F6;color:#6B7280;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:600}
+  .side-item.active .count{background:#D81B60;color:#fff}
+  .side-item.sub{padding-left:36px;font-size:13px}
+  .side-item.sub .ico{width:18px;text-align:center;margin-right:6px}
+
+  /* GUIDE */
   .guide-body{padding:32px 40px;line-height:1.7;color:#374151}
-  .guide-body h1{font-size:28px;font-weight:700;color:#D81B60;margin:0 0 8px}
-  .guide-body h2{font-size:22px;font-weight:700;color:#111827;margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid #FCE7F3}
-  .guide-body h3{font-size:17px;font-weight:600;color:#D81B60;margin:20px 0 6px}
-  .guide-body p{margin:10px 0}
-  .guide-body ul,.guide-body ol{margin:10px 0 10px 28px}
-  .guide-body li{margin:4px 0}
+  .guide-body h1{font-size:26px;font-weight:700;color:#D81B60;margin:0 0 8px}
+  .guide-body h2{font-size:20px;font-weight:700;color:#111827;margin:28px 0 10px;padding-bottom:8px;border-bottom:2px solid #FCE7F3}
+  .guide-body h3{font-size:16px;font-weight:600;color:#D81B60;margin:18px 0 6px}
+  .guide-body p{margin:8px 0}
+  .guide-body ul,.guide-body ol{margin:8px 0 8px 24px}
+  .guide-body li{margin:3px 0}
   .guide-body code{background:#F3F4F6;color:#D81B60;padding:2px 6px;border-radius:4px;font-size:13px;font-family:'SF Mono',Menlo,monospace}
   .guide-body pre{background:#1F2937;color:#E5E7EB;padding:14px 18px;border-radius:8px;overflow-x:auto;margin:12px 0}
   .guide-body pre code{background:transparent;color:inherit;padding:0}
-  .guide-body table{width:100%;margin:14px 0;border-collapse:collapse}
-  .guide-body th{background:#F9FAFB;padding:10px 14px;text-align:left;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:#6B7280;border-bottom:1px solid #E5E7EB}
-  .guide-body td{padding:12px 14px;border-bottom:1px solid #F3F4F6;font-size:14px;vertical-align:top}
+  .guide-body table{margin:12px 0}
   .guide-body strong{color:#111827;font-weight:600}
-  .guide-body hr{margin:32px 0;border:none;border-top:1px solid #E5E7EB}
-  .guide-body em{color:#6B7280;font-size:13px}
-  .guide-body blockquote{border-left:3px solid #D81B60;padding:6px 16px;color:#6B7280;margin:14px 0;background:#FEF7F0}
-  .guide-toc{position:sticky;top:0;background:#F9FAFB;padding:16px 24px;border-bottom:1px solid #E5E7EB;font-size:13px;overflow-x:auto;white-space:nowrap}
-  .guide-toc a{color:#D81B60;text-decoration:none;margin-right:20px;font-weight:500}
-  .guide-toc a:hover{text-decoration:underline}
-  @keyframes spin{to{transform:rotate(360deg)}}
+  .guide-body hr{margin:24px 0;border:none;border-top:1px solid #E5E7EB}
 </style>
 </head>
 <body class="min-h-screen">
@@ -67,21 +67,21 @@
       <div class="text-gray-500 text-sm uppercase tracking-widest">Admin Panel</div>
     </div>
     <label class="block text-sm font-medium text-gray-700 mb-2">Mật khẩu admin</label>
-    <input id="adminToken" type="password" class="input w-full text-lg" placeholder="Nhập token admin" autofocus>
+    <input id="adminToken" type="password" class="input w-full text-lg" placeholder="Nhập mật khẩu" autofocus onkeypress="if(event.key==='Enter')doLogin()">
     <button onclick="doLogin()" class="btn-primary w-full mt-6 py-3 text-base">Vào admin panel</button>
-    <div id="loginErr" class="text-red-600 text-sm mt-3 hidden">⚠ Token không đúng</div>
-    <p class="text-xs text-gray-400 mt-6 text-center">Token do Nam cấp qua Zalo. Không share cho ai.</p>
+    <div id="loginErr" class="text-red-600 text-sm mt-3 hidden">⚠ Mật khẩu chưa đúng</div>
+    <p class="text-xs text-gray-400 mt-6 text-center">Mật khẩu do Nam cấp qua Zalo — chỉ đội quản lý.</p>
   </div>
 </div>
 
 <!-- MAIN APP -->
 <div id="app" class="hidden">
   <!-- Header -->
-  <header class="bg-white border-b border-gray-200 sticky top-0 z-10">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-20">
+    <div class="px-6 py-4 flex items-center justify-between">
       <div>
         <div class="brand text-xl text-[#D81B60] font-bold">Elsa Phương Admin</div>
-        <div class="text-xs text-gray-500">Dashboard quản lý học viên · đơn hàng · lead</div>
+        <div class="text-xs text-gray-500">Học viên · Đơn hàng · Lead · Affiliate · Coupon</div>
       </div>
       <div class="flex items-center gap-3">
         <button onclick="refreshAll()" class="btn-secondary">🔄 Làm mới</button>
@@ -90,104 +90,125 @@
     </div>
   </header>
 
-  <!-- Stats bar -->
-  <div class="max-w-7xl mx-auto px-6 py-6">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="stat-card border border-gray-200 rounded-xl p-5">
-        <div class="text-xs text-gray-500 uppercase tracking-widest">Học viên</div>
-        <div class="text-3xl font-bold text-gray-900 mt-1" id="statUsers">–</div>
-        <div class="text-xs text-gray-400 mt-1">Tổng đã thanh toán</div>
+  <div class="flex">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="side-group">Học viên</div>
+      <div class="side-item active" data-view="users-all" onclick="switchView(this)">
+        <span>👥 Tất cả học viên</span><span class="count" id="cntUsersAll">–</span>
       </div>
-      <div class="stat-card border border-gray-200 rounded-xl p-5">
-        <div class="text-xs text-gray-500 uppercase tracking-widest">Đơn đã trả</div>
-        <div class="text-3xl font-bold text-green-700 mt-1" id="statPaid">–</div>
-        <div class="text-xs text-gray-400 mt-1">Doanh thu ước tính</div>
+      <div class="side-item sub" data-view="users-21ngay-dangngoc" onclick="switchView(this)">
+        <span><span class="ico">🌸</span>Dáng Ngọc An Nhiên</span><span class="count" id="cntUsers21">–</span>
       </div>
-      <div class="stat-card border border-gray-200 rounded-xl p-5">
-        <div class="text-xs text-gray-500 uppercase tracking-widest">Lead</div>
-        <div class="text-3xl font-bold text-blue-700 mt-1" id="statLeads">–</div>
-        <div class="text-xs text-gray-400 mt-1">Đã nhận quà miễn phí</div>
+      <div class="side-item sub" data-view="users-goi-dau-thong-khi" onclick="switchView(this)">
+        <span><span class="ico">🌿</span>Gội Đầu Thông Khí</span><span class="count" id="cntUsersGD">–</span>
       </div>
-      <div class="stat-card border border-gray-200 rounded-xl p-5">
-        <div class="text-xs text-gray-500 uppercase tracking-widest">Doanh thu</div>
-        <div class="text-3xl font-bold text-[#D81B60] mt-1" id="statRevenue">–</div>
-        <div class="text-xs text-gray-400 mt-1">Tổng VND</div>
-      </div>
-    </div>
 
-    <!-- Tabs -->
-    <div class="flex gap-2 mt-8 border-b border-gray-200">
-      <button class="tab-btn active" onclick="switchTab('users')" id="tabUsers">👥 Học viên</button>
-      <button class="tab-btn" onclick="switchTab('orders')" id="tabOrders">💳 Đơn hàng</button>
-      <button class="tab-btn" onclick="switchTab('leads')" id="tabLeads">🎁 Lead nhận quà</button>
-      <button class="tab-btn" onclick="switchTab('coupons')" id="tabCoupons">🎟 Coupon</button>
-      <button class="tab-btn" onclick="switchTab('guide')" id="tabGuide">❓ Hướng dẫn</button>
-    </div>
-
-    <!-- Toolbar -->
-    <div class="flex flex-wrap items-center gap-3 mt-6" id="toolbar">
-      <input id="searchInput" class="input flex-1 min-w-[240px]" placeholder="🔍 Search tên / email / SĐT / mã đơn..." oninput="renderTable()">
-      <select id="filterCourse" class="input" onchange="renderTable()">
-        <option value="">Tất cả khoá</option>
-        <option value="21ngay-dangngoc">Dáng Ngọc An Nhiên</option>
-        <option value="goi-dau-thong-khi">Gội Đầu Thông Khí</option>
-      </select>
-      <button onclick="exportCSV()" class="btn-secondary">⬇ Xuất CSV</button>
-      <button onclick="openCouponForm()" class="btn-primary" id="btnNewCoupon" style="display:none">+ Tạo coupon</button>
-    </div>
-
-    <!-- Content -->
-    <div id="content" class="bg-white rounded-xl border border-gray-200 mt-4 overflow-hidden">
-      <div class="p-16 text-center">
-        <div class="spinner mx-auto"></div>
-        <div class="mt-4 text-gray-500 text-sm">Đang tải dữ liệu...</div>
+      <div class="side-group">Đơn hàng</div>
+      <div class="side-item" data-view="orders-all" onclick="switchView(this)">
+        <span>💳 Tất cả đơn</span><span class="count" id="cntOrdersAll">–</span>
       </div>
-    </div>
+      <div class="side-item sub" data-view="orders-21ngay-dangngoc" onclick="switchView(this)">
+        <span><span class="ico">🌸</span>Dáng Ngọc An Nhiên</span><span class="count" id="cntOrders21">–</span>
+      </div>
+      <div class="side-item sub" data-view="orders-goi-dau-thong-khi" onclick="switchView(this)">
+        <span><span class="ico">🌿</span>Gội Đầu Thông Khí</span><span class="count" id="cntOrdersGD">–</span>
+      </div>
+
+      <div class="side-group">Marketing</div>
+      <div class="side-item" data-view="leads" onclick="switchView(this)">
+        <span>🎁 Lead nhận quà</span><span class="count" id="cntLeads">–</span>
+      </div>
+      <div class="side-item" data-view="affiliate" onclick="switchView(this)">
+        <span>🔗 Affiliate</span><span class="count" id="cntAff">–</span>
+      </div>
+      <div class="side-item" data-view="coupons" onclick="switchView(this)">
+        <span>🎟 Coupon</span><span class="count" id="cntCoupons">–</span>
+      </div>
+
+      <div class="side-group">Trợ giúp</div>
+      <div class="side-item" data-view="guide" onclick="switchView(this)">
+        <span>❓ Hướng dẫn</span>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 min-w-0 p-6 lg:p-8">
+      <!-- Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+          <div class="text-xs text-gray-500 uppercase tracking-widest">Học viên</div>
+          <div class="text-3xl font-bold text-gray-900 mt-1" id="statUsers">–</div>
+          <div class="text-xs text-gray-400 mt-1">Tổng đã thanh toán</div>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+          <div class="text-xs text-gray-500 uppercase tracking-widest">Đơn đã trả</div>
+          <div class="text-3xl font-bold text-green-700 mt-1" id="statPaid">–</div>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+          <div class="text-xs text-gray-500 uppercase tracking-widest">Lead</div>
+          <div class="text-3xl font-bold text-blue-700 mt-1" id="statLeads">–</div>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+          <div class="text-xs text-gray-500 uppercase tracking-widest">Doanh thu</div>
+          <div class="text-2xl font-bold text-[#D81B60] mt-1" id="statRevenue">–</div>
+        </div>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="flex flex-wrap items-center gap-3 mb-4" id="toolbar">
+        <h2 class="text-xl font-bold text-gray-900 mr-auto" id="viewTitle">Học viên</h2>
+        <input id="searchInput" class="input min-w-[240px]" placeholder="🔍 Search..." oninput="renderContent()">
+        <button onclick="exportCSV()" class="btn-secondary" id="btnExport">⬇ Xuất CSV</button>
+        <button onclick="openCouponForm()" class="btn-primary hidden" id="btnNewCoupon">+ Tạo coupon</button>
+      </div>
+
+      <!-- Content -->
+      <div id="content" class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <div class="p-16 text-center"><div class="spinner mx-auto"></div><div class="mt-4 text-gray-500 text-sm">Đang tải...</div></div>
+      </div>
+    </main>
   </div>
 </div>
 
-<!-- Modal detail -->
+<!-- MODALS -->
 <div class="modal-bg" id="detailModal" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <div class="flex items-start justify-between mb-4">
-      <h3 class="text-xl font-bold text-gray-900" id="modalTitle">Chi tiết</h3>
+      <h3 class="text-xl font-bold" id="modalTitle">Chi tiết</h3>
       <button onclick="closeModal()" class="text-gray-400 hover:text-gray-700 text-2xl leading-none">×</button>
     </div>
     <div id="modalBody" class="text-sm"></div>
   </div>
 </div>
 
-<!-- Modal coupon form -->
 <div class="modal-bg" id="couponModal" onclick="if(event.target===this)closeCouponModal()">
   <div class="modal">
     <div class="flex items-start justify-between mb-6">
-      <h3 class="text-xl font-bold text-gray-900" id="couponModalTitle">Tạo mã giảm giá</h3>
+      <h3 class="text-xl font-bold" id="couponModalTitle">Tạo mã giảm giá</h3>
       <button onclick="closeCouponModal()" class="text-gray-400 hover:text-gray-700 text-2xl leading-none">×</button>
     </div>
     <form id="couponForm" onsubmit="submitCoupon(event)" class="space-y-4">
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">Mã coupon *</label>
-        <input id="cpCode" class="input w-full uppercase" placeholder="VD: WELCOME50, TET2026, VAN20" required>
-        <p class="text-xs text-gray-500 mt-1">Chỉ chữ + số, tự động uppercase.</p>
+        <input id="cpCode" class="input w-full uppercase" placeholder="WELCOME50, TET2026, VAN20..." required>
       </div>
       <div class="grid grid-cols-2 gap-3">
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Giảm %</label>
-          <input id="cpPct" type="number" min="0" max="100" class="input w-full" placeholder="VD: 20">
+          <input id="cpPct" type="number" min="0" max="100" class="input w-full" placeholder="20">
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Hoặc giảm cứng (₫)</label>
-          <input id="cpAmt" type="number" min="0" class="input w-full" placeholder="VD: 100000">
+          <input id="cpAmt" type="number" min="0" class="input w-full" placeholder="100000">
         </div>
       </div>
-      <p class="text-xs text-gray-500 -mt-2">Chọn 1 trong 2: giảm % hoặc giảm cứng.</p>
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Áp dụng cho khoá</label>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Áp dụng cho khoá (bỏ trống = tất cả)</label>
         <div class="space-y-1">
-          <label class="flex items-center gap-2"><input type="checkbox" name="cpCourses" value="21ngay-dangngoc"> Dáng Ngọc An Nhiên (799K)</label>
-          <label class="flex items-center gap-2"><input type="checkbox" name="cpCourses" value="goi-dau-thong-khi"> Gội Đầu Thông Khí (399K/999K)</label>
+          <label class="flex items-center gap-2"><input type="checkbox" name="cpCourses" value="21ngay-dangngoc"> 🌸 Dáng Ngọc An Nhiên</label>
+          <label class="flex items-center gap-2"><input type="checkbox" name="cpCourses" value="goi-dau-thong-khi"> 🌿 Gội Đầu Thông Khí</label>
         </div>
-        <p class="text-xs text-gray-500 mt-1">Bỏ trống = áp dụng mọi khoá.</p>
       </div>
       <div class="grid grid-cols-2 gap-3">
         <div>
@@ -196,7 +217,7 @@
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Số lượt tối đa</label>
-          <input id="cpMax" type="number" min="1" class="input w-full" placeholder="VD: 50 (bỏ trống = vô hạn)">
+          <input id="cpMax" type="number" min="1" class="input w-full" placeholder="50">
         </div>
       </div>
       <div>
@@ -213,13 +234,10 @@
 
 <script>
   const API = 'https://project-fa985.vercel.app/api/get-orders';
+  const SAVE_API = 'https://project-fa985.vercel.app/api/save-data';
   let TOKEN = '';
-  let activeTab = 'users';
+  let activeView = 'users-all';
   let data = { users: [], orders: [], leads: [], coupons: [] };
-  const COURSE_OPTIONS = [
-    {value:'21ngay-dangngoc', label:'Dáng Ngọc An Nhiên (799K)'},
-    {value:'goi-dau-thong-khi', label:'Gội Đầu Thông Khí (399K/999K)'}
-  ];
 
   // ===== Auth =====
   function doLogin() {
@@ -242,7 +260,7 @@
     location.reload();
   }
 
-  // ===== Data loading =====
+  // ===== Data =====
   async function fetchResource(r) {
     const res = await fetch(`${API}?resource=${r}`, { headers: { 'X-Admin-Token': TOKEN } });
     if (res.status === 401) return null;
@@ -258,8 +276,8 @@
     data.orders = (orders || []).sort((a,b) => (b.time||'').localeCompare(a.time||''));
     data.leads = (leads || []).sort((a,b) => (b.created_at||'').localeCompare(a.created_at||''));
     data.coupons = (coupons || []).sort((a,b) => (b.created_at||'').localeCompare(a.created_at||''));
-    updateStats();
-    renderTable();
+    updateCounts();
+    renderContent();
     return true;
   }
   async function refreshAll() {
@@ -267,115 +285,126 @@
     await loadAll();
   }
 
-  // ===== Stats =====
-  function updateStats() {
-    document.getElementById('statUsers').textContent = data.users.length;
+  // ===== Counts + stats =====
+  function updateCounts() {
+    const u21 = data.users.filter(u => (u.enrolled_courses||[]).includes('21ngay-dangngoc')).length;
+    const uGD = data.users.filter(u => (u.enrolled_courses||[]).includes('goi-dau-thong-khi')).length;
+    const o21 = data.orders.filter(o => codeToCourse(o.code) === '21ngay-dangngoc').length;
+    const oGD = data.orders.filter(o => codeToCourse(o.code) === 'goi-dau-thong-khi').length;
     const paid = data.orders.filter(o => o.status === 'paid');
+    document.getElementById('cntUsersAll').textContent = data.users.length;
+    document.getElementById('cntUsers21').textContent = u21;
+    document.getElementById('cntUsersGD').textContent = uGD;
+    document.getElementById('cntOrdersAll').textContent = data.orders.length;
+    document.getElementById('cntOrders21').textContent = o21;
+    document.getElementById('cntOrdersGD').textContent = oGD;
+    document.getElementById('cntLeads').textContent = data.leads.length;
+    document.getElementById('cntCoupons').textContent = data.coupons.length;
+    document.getElementById('cntAff').textContent = data.users.filter(u => u.referral_count>0).length;
+
+    document.getElementById('statUsers').textContent = data.users.length;
     document.getElementById('statPaid').textContent = paid.length;
     document.getElementById('statLeads').textContent = data.leads.length;
     const rev = paid.reduce((s, o) => s + (Number(o.amount)||0), 0);
-    document.getElementById('statRevenue').textContent = rev.toLocaleString('vi-VN') + '₫';
+    document.getElementById('statRevenue').textContent = (rev/1000).toFixed(0) + 'K';
   }
 
-  // ===== Tabs =====
-  function switchTab(t) {
-    activeTab = t;
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('tab' + t.charAt(0).toUpperCase() + t.slice(1)).classList.add('active');
+  function codeToCourse(code) {
+    if (!code) return '';
+    const c = code.toUpperCase();
+    if (c.startsWith('DNAN')) return '21ngay-dangngoc';
+    if (c.startsWith('GDCN') || c.startsWith('GDDV') || c.startsWith('GDTK')) return 'goi-dau-thong-khi';
+    return '';
+  }
+
+  // ===== Views =====
+  function switchView(el) {
+    activeView = el.dataset.view;
+    document.querySelectorAll('.side-item').forEach(e => e.classList.remove('active'));
+    el.classList.add('active');
     document.getElementById('searchInput').value = '';
-    document.getElementById('filterCourse').value = '';
-    document.getElementById('filterCourse').style.display = t === 'users' ? '' : 'none';
-    document.getElementById('btnNewCoupon').style.display = t === 'coupons' ? '' : 'none';
-    document.getElementById('toolbar').style.display = t === 'guide' ? 'none' : '';
-    if (t === 'guide') { renderGuide(); return; }
-    renderTable();
+    document.getElementById('btnNewCoupon').classList.toggle('hidden', activeView !== 'coupons');
+    document.getElementById('btnExport').classList.toggle('hidden', ['guide','affiliate'].includes(activeView));
+    document.getElementById('searchInput').classList.toggle('hidden', activeView === 'guide');
+    const titles = {
+      'users-all':'👥 Tất cả học viên', 'users-21ngay-dangngoc':'🌸 Học viên · Dáng Ngọc An Nhiên',
+      'users-goi-dau-thong-khi':'🌿 Học viên · Gội Đầu Thông Khí',
+      'orders-all':'💳 Tất cả đơn hàng', 'orders-21ngay-dangngoc':'🌸 Đơn hàng · Dáng Ngọc An Nhiên',
+      'orders-goi-dau-thong-khi':'🌿 Đơn hàng · Gội Đầu Thông Khí',
+      'leads':'🎁 Lead nhận quà', 'affiliate':'🔗 Affiliate — Học viên giới thiệu',
+      'coupons':'🎟 Mã giảm giá', 'guide':'❓ Hướng dẫn vận hành'
+    };
+    document.getElementById('viewTitle').textContent = titles[activeView] || '';
+    renderContent();
   }
 
-  async function renderGuide() {
-    const c = document.getElementById('content');
-    c.innerHTML = '<div class="p-16 text-center"><div class="spinner mx-auto"></div></div>';
-    try {
-      const res = await fetch('/admin/GUIDE.md?v=' + Date.now());
-      const md = await res.text();
-      const html = window.marked ? window.marked.parse(md) : ('<pre>' + esc(md) + '</pre>');
-      // Extract h2 headings cho TOC
-      const tocMatches = [...md.matchAll(/^##\s+(.+)$/gm)];
-      const toc = tocMatches.map((m, i) => {
-        const title = m[1].replace(/[#*`]/g,'').trim();
-        return `<a href="#h2-${i}">${title}</a>`;
-      }).join('');
-      // Inject IDs vào h2 sau khi parse
-      const withIds = html.replace(/<h2>/g, () => `<h2 id="h2-${window._h2i = (window._h2i||-1)+1}">`);
-      window._h2i = -1;
-      c.innerHTML = '<div class="guide-toc">' + toc + '</div><div class="guide-body">' + withIds + '</div>';
-    } catch (e) {
-      c.innerHTML = '<div class="p-8 text-red-600">Lỗi tải guide: ' + esc(e.message) + '</div>';
-    }
-  }
-
-  // ===== Table render =====
   function filterItems() {
     const q = document.getElementById('searchInput').value.toLowerCase().trim();
-    const course = document.getElementById('filterCourse').value;
-    let items = data[activeTab] || [];
-    if (q) {
-      items = items.filter(i => JSON.stringify(i).toLowerCase().includes(q));
-    }
-    if (course && activeTab === 'users') {
-      items = items.filter(u => (u.enrolled_courses || []).includes(course));
-    }
+    let items = [];
+    if (activeView.startsWith('users-')) {
+      const course = activeView.slice(6);  // 'all' or slug
+      items = data.users.filter(u => course === 'all' || (u.enrolled_courses||[]).includes(course));
+    } else if (activeView.startsWith('orders-')) {
+      const course = activeView.slice(7);
+      items = data.orders.filter(o => course === 'all' || codeToCourse(o.code) === course);
+    } else if (activeView === 'leads') items = data.leads;
+    else if (activeView === 'coupons') items = data.coupons;
+    else if (activeView === 'affiliate') items = data.users.filter(u => u.studentId);
+    if (q) items = items.filter(i => JSON.stringify(i).toLowerCase().includes(q));
     return items;
   }
-  function renderTable() {
+
+  function esc(s) { return String(s||'').replace(/[<>&]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c])); }
+
+  function renderContent() {
+    if (activeView === 'guide') return renderGuide();
+    if (activeView === 'affiliate') return renderAffiliate();
     const items = filterItems();
     const c = document.getElementById('content');
     if (!items.length) {
-      c.innerHTML = '<div class="p-16 text-center text-gray-400">Không có dữ liệu phù hợp.</div>';
+      c.innerHTML = '<div class="p-16 text-center text-gray-400">Chưa có dữ liệu.</div>';
       return;
     }
     let html = '<div class="overflow-x-auto"><table><thead><tr>';
-    if (activeTab === 'users') {
-      html += '<th>Học viên</th><th>Liên hệ</th><th>Khoá</th><th>Mã HV</th><th>Ngày</th><th></th>';
-    } else if (activeTab === 'orders') {
-      html += '<th>Mã đơn</th><th>Sản phẩm</th><th>Số tiền</th><th>Trạng thái</th><th>Thời gian</th><th></th>';
-    } else if (activeTab === 'leads') {
-      html += '<th>Tên</th><th>Liên hệ</th><th>Nguồn</th><th>Tuổi/Nghề</th><th>Ngày</th><th></th>';
-    } else if (activeTab === 'coupons') {
-      html += '<th>Mã</th><th>Giảm</th><th>Áp dụng khoá</th><th>Hết hạn</th><th>Còn/đã dùng</th><th></th>';
-    }
+    if (activeView.startsWith('users-')) html += '<th>Học viên</th><th>Liên hệ</th><th>Khoá</th><th>Mã HV</th><th>Ngày</th><th></th>';
+    else if (activeView.startsWith('orders-')) html += '<th>Mã đơn</th><th>Sản phẩm</th><th>Số tiền</th><th>Trạng thái</th><th>Thời gian</th><th></th>';
+    else if (activeView === 'leads') html += '<th>Tên</th><th>Liên hệ</th><th>Nguồn</th><th>Tuổi/Nghề</th><th>Ngày</th><th></th>';
+    else if (activeView === 'coupons') html += '<th>Mã</th><th>Giảm</th><th>Áp dụng khoá</th><th>Hết hạn</th><th>Còn/đã dùng</th><th></th>';
     html += '</tr></thead><tbody>';
 
     items.forEach((it, idx) => {
-      if (activeTab === 'users') {
-        const courses = (it.enrolled_courses||[]).map(c => `<span class="badge b-course">${c==='21ngay-dangngoc'?'Dáng Ngọc':c==='goi-dau-thong-khi'?'Gội Đầu':c}</span>`).join(' ');
+      if (activeView.startsWith('users-')) {
+        const courses = (it.enrolled_courses||[]).map(c => `<span class="badge b-course">${c==='21ngay-dangngoc'?'🌸 Dáng Ngọc':c==='goi-dau-thong-khi'?'🌿 Gội Đầu':c}</span>`).join(' ');
         html += `<tr>
           <td><b>${esc(it.name||'—')}</b><div class="text-xs text-gray-500">${esc(it.status||'')}</div></td>
           <td>${esc(it.email||'')}<div class="text-xs text-gray-500">${esc(it.phone||'')}</div></td>
           <td>${courses||'<span class="text-gray-400 text-xs">—</span>'}</td>
           <td><code class="text-[#D81B60] font-bold">${esc(it.studentId||'—')}</code></td>
           <td class="text-gray-600 text-xs">${esc(it.ngay_tham_gia||'')}</td>
-          <td><button class="btn-secondary text-xs" onclick='showDetail(${JSON.stringify(idx)},"users")'>Chi tiết</button></td>
+          <td><button class="btn-secondary text-xs" onclick='showDetail(${idx})'>Chi tiết</button></td>
         </tr>`;
-      } else if (activeTab === 'orders') {
+      } else if (activeView.startsWith('orders-')) {
         const badge = it.status==='paid' ? '<span class="badge b-paid">✓ Đã trả</span>' : '<span class="badge b-pending">⏳ Chờ</span>';
+        const courseTag = codeToCourse(it.code);
+        const courseLabel = courseTag==='21ngay-dangngoc' ? '🌸 Dáng Ngọc' : courseTag==='goi-dau-thong-khi' ? '🌿 Gội Đầu' : '';
         html += `<tr>
-          <td><code class="font-bold">${esc(it.code||'—')}</code></td>
+          <td><code class="font-bold">${esc(it.code||'—')}</code>${courseLabel?'<div class="text-xs text-gray-500 mt-1">'+courseLabel+'</div>':''}</td>
           <td>${esc(it.product||'—')}</td>
           <td class="font-semibold text-[#D81B60]">${(Number(it.amount)||0).toLocaleString('vi-VN')}₫</td>
           <td>${badge}</td>
           <td class="text-gray-600 text-xs">${esc((it.time||'').slice(0,19).replace('T',' '))}</td>
-          <td><button class="btn-secondary text-xs" onclick='showDetail(${JSON.stringify(idx)},"orders")'>Chi tiết</button></td>
+          <td><button class="btn-secondary text-xs" onclick='showDetail(${idx})'>Chi tiết</button></td>
         </tr>`;
-      } else if (activeTab === 'leads') {
+      } else if (activeView === 'leads') {
         html += `<tr>
           <td><b>${esc(it.name||'—')}</b></td>
           <td>${esc(it.email||'')}<div class="text-xs text-gray-500">${esc(it.phone||'')}</div></td>
           <td class="text-xs">${esc(it.source||'—')}</td>
           <td class="text-xs">${esc(it.age||'')}<div class="text-gray-500">${esc(it.job||'')}</div></td>
           <td class="text-gray-600 text-xs">${esc((it.created_at||'').slice(0,10))}</td>
-          <td><button class="btn-secondary text-xs" onclick='showDetail(${JSON.stringify(idx)},"leads")'>Chi tiết</button></td>
+          <td><button class="btn-secondary text-xs" onclick='showDetail(${idx})'>Chi tiết</button></td>
         </tr>`;
-      } else if (activeTab === 'coupons') {
+      } else if (activeView === 'coupons') {
         const disc = it.discount_percent ? `${it.discount_percent}%` : (it.discount_amount ? `${Number(it.discount_amount).toLocaleString('vi-VN')}₫` : '—');
         const applies = (it.applies_to||[]).length ? it.applies_to.map(s=>s==='21ngay-dangngoc'?'Dáng Ngọc':s==='goi-dau-thong-khi'?'Gội Đầu':s).join(', ') : 'Tất cả';
         const usage = (it.uses_left !== null && it.uses_left !== undefined) ? `Còn <b>${it.uses_left}</b> · Đã dùng ${it.uses_total||0}` : `Đã dùng ${it.uses_total||0}`;
@@ -385,7 +414,7 @@
           <td class="text-xs">${esc(applies)}</td>
           <td class="text-gray-600 text-xs">${it.expires ? esc(it.expires) : 'Vô hạn'}</td>
           <td class="text-xs">${usage}</td>
-          <td class="flex gap-2"><button class="btn-secondary text-xs" onclick='editCoupon(${JSON.stringify(idx)})'>Sửa</button><button class="btn-secondary text-xs" style="color:#B71C1C" onclick='deleteCoupon("${esc(it.code)}")'>Xoá</button></td>
+          <td class="flex gap-2"><button class="btn-secondary text-xs" onclick='editCoupon(${idx})'>Sửa</button><button class="btn-secondary text-xs" style="color:#B71C1C" onclick='deleteCoupon("${esc(it.code)}")'>Xoá</button></td>
         </tr>`;
       }
     });
@@ -393,17 +422,52 @@
     c.innerHTML = html;
   }
 
-  function esc(s) { return String(s||'').replace(/[<>&]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c])); }
+  // ===== Affiliate view =====
+  function renderAffiliate() {
+    const users = data.users
+      .filter(u => u.studentId)
+      .map(u => ({ ...u,
+        _clicks: u.referral_clicks || 0,
+        _paid: u.referral_count || 0,
+        _link: `https://elsaphuong.com/?ref=${u.studentId}`
+      }))
+      .sort((a,b) => b._paid - a._paid || b._clicks - a._clicks);
+    const c = document.getElementById('content');
+    const totalPaid = users.reduce((s,u) => s + u._paid, 0);
+    let html = `
+      <div class="p-6 bg-gradient-to-br from-pink-50 to-white border-b border-gray-100">
+        <div class="grid grid-cols-3 gap-4">
+          <div><div class="text-xs text-gray-500 uppercase tracking-widest">Học viên có tài khoản</div><div class="text-2xl font-bold text-gray-900 mt-1">${users.length}</div></div>
+          <div><div class="text-xs text-gray-500 uppercase tracking-widest">Đã mời thành công</div><div class="text-2xl font-bold text-[#D81B60] mt-1">${users.filter(u=>u._paid>0).length}</div></div>
+          <div><div class="text-xs text-gray-500 uppercase tracking-widest">Tổng đơn từ affiliate</div><div class="text-2xl font-bold text-green-700 mt-1">${totalPaid}</div></div>
+        </div>
+        <p class="text-xs text-gray-500 mt-4">💡 Mỗi học viên tự có link affiliate <code>elsaphuong.com/?ref={mã HV}</code>. Ai click link → thanh toán → tính là mời thành công. <b>Rate hoa hồng chưa cấu hình</b> — chỉ track số lượng.</p>
+      </div>
+      <div class="overflow-x-auto"><table><thead><tr>
+        <th>Học viên</th><th>Mã HV</th><th>Link affiliate</th><th>Đã mời</th><th></th>
+      </tr></thead><tbody>`;
+    users.forEach((u, idx) => {
+      html += `<tr>
+        <td><b>${esc(u.name||'—')}</b><div class="text-xs text-gray-500">${esc(u.email||'')}</div></td>
+        <td><code class="text-[#D81B60] font-bold">${esc(u.studentId)}</code></td>
+        <td><input class="input text-xs w-full max-w-[380px]" value="${u._link}" readonly onclick="this.select()"></td>
+        <td><b class="text-[#D81B60]">${u._paid}</b> đơn ${u._clicks?'<div class="text-xs text-gray-500">'+u._clicks+' clicks</div>':''}</td>
+        <td><button class="btn-secondary text-xs" onclick="navigator.clipboard.writeText('${u._link}'); this.textContent='✓ Đã copy'">Copy link</button></td>
+      </tr>`;
+    });
+    html += '</tbody></table></div>';
+    c.innerHTML = html;
+  }
 
   // ===== Detail modal =====
-  function showDetail(idx, type) {
+  function showDetail(idx) {
     const items = filterItems();
     const it = items[idx];
     if (!it) return;
     document.getElementById('modalTitle').textContent =
-      type==='users' ? `Học viên: ${it.name||it.email}` :
-      type==='orders' ? `Đơn hàng: ${it.code}` :
-      `Lead: ${it.name||it.email}`;
+      activeView.startsWith('users-') ? `Học viên: ${it.name||it.email}` :
+      activeView.startsWith('orders-') ? `Đơn hàng: ${it.code}` :
+      activeView==='leads' ? `Lead: ${it.name||it.email}` : 'Chi tiết';
     const rows = Object.entries(it).map(([k,v]) =>
       `<tr><td class="text-gray-500 pr-4 py-1.5 text-xs uppercase tracking-widest align-top w-1/3">${esc(k)}</td>
        <td class="py-1.5 break-all">${esc(typeof v==='object'?JSON.stringify(v,null,2):v)}</td></tr>`
@@ -411,32 +475,27 @@
     document.getElementById('modalBody').innerHTML = `<table class="w-full">${rows}</table>`;
     document.getElementById('detailModal').classList.add('open');
   }
-  function closeModal() {
-    document.getElementById('detailModal').classList.remove('open');
-  }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  function closeModal() { document.getElementById('detailModal').classList.remove('open'); }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeCouponModal(); } });
 
   // ===== Export CSV =====
   function exportCSV() {
     const items = filterItems();
     if (!items.length) return alert('Không có dữ liệu để xuất');
     const keys = [...new Set(items.flatMap(Object.keys))];
-    const csv = [
-      keys.join(','),
-      ...items.map(i => keys.map(k => {
-        const v = i[k];
-        const s = typeof v === 'object' ? JSON.stringify(v) : String(v||'');
-        return '"' + s.replace(/"/g, '""') + '"';
-      }).join(','))
-    ].join('\n');
+    const csv = [keys.join(','), ...items.map(i => keys.map(k => {
+      const v = i[k];
+      const s = typeof v === 'object' ? JSON.stringify(v) : String(v||'');
+      return '"' + s.replace(/"/g, '""') + '"';
+    }).join(','))].join('\n');
     const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = `elsa-${activeTab}-${new Date().toISOString().slice(0,10)}.csv`;
+    a.download = `elsa-${activeView}-${new Date().toISOString().slice(0,10)}.csv`;
     a.click();
   }
 
-  // ===== COUPON =====
+  // ===== Coupon =====
   function openCouponForm() {
     document.getElementById('couponModalTitle').textContent = 'Tạo mã giảm giá';
     document.getElementById('couponForm').reset();
@@ -447,20 +506,16 @@
     const c = filterItems()[idx];
     document.getElementById('couponModalTitle').textContent = 'Sửa mã ' + c.code;
     document.getElementById('cpCode').value = c.code;
-    document.getElementById('cpCode').disabled = true;  // ko cho đổi code
+    document.getElementById('cpCode').disabled = true;
     document.getElementById('cpPct').value = c.discount_percent || '';
     document.getElementById('cpAmt').value = c.discount_amount || '';
     document.getElementById('cpExp').value = c.expires || '';
     document.getElementById('cpMax').value = c.uses_left != null ? (c.uses_left + (c.uses_total||0)) : '';
     document.getElementById('cpNote').value = c.note || '';
-    document.querySelectorAll('input[name="cpCourses"]').forEach(ch => {
-      ch.checked = (c.applies_to || []).includes(ch.value);
-    });
+    document.querySelectorAll('input[name="cpCourses"]').forEach(ch => ch.checked = (c.applies_to || []).includes(ch.value));
     document.getElementById('couponModal').classList.add('open');
   }
-  function closeCouponModal() {
-    document.getElementById('couponModal').classList.remove('open');
-  }
+  function closeCouponModal() { document.getElementById('couponModal').classList.remove('open'); }
   async function submitCoupon(e) {
     e.preventDefault();
     const code = document.getElementById('cpCode').value.trim().toUpperCase();
@@ -470,47 +525,50 @@
     const courses = [...document.querySelectorAll('input[name="cpCourses"]:checked')].map(c => c.value);
     const max = document.getElementById('cpMax').value;
     const existing = data.coupons.find(c => c.code === code);
-    const body = {
-      key: 'coupon',
-      value: {
-        code,
-        discount_percent: pct ? Number(pct) : null,
-        discount_amount: amt ? Number(amt) : null,
-        applies_to: courses,
-        expires: document.getElementById('cpExp').value || null,
-        uses_left: max ? (Number(max) - (existing?.uses_total || 0)) : null,
-        uses_total: existing?.uses_total || 0,
-        created_at: existing?.created_at || new Date().toISOString(),
-        note: document.getElementById('cpNote').value
-      }
-    };
     try {
-      const res = await fetch('https://project-fa985.vercel.app/api/save-data', {
+      const res = await fetch(SAVE_API, {
         method: 'POST',
         headers: {'Content-Type':'application/json', 'X-Admin-Token': TOKEN},
-        body: JSON.stringify(body)
+        body: JSON.stringify({ key: 'coupon', value: {
+          code, discount_percent: pct?Number(pct):null, discount_amount: amt?Number(amt):null,
+          applies_to: courses, expires: document.getElementById('cpExp').value||null,
+          uses_left: max ? (Number(max) - (existing?.uses_total||0)) : null,
+          uses_total: existing?.uses_total||0,
+          created_at: existing?.created_at || new Date().toISOString(),
+          note: document.getElementById('cpNote').value
+        }})
       });
-      const json = await res.json();
-      if (json.success) {
-        closeCouponModal();
-        await loadAll();
-        alert('Lưu coupon thành công: ' + code);
-      } else alert('Lỗi: ' + (json.error || 'không rõ'));
-    } catch (e) { alert('Lỗi mạng: ' + e.message); }
+      const j = await res.json();
+      if (j.success) { closeCouponModal(); await loadAll(); alert('Lưu coupon: ' + code); }
+      else alert('Lỗi: ' + (j.error || 'không rõ'));
+    } catch(e) { alert('Lỗi: ' + e.message); }
   }
   async function deleteCoupon(code) {
-    if (!confirm(`Xoá mã ${code}? Không thể hoàn tác.`)) return;
+    if (!confirm(`Xoá mã ${code}?`)) return;
     try {
-      await fetch('https://project-fa985.vercel.app/api/save-data', {
+      await fetch(SAVE_API, {
         method: 'POST',
         headers: {'Content-Type':'application/json', 'X-Admin-Token': TOKEN},
         body: JSON.stringify({ key: 'coupon-delete', value: { code } })
       });
       await loadAll();
-    } catch (e) { alert('Lỗi: ' + e.message); }
+    } catch(e) { alert('Lỗi: ' + e.message); }
   }
 
-  // ===== Auto-login từ localStorage =====
+  // ===== Guide =====
+  async function renderGuide() {
+    const c = document.getElementById('content');
+    c.innerHTML = '<div class="p-16 text-center"><div class="spinner mx-auto"></div></div>';
+    try {
+      const md = await (await fetch('/admin/GUIDE.md?v=' + Date.now())).text();
+      const html = window.marked ? window.marked.parse(md) : ('<pre>' + esc(md) + '</pre>');
+      c.innerHTML = '<div class="guide-body">' + html + '</div>';
+    } catch(e) {
+      c.innerHTML = '<div class="p-8 text-red-600">Lỗi tải guide: ' + esc(e.message) + '</div>';
+    }
+  }
+
+  // ===== Auto-login =====
   const saved = localStorage.getItem('elsa_admin_token');
   if (saved) {
     TOKEN = saved;
@@ -518,9 +576,7 @@
       if (ok) {
         document.getElementById('loginScreen').classList.add('hidden');
         document.getElementById('app').classList.remove('hidden');
-      } else {
-        localStorage.removeItem('elsa_admin_token');
-      }
+      } else localStorage.removeItem('elsa_admin_token');
     });
   }
 </script>
