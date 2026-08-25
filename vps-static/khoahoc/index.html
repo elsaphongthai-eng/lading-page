@@ -423,7 +423,10 @@ h1,h2,h3,h4{font-family:var(--serif);line-height:1.3;font-weight:700;color:var(-
       <label for="email">Email</label>
       <input type="email" id="email" placeholder="email@gmail.com" required>
       <label for="password">Mật khẩu</label>
-      <input type="password" id="password" placeholder="Mật khẩu Phương gửi qua email" required>
+      <div style="position:relative">
+        <input type="password" id="password" placeholder="Mật khẩu Phương gửi qua email" required style="padding-right:44px;width:100%">
+        <button type="button" onclick="eyeToggle('password', this)" aria-label="Hiện/ẩn mật khẩu" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:0;padding:6px;cursor:pointer;color:#8B6F5C;font-size:18px;transition:color .2s" onmouseover="this.style.color='#D81B60'" onmouseout="this.style.color='#8B6F5C'">ð</button>
+      </div>
       <button type="submit" class="login-btn">Vào học</button>
       <div class="login-error" id="loginError">Email hoặc mật khẩu chưa đúng.</div>
     </form>
@@ -798,7 +801,7 @@ function showDashboard(email, name, dayIndex, studentId, activatedAt) {
       document.getElementById('welcomeName').textContent = displayName || 'chị em';
       wel.style.display = 'flex';
       return;
-    }
+    }
   }
   dashboard.classList.add('active');
   window.CURRENT_DAY = dayIndex;
@@ -1306,6 +1309,13 @@ async function markLessonDone(day) {
     setTimeout(()=>event.target.textContent='Copy',2000);
   }
 
+
+function eyeToggle(inputId, btn) {
+  const inp = document.getElementById(inputId);
+  if (!inp) return;
+  if (inp.type === 'password') { inp.type = 'text'; btn.textContent = 'ð'; }
+  else { inp.type = 'password'; btn.textContent = 'ð'; }
+}
 </script>
 
 <!-- Welcome screen — hiện khi học viên chưa kích hoạt -->

@@ -211,7 +211,10 @@
       <div class="text-gray-500 text-sm uppercase tracking-widest">Admin Panel</div>
     </div>
     <label class="block text-sm font-medium text-gray-700 mb-2">Mật khẩu admin</label>
-    <input id="adminToken" type="password" class="input w-full text-lg" placeholder="Nhập mật khẩu" autofocus onkeypress="if(event.key==='Enter')doLogin()">
+    <div style="position:relative">
+      <input id="adminToken" type="password" class="input w-full text-lg" style="padding-right:44px" placeholder="Nhập mật khẩu" autofocus onkeypress="if(event.key==='Enter')doLogin()">
+      <button type="button" onclick="eyeToggle('adminToken', this)" aria-label="Hiện/ẩn mật khẩu" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:0;padding:6px;cursor:pointer;color:#9CA3AF;font-size:18px;transition:color .2s" onmouseover="this.style.color='#D81B60'" onmouseout="this.style.color='#9CA3AF'">ð</button>
+    </div>
     <button onclick="doLogin()" class="btn-primary w-full mt-6 py-3 text-base">Vào admin panel</button>
     <div id="loginErr" class="text-red-600 text-sm mt-3 hidden">⚠ Mật khẩu chưa đúng</div>
     <p class="text-xs text-gray-400 mt-6 text-center">Mật khẩu do Nam cấp qua Zalo — chỉ đội quản lý.</p>
@@ -377,7 +380,7 @@
 </div>
 
 <script>
-  const API = 'https://project-fa985.vercel.app/api/get-orders';
+  const API = 'https://project-fa985.vercel.app/api/get-orders';
   const SAVE_API = 'https://project-fa985.vercel.app/api/save-data';
   let TOKEN = '';
   let activeView = 'users-all';
@@ -772,7 +775,7 @@
   function openCouponForm() {
     document.getElementById('couponModalTitle').textContent = 'Tạo mã giảm giá';
     document.getElementById('couponForm').reset();
-    document.getElementById('cpCode').disabled = false;
+    document.getElementById('cpCode').disabled = false;
     document.getElementById('couponModal').classList.add('open');
   }
   function editCoupon(idx) {
@@ -885,6 +888,13 @@
     return '<div class="empty-state"><div class="em">' + icon + '</div><div class="ttl">' + title + '</div><div class="sub">' + sub + '</div></div>';
   }
 
+
+  function eyeToggle(inputId, btn) {
+    const inp = document.getElementById(inputId);
+    if (!inp) return;
+    if (inp.type === 'password') { inp.type = 'text'; btn.textContent = 'ð'; btn.setAttribute('aria-label','Ẩn mật khẩu'); }
+    else { inp.type = 'password'; btn.textContent = 'ð'; btn.setAttribute('aria-label','Hiện mật khẩu'); }
+  }
 </script>
 </body>
 </html>
