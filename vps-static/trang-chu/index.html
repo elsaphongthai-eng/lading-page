@@ -234,6 +234,8 @@
     .modal-inner{padding:36px 20px 24px}
   }
 </style>
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Cdefs%3E%3ClinearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23D81B60%22/%3E%3Cstop offset=%221%22 stop-color=%22%23AD1457%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22url(%23g)%22/%3E%3Ctext x=%2250%22 y=%2266%22 font-size=%2258%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Georgia,serif%22 font-weight=%22bold%22%3EE%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#D81B60">
 </head>
 <body>
 
@@ -244,8 +246,9 @@
       <a href="/" class="active">Trang chủ</a>
       <a href="/gioi-thieu/">Về Phương</a>
       <a href="/khoa-21-ngay/">Dáng Ngọc An Nhiên</a>
+      <a href="/khoe-dep-tu-goc/">Khỏe Đẹp Từ Gốc</a>
       <a href="/cong-dong/">Cộng đồng</a>
-      <a href="/nhan-qua/" class="menu-qua"><span class="qua-ico">🎁</span> Nhận quà</a>
+      <a href="/nhan-qua/" class="menu-qua"><span class="qua-ico">ð</span> Nhận quà</a>
       <a href="/lien-he/">Liên hệ</a>
       <a href="/khoahoc/" class="btn-login">Đăng nhập</a>
     </nav>
@@ -338,7 +341,7 @@
         <div class="pwd-success" id="pwdSuccess" hidden>✓ Đúng rồi! Tài liệu đang mở...</div>
       </div>
       <div class="modal-col right">
-        <div class="col-title">📝 Chưa điền form</div>
+        <div class="col-title">ð Chưa điền form</div>
         <p class="col-desc">Chị em điền form ngắn để Phương gửi mật khẩu qua email.</p>
         <a class="btn-outline" id="formLink" href="#" target="_blank" rel="noopener">Điền form nhận mật khẩu</a>
       </div>
@@ -407,5 +410,189 @@
   });
 </script>
 
+<script>
+// Capture ?ref=EPXXX từ URL vào localStorage — giữ 30 ngày để tracking affiliate
+(function(){
+  try {
+    const u = new URLSearchParams(location.search);
+    const r = u.get('ref');
+    if (r && /^EP\d{6}$/i.test(r)) {
+      localStorage.setItem('elsa_ref', r.toUpperCase());
+      localStorage.setItem('elsa_ref_at', String(Date.now()));
+    }
+    // Expire sau 30 ngày
+    const at = Number(localStorage.getItem('elsa_ref_at')||0);
+    if (at && Date.now() - at > 30*86400*1000) {
+      localStorage.removeItem('elsa_ref'); localStorage.removeItem('elsa_ref_at');
+    }
+  } catch(_){}
+})();
+</script>
+<style id="mobile-menu-fix-v2">
+  /* ===== MOBILE MENU FIX ===== */
+  @media (max-width: 900px) {
+    /* Hiện burger */
+    .dgan-burger{display:flex !important;flex-direction:column;gap:5px;cursor:pointer;background:none;border:0;padding:10px;z-index:60;position:relative}
+    .dgan-burger span{width:24px;height:2px;background:#4A3429;transition:.3s;display:block;border-radius:2px}
+    .dgan-burger.open span:nth-child(1){transform:rotate(45deg) translate(6px,6px)}
+    .dgan-burger.open span:nth-child(2){opacity:0}
+    .dgan-burger.open span:nth-child(3){transform:rotate(-45deg) translate(6px,-6px)}
+
+    /* Menu ẩn default, khi .open thì slide xuống */
+    .dgan-menu{
+      display:flex !important;
+      position:fixed !important;
+      top:74px !important;
+      left:0 !important;
+      right:0 !important;
+      bottom:auto !important;
+      background:#fff !important;
+      flex-direction:column !important;
+      flex-wrap:nowrap !important;
+      gap:0 !important;
+      padding:12px 20px 24px !important;
+      margin:0 !important;
+      border-bottom:1px solid #F6EBE2 !important;
+      box-shadow:0 20px 40px rgba(74,52,41,.15) !important;
+      transform:translateY(-120%) !important;
+      transition:transform .3s cubic-bezier(.16,1,.3,1) !important;
+      z-index:59 !important;
+      max-height:calc(100vh - 74px) !important;
+      overflow-y:auto !important;
+      align-items:stretch !important;
+      font-size:16px !important;
+    }
+    .dgan-menu.open{transform:translateY(0) !important}
+    .dgan-menu a{
+      padding:14px 4px !important;
+      border-bottom:1px solid #F6EBE2 !important;
+      white-space:normal !important;
+      font-size:16px !important;
+      display:flex !important;
+      align-items:center !important;
+    }
+    .dgan-menu a::after{display:none !important}
+    .dgan-menu a.login-cta{
+      margin-top:12px !important;
+      align-self:flex-start !important;
+      border-bottom:0 !important;
+      padding:12px 24px !important;
+    }
+    .dgan-menu .menu-qua{background:#FFF9F5;border-radius:8px;padding-left:12px !important}
+
+    /* .menu (gioi-thieu) — tương tự */
+    .menu{
+      display:flex !important;
+      position:fixed !important;
+      top:74px !important;
+      left:0 !important;
+      right:0 !important;
+      background:#fff !important;
+      flex-direction:column !important;
+      flex-wrap:nowrap !important;
+      gap:0 !important;
+      padding:12px 20px 24px !important;
+      border-bottom:1px solid #F6EBE2 !important;
+      box-shadow:0 20px 40px rgba(74,52,41,.15) !important;
+      transform:translateY(-120%) !important;
+      transition:transform .3s cubic-bezier(.16,1,.3,1) !important;
+      z-index:59 !important;
+      max-height:calc(100vh - 74px) !important;
+      overflow-y:auto !important;
+      font-size:16px !important;
+    }
+    .menu.open{transform:translateY(0) !important}
+    .menu a{
+      padding:14px 4px !important;
+      border-bottom:1px solid #F6EBE2 !important;
+      font-size:16px !important;
+    }
+    .menu a::after{display:none !important}
+    .burger{display:flex !important;flex-direction:column;gap:5px;cursor:pointer;background:none;border:0;padding:10px;z-index:60;position:relative}
+    .burger span{width:24px;height:2px;background:#4A3429;transition:.3s;display:block;border-radius:2px}
+    .burger.open span:nth-child(1){transform:rotate(45deg) translate(6px,6px)}
+    .burger.open span:nth-child(2){opacity:0}
+    .burger.open span:nth-child(3){transform:rotate(-45deg) translate(6px,-6px)}
+
+    /* Trang chủ .nav — tương tự */
+    .nav{
+      display:flex !important;
+      position:fixed !important;
+      top:74px !important;
+      left:0 !important;
+      right:0 !important;
+      background:#fff !important;
+      flex-direction:column !important;
+      gap:0 !important;
+      padding:12px 20px 24px !important;
+      border-bottom:1px solid #F6EBE2 !important;
+      box-shadow:0 20px 40px rgba(74,52,41,.15) !important;
+      transform:translateY(-120%) !important;
+      transition:transform .3s cubic-bezier(.16,1,.3,1) !important;
+      z-index:59 !important;
+      max-height:calc(100vh - 74px) !important;
+      overflow-y:auto !important;
+    }
+    .nav.open{transform:translateY(0) !important}
+    .nav a{padding:14px 4px !important;border-bottom:1px solid #F6EBE2 !important;font-size:16px !important;display:block !important;opacity:1 !important}
+    .nav-toggle{display:flex !important;flex-direction:column;gap:5px;cursor:pointer;background:none;border:0;padding:10px;z-index:60}
+    .nav-toggle span{width:24px;height:2px;background:#4A3429;transition:.3s;display:block;border-radius:2px}
+
+    /* Body giữ nguyên khi menu mở — không lock scroll */
+    body.menu-open{overflow:hidden}
+
+    /* Backdrop khi menu open */
+    .menu-backdrop{position:fixed;inset:74px 0 0 0;background:rgba(74,52,41,.4);z-index:58;opacity:0;pointer-events:none;transition:opacity .25s}
+    .menu-backdrop.show{opacity:1;pointer-events:auto}
+  }
+</style>
+<script>
+// Mobile menu enhancer — auto backdrop + close on outside/link click
+(function(){
+  function init() {
+    const burgers = document.querySelectorAll('.dgan-burger, .burger, .nav-toggle');
+    const menus = document.querySelectorAll('.dgan-menu, header nav.menu, .site-header .nav');
+    let backdrop = document.createElement('div');
+    backdrop.className = 'menu-backdrop';
+    document.body.appendChild(backdrop);
+
+    function closeAll() {
+      menus.forEach(m => m.classList.remove('open'));
+      burgers.forEach(b => b.classList.remove('open'));
+      backdrop.classList.remove('show');
+      document.body.classList.remove('menu-open');
+    }
+
+    burgers.forEach(btn => {
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        const menu = document.querySelector('.dgan-menu, header nav.menu, .site-header .nav');
+        if (!menu) return;
+        const isOpen = menu.classList.toggle('open');
+        this.classList.toggle('open', isOpen);
+        backdrop.classList.toggle('show', isOpen);
+        document.body.classList.toggle('menu-open', isOpen);
+      });
+    });
+
+    backdrop.addEventListener('click', closeAll);
+
+    // Close khi click menu link
+    menus.forEach(menu => {
+      menu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => setTimeout(closeAll, 100));
+      });
+    });
+
+    // Close ESC
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAll(); });
+
+    // Close khi resize > 900
+    window.addEventListener('resize', () => { if (window.innerWidth > 900) closeAll(); });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
 </body>
 </html>

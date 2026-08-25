@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Câu chuyện · Dáng Ngọc An Nhiên</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lora:wght@400;500&family=Quicksand:wght@400;500;600&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Lora',serif;background:#FFF9F5;color:#4A3429;line-height:1.7;min-height:100vh;margin:0}
+  .placeholder-center{min-height:calc(100vh - 74px);display:flex;align-items:center;justify-content:center;padding:24px}
+  .wrap{max-width:560px;text-align:center}
+  h1{font-family:'Playfair Display',serif;font-weight:700;font-size:2.1rem;color:#D81B60;margin-bottom:16px;letter-spacing:0.5px}
+  p{font-size:1.02rem;margin-bottom:14px}
+  .muted{color:#8B6F5C;font-size:0.92rem}
+  .btn{display:inline-block;margin-top:24px;padding:14px 32px;background:#D81B60;color:#fff;text-decoration:none;border-radius:40px;font-weight:600;letter-spacing:0.3px;transition:background 0.2s}
+  .btn:hover{background:#AD1457}
+  .deco{font-size:2rem;color:#FCE4EC;margin-bottom:8px}
+
+  /* Nút Đăng nhập CTA — đồng bộ mọi trang */
+  .login-cta{display:inline-block;background:linear-gradient(90deg,#D81B60,#AD1457);color:#fff !important;padding:9px 22px;border-radius:30px;font-family:'Quicksand','Be Vietnam Pro',sans-serif;font-weight:700;font-size:14px;letter-spacing:.3px;box-shadow:0 6px 16px rgba(216,27,96,.28);transition:transform .2s,box-shadow .2s;margin-left:12px}
+  .login-cta:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(216,27,96,.36);color:#fff !important}
+  .login-cta::after{display:none !important}
+
+  .menu-qua{position:relative;color:#D81B60 !important;font-weight:700 !important}
+  .menu-qua .qua-ico{display:inline-block;font-size:1.05em;transform-origin:50% 90%;animation:menuQuaWobble 1.2s ease-in-out infinite,menuQuaGlow 1.4s ease-in-out infinite;margin-right:2px}
+  @keyframes menuQuaWobble{0%,60%,100%{transform:rotate(0)}10%{transform:rotate(-14deg)}20%{transform:rotate(12deg)}30%{transform:rotate(-10deg)}40%{transform:rotate(8deg)}50%{transform:rotate(-4deg)}}
+  @keyframes menuQuaGlow{0%,100%{filter:drop-shadow(0 0 0 rgba(216,27,96,.7))}50%{filter:drop-shadow(0 0 8px rgba(232,181,71,.9))}}
+</style>
+<style id="menu-compact-fix">
+  /* .dgan-menu — 5 trang */
+  .dgan-wrap{max-width:1200px !important;padding:0 20px !important;gap:16px}
+  .dgan-menu{gap:18px !important;font-size:13.5px !important;flex-wrap:nowrap !important;align-items:center !important}
+  .dgan-menu a{white-space:nowrap !important;line-height:1.2 !important}
+  .dgan-logo{font-size:18px !important;white-space:nowrap;flex-shrink:0}
+  .dgan-logo span{font-size:14px !important}
+  @media (max-width:900px){
+    .dgan-menu{gap:14px !important;font-size:12.5px !important}
+    .dgan-logo{font-size:16px !important}
+    .dgan-logo span{font-size:12px !important}
+  }
+  @media (max-width:768px){
+    /* mobile giữ burger như cũ, menu vẫn column */
+    .dgan-menu{flex-wrap:wrap !important}
+  }
+
+  /* .menu (gioi-thieu) — cùng nguyên tắc */
+  header .wrap.nav{max-width:1200px !important;gap:16px}
+  .menu{gap:18px !important;font-size:13.5px !important;flex-wrap:nowrap !important;align-items:center !important}
+  .menu a{white-space:nowrap !important;line-height:1.2 !important}
+  .logo{font-size:18px !important;white-space:nowrap;flex-shrink:0;line-height:1.15 !important}
+  .logo span{font-size:14px !important}
+  @media (max-width:900px){
+    .menu{gap:14px !important;font-size:12.5px !important}
+    .logo{font-size:16px !important}
+    .logo span{font-size:12px !important}
+  }
+  @media (max-width:768px){
+    .menu{flex-wrap:wrap !important}
+  }
+</style><link rel="icon" type="image/svg+xml" href='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Cdefs%3E%3ClinearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23D81B60%22/%3E%3Cstop offset=%221%22 stop-color=%22%23AD1457%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22url(%23g)%22/%3E%3Ctext x=%2250%22 y=%2266%22 font-size=%2258%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Georgia,serif%22 font-weight=%22bold%22%3EE%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#D81B60">
+</head>
+<body>
+<!-- Menu nav (đồng bộ) -->
+<style>
+  .dgan-header{background:#FFF9F5;border-bottom:1px solid #F6EBE2;position:relative;z-index:50}
+  .dgan-wrap{max-width:1080px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:74px}
+  .dgan-logo{font-family:'Playfair Display',serif;font-size:21px;color:#D81B60;letter-spacing:.3px;text-decoration:none;line-height:1}
+  .dgan-logo span{display:block;font-family:'Dancing Script',cursive;font-size:18px;font-weight:600;color:#8B6F5C;line-height:1;margin-top:2px}
+  .dgan-menu{display:flex;gap:30px;font-family:'Quicksand','Be Vietnam Pro',sans-serif;font-size:15px;font-weight:500;list-style:none;margin:0;padding:0}
+  .dgan-menu a{position:relative;color:#4A3429;text-decoration:none;transition:color .25s}
+  .dgan-menu a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;background:#D81B60;transition:width .3s}
+  .dgan-menu a:hover{color:#D81B60}
+  .dgan-menu a:hover::after,.dgan-menu a.active::after{width:100%}
+  .dgan-menu a.active{color:#D81B60}
+  .dgan-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:0;padding:8px}
+  .dgan-burger span{width:24px;height:2px;background:#4A3429;transition:.3s;display:block}
+  @media (max-width:768px){
+    .dgan-burger{display:flex}
+    .dgan-menu{position:fixed;top:74px;left:0;right:0;background:#FFF9F5;flex-direction:column;gap:0;padding:8px 28px 20px;border-bottom:1px solid #F6EBE2;transform:translateY(-120%);transition:transform .35s;box-shadow:0 16px 30px rgba(74,52,41,.1);z-index:49}
+    .dgan-menu.open{transform:translateY(0)}
+    .dgan-menu a{padding:13px 0;border-bottom:1px solid #F6EBE2}
+    .dgan-menu a::after{display:none}
+  }
+</style>
+<header class="dgan-header">
+  <div class="dgan-wrap">
+    <a href="/" class="dgan-logo">Dáng Ngọc An Nhiên<span>cùng Elsa Phương</span></a>
+    <button class="dgan-burger" aria-label="Menu" onclick="document.getElementById('dgan-menu').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="dgan-menu" id="dgan-menu">
+      <a href="/">Trang chủ</a>
+      <a href="/gioi-thieu/">Về Phương</a>
+      <a href="/khoa-21-ngay/">Dáng Ngọc An Nhiên</a>
+      <a href="/khoe-dep-tu-goc/">Khỏe Đẹp Từ Gốc</a>
+      <a href="/cong-dong/">Cộng Đồng</a>
+      <a href="/nhan-qua/" class="menu-qua"><span class="qua-ico">ð</span> Nhận quà</a>
+      <a href="/cau-chuyen/" class="active">Câu Chuyện</a>
+      <a href="/lien-he/">Liên hệ</a>
+      <a href="/khoahoc/" class="login-cta">Đăng nhập</a>
+    </nav>
+  </div>
+</header>
+
+  <div class="placeholder-center"><div class="wrap">
+    <div class="deco">✿</div>
+    <h1>Câu chuyện của chị em</h1>
+    <p>Phương đang tập hợp những câu chuyện chuyển hóa của các chị em đã đi cùng.</p>
+    <p class="muted">Nội dung đang được hoàn thiện. Chị em quay lại sau ít hôm nhé.</p>
+    <a class="btn" href="/">Về trang chủ</a>
+  </div></div>
+<style id="mobile-menu-fix-v2">
+  /* ===== MOBILE MENU FIX ===== */
+  @media (max-width: 900px) {
+    /* Hiện burger */
+    .dgan-burger{display:flex !important;flex-direction:column;gap:5px;cursor:pointer;background:none;border:0;padding:10px;z-index:60;position:relative}
+    .dgan-burger span{width:24px;height:2px;background:#4A3429;transition:.3s;display:block;border-radius:2px}
+    .dgan-burger.open span:nth-child(1){transform:rotate(45deg) translate(6px,6px)}
+    .dgan-burger.open span:nth-child(2){opacity:0}
+    .dgan-burger.open span:nth-child(3){transform:rotate(-45deg) translate(6px,-6px)}
+
+    /* Menu ẩn default, khi .open thì slide xuống */
+    .dgan-menu{
+      display:flex !important;
+      position:fixed !important;
+      top:74px !important;
+      left:0 !important;
+      right:0 !important;
+      bottom:auto !important;
+      background:#fff !important;
+      flex-direction:column !important;
+      flex-wrap:nowrap !important;
+      gap:0 !important;
+      padding:12px 20px 24px !important;
+      margin:0 !important;
+      border-bottom:1px solid #F6EBE2 !important;
+      box-shadow:0 20px 40px rgba(74,52,41,.15) !important;
+      transform:translateY(-120%) !important;
+      transition:transform .3s cubic-bezier(.16,1,.3,1) !important;
+      z-index:59 !important;
+      max-height:calc(100vh - 74px) !important;
+      overflow-y:auto !important;
+      align-items:stretch !important;
+      font-size:16px !important;
+    }
+    .dgan-menu.open{transform:translateY(0) !important}
+    .dgan-menu a{
+      padding:14px 4px !important;
+      border-bottom:1px solid #F6EBE2 !important;
+      white-space:normal !important;
+      font-size:16px !important;
+      display:flex !important;
+      align-items:center !important;
+    }
+    .dgan-menu a::after{display:none !important}
+    .dgan-menu a.login-cta{
+      margin-top:12px !important;
+      align-self:flex-start !important;
+      border-bottom:0 !important;
+      padding:12px 24px !important;
+    }
+    .dgan-menu .menu-qua{background:#FFF9F5;border-radius:8px;padding-left:12px !important}
+
+    /* .menu (gioi-thieu) — tương tự */
+    .menu{
+      display:flex !important;
+      position:fixed !important;
+      top:74px !important;
+      left:0 !important;
+      right:0 !important;
+      background:#fff !important;
+      flex-direction:column !important;
+      flex-wrap:nowrap !important;
+      gap:0 !important;
+      padding:12px 20px 24px !important;
+      border-bottom:1px solid #F6EBE2 !important;
+      box-shadow:0 20px 40px rgba(74,52,41,.15) !important;
+      transform:translateY(-120%) !important;
+      transition:transform .3s cubic-bezier(.16,1,.3,1) !important;
+      z-index:59 !important;
+      max-height:calc(100vh - 74px) !important;
+      overflow-y:auto !important;
+      font-size:16px !important;
+    }
+    .menu.open{transform:translateY(0) !important}
+    .menu a{
+      padding:14px 4px !important;
+      border-bottom:1px solid #F6EBE2 !important;
+      font-size:16px !important;
+    }
+    .menu a::after{display:none !important}
+    .burger{display:flex !important;flex-direction:column;gap:5px;cursor:pointer;background:none;border:0;padding:10px;z-index:60;position:relative}
+    .burger span{width:24px;height:2px;background:#4A3429;transition:.3s;display:block;border-radius:2px}
+    .burger.open span:nth-child(1){transform:rotate(45deg) translate(6px,6px)}
+    .burger.open span:nth-child(2){opacity:0}
+    .burger.open span:nth-child(3){transform:rotate(-45deg) translate(6px,-6px)}
+
+    /* Trang chủ .nav — tương tự */
+    .nav{
+      display:flex !important;
+      position:fixed !important;
+      top:74px !important;
+      left:0 !important;
+      right:0 !important;
+      background:#fff !important;
+      flex-direction:column !important;
+      gap:0 !important;
+      padding:12px 20px 24px !important;
+      border-bottom:1px solid #F6EBE2 !important;
+      box-shadow:0 20px 40px rgba(74,52,41,.15) !important;
+      transform:translateY(-120%) !important;
+      transition:transform .3s cubic-bezier(.16,1,.3,1) !important;
+      z-index:59 !important;
+      max-height:calc(100vh - 74px) !important;
+      overflow-y:auto !important;
+    }
+    .nav.open{transform:translateY(0) !important}
+    .nav a{padding:14px 4px !important;border-bottom:1px solid #F6EBE2 !important;font-size:16px !important;display:block !important;opacity:1 !important}
+    .nav-toggle{display:flex !important;flex-direction:column;gap:5px;cursor:pointer;background:none;border:0;padding:10px;z-index:60}
+    .nav-toggle span{width:24px;height:2px;background:#4A3429;transition:.3s;display:block;border-radius:2px}
+
+    /* Body giữ nguyên khi menu mở — không lock scroll */
+    body.menu-open{overflow:hidden}
+
+    /* Backdrop khi menu open */
+    .menu-backdrop{position:fixed;inset:74px 0 0 0;background:rgba(74,52,41,.4);z-index:58;opacity:0;pointer-events:none;transition:opacity .25s}
+    .menu-backdrop.show{opacity:1;pointer-events:auto}
+  }
+</style>
+<script>
+// Mobile menu enhancer — auto backdrop + close on outside/link click
+(function(){
+  function init() {
+    const burgers = document.querySelectorAll('.dgan-burger, .burger, .nav-toggle');
+    const menus = document.querySelectorAll('.dgan-menu, header nav.menu, .site-header .nav');
+    let backdrop = document.createElement('div');
+    backdrop.className = 'menu-backdrop';
+    document.body.appendChild(backdrop);
+
+    function closeAll() {
+      menus.forEach(m => m.classList.remove('open'));
+      burgers.forEach(b => b.classList.remove('open'));
+      backdrop.classList.remove('show');
+      document.body.classList.remove('menu-open');
+    }
+
+    burgers.forEach(btn => {
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        const menu = document.querySelector('.dgan-menu, header nav.menu, .site-header .nav');
+        if (!menu) return;
+        const isOpen = menu.classList.toggle('open');
+        this.classList.toggle('open', isOpen);
+        backdrop.classList.toggle('show', isOpen);
+        document.body.classList.toggle('menu-open', isOpen);
+      });
+    });
+
+    backdrop.addEventListener('click', closeAll);
+
+    // Close khi click menu link
+    menus.forEach(menu => {
+      menu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => setTimeout(closeAll, 100));
+      });
+    });
+
+    // Close ESC
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAll(); });
+
+    // Close khi resize > 900
+    window.addEventListener('resize', () => { if (window.innerWidth > 900) closeAll(); });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+</body>
+</html>
