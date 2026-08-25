@@ -84,6 +84,39 @@ export default async function handler(req, res) {
       if (!n) return res.status(400).json({ success: false, error: 'invalid_lesson' });
       p.completed_lessons = (p.completed_lessons || []).filter(x => x !== n);
       p.last_seen = now;
+    } else if (action === 'submit-lesson') {
+      // Học viên nộp bài (link FB post + note ngắn)
+      const n = parseInt(lesson);
+      if (!n) return res.status(400).json({ success: false, error: 'invalid_lesson' });
+      p.submissions = p.submissions || {};
+      const prev = p.submissions[String(n)] || {};
+      p.submissions[String(n)] = {
+        link: (req.body.link || prev.link || '').trim(),
+        text: (req.body.text || prev.text || '').trim(),
+        submitted_at: now,
+        // Giữ feedback cũ nếu có
+        feedback: prev.feedback || null,
+        feedback_at: prev.feedback_at || null,
+        status: prev.feedback ? 'reviewed' : 'pending'
+      };
+      p.last_seen = now;
+    } else if (action === 'feedback') {
+      // Admin chấm bài — CẦN token admin
+      const adminTokens = [
+        ...(process.env.ADMIN_TOKENS || '').split(',').map(s=>s.trim()).filter(Boolean),
+        ...(process.env.ADMIN_TOKEN ? [process.env.ADMIN_TOKEN] : [])
+      ];
+      if (!adminTokens.includes(req.headers['x-admin-token'])) {
+        return res.status(401).json({ success: false, error: 'unauthorized' });
+      }
+      const n = parseInt(lesson);
+      if (!n) return res.status(400).json({ success: false, error: 'invalid_lesson' });
+      p.submissions = p.submissions || {};
+      const sub = p.submissions[String(n)] || { link: null, text: null };
+      sub.feedback = String(req.body.feedback || '').trim();
+      sub.feedback_at = now;
+      sub.status = req.body.status || (sub.feedback ? 'reviewed' : 'pending');
+      p.submissions[String(n)] = sub;
     } else {
       return res.status(400).json({ success: false, error: 'unknown_action' });
     }
